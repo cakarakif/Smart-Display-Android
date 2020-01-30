@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "717612534075",
+    "firebase_url": "https://smart-display-35752.firebaseio.com",
+    "project_id": "smart-display-35752",
+    "storage_bucket": "smart-display-35752.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717612534075:android:c6788ec5169d1671b28f1e",
+        "android_client_info": {
+          "package_name": "com.example.smartdisplay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717612534075-t5de0h2a8354kaqjr9gt6qigulhlklhi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartdisplay",
+            "certificate_hash": "505848c698a5cd7251cd4ce9e1ebeaa9657e5536"
+          }
+        },
+        {
+          "client_id": "717612534075-ae07lunthrvrkbm3274lv8g3n8cc903t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-gAnOcLsmDraMPkfnWVH9eTFsEDQ3VyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717612534075-ae07lunthrvrkbm3274lv8g3n8cc903t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
