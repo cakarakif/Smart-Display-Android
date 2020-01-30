@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,14 @@ public class Login extends AppCompatActivity {
                 register(username.getText().toString(), password.getText().toString());
             }
         });
+
+        //Giriş için yönlendirildi.
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginUser(username.getText().toString(), password.getText().toString());
+            }
+        });
     }
 
     private void checkAuth() {
@@ -59,6 +68,8 @@ public class Login extends AppCompatActivity {
 
         if (user == null) {
             //hata veya tepki verdir
+        }else{
+
         }
     }
 
@@ -71,9 +82,27 @@ public class Login extends AppCompatActivity {
                     //sayfaya yönlendir
                     Toast.makeText(getApplicationContext(), "başarılı", Toast.LENGTH_LONG).show();
                 } else {
+                    Log.i("hata",task.toString());
                     //başarısız tepkisi ver
                     Toast.makeText(getApplicationContext(), "başarısız", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+    }
+
+    private void loginUser(String usrname, String pass){
+        auth.signInWithEmailAndPassword(usrname, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()){
+                    //sayfaya yönlendir
+                    Toast.makeText(getApplicationContext(), "başarılıLogin", Toast.LENGTH_LONG).show();
+                }else{
+                    //başarısız tepkisi ver
+                    Toast.makeText(getApplicationContext(), "başarısızLogin", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }
