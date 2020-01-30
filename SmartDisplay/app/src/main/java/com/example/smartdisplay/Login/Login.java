@@ -27,7 +27,7 @@ import java.util.Map;
 public class Login extends AppCompatActivity {
 
     EditText username, password;
-    Button login, register, addInfo;
+    Button login, register, addInfo, exit,changePass,verifyMail;
 
     FirebaseAuth auth;
     FirebaseUser user;
@@ -51,6 +51,9 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
         addInfo = findViewById(R.id.addInfo);
+        exit=findViewById(R.id.exit);
+        changePass=findViewById(R.id.changePass);
+        verifyMail=findViewById(R.id.verifyMail);
 
         auth = FirebaseAuth.getInstance();
 
@@ -69,14 +72,42 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginUser(username.getText().toString(), password.getText().toString());
+                signInUser(username.getText().toString(), password.getText().toString());
             }
         });
 
+        //kullanıcı altına database bilgileri ekleme
         addInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addInfo2Database();
+            }
+        });
+
+        //kullanıcı çıkışı
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signOutUser();
+            }
+        });
+
+        //kullanıcı şifre değiştirmek isterse
+        changePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changePassword(password.getText().toString());
+            }
+        });
+
+        //mail doğrulaması için gönderim
+        verifyMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isEmailVerified()){
+                    emailVerify();
+                }else
+                    Toast.makeText(getApplicationContext(), "Mail zaten doğrulanmış", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -111,7 +142,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String usrname, String pass){
+    private void signInUser(String usrname, String pass){
         auth.signInWithEmailAndPassword(usrname, pass).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -135,8 +166,49 @@ public class Login extends AppCompatActivity {
         reference=database.getReference("bilgi/"+user.getUid());
 
         Map map=new HashMap();
-        map.put("boy","180");
+        map.put("boy","197");
         map.put("yas",26);
         reference.setValue(map);
+    }
+
+    private void signOutUser(){
+        auth.signOut();
+    }
+
+    private void changePassword(String newPass){
+        user.updatePassword(newPass).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //başarılı ise buraya düşer
+                if (task.isSuccessful()) {
+                    //sayfaya yönlendir
+                    Toast.makeText(getApplicationContext(), "başarılı", Toast.LENGTH_LONG).show();
+                } else {
+                    //başarısız tepkisi ver
+                    Toast.makeText(getApplicationContext(), "başarısız", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+    }
+
+    private boolean isEmailVerified(){
+       return user.isEmailVerified();
+    }
+
+    private void emailVerify(){
+        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //başarılı ise buraya düşer
+                if (task.isSuccessful()) {
+                    //sayfaya yönlendir
+                    Toast.makeText(getApplicationContext(), "başarılı", Toast.LENGTH_LONG).show();
+                } else {
+                    //başarısız tepkisi ver
+                    Toast.makeText(getApplicationContext(), "başarısız", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }
