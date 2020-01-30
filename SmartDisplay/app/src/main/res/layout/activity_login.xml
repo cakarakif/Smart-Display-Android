@@ -40,6 +40,14 @@
 
         </Button>
 
+        <Button
+            android:id="@+id/addInfo"
+            android:text="Bilgi Ekle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </Button>
+
     </LinearLayout>
 
 

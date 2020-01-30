@@ -18,14 +18,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Login extends AppCompatActivity {
 
     EditText username, password;
-    Button login, register;
+    Button login, register, addInfo;
 
     FirebaseAuth auth;
     FirebaseUser user;
+
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +50,12 @@ public class Login extends AppCompatActivity {
 
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
+        addInfo = findViewById(R.id.addInfo);
 
         auth = FirebaseAuth.getInstance();
+
+        //kullanıcı giriş yapıp yapmadığının kontrolü
+        checkAuth();
 
         //Kayıt için yönlendirildi.
         register.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +72,13 @@ public class Login extends AppCompatActivity {
                 loginUser(username.getText().toString(), password.getText().toString());
             }
         });
+
+        addInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addInfo2Database();
+            }
+        });
     }
 
     private void checkAuth() {
@@ -67,9 +86,11 @@ public class Login extends AppCompatActivity {
         user = auth.getCurrentUser();
 
         if (user == null) {
-            //hata veya tepki verdir
+            //sayfaya yönlendir
+            Toast.makeText(getApplicationContext(), "kullanıcı sistemde", Toast.LENGTH_LONG).show();
         }else{
-
+            //sayfaya yönlendir
+            Toast.makeText(getApplicationContext(), "kullanıcı sistemde değil", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -105,5 +126,17 @@ public class Login extends AppCompatActivity {
 
             }
         });
+    }
+
+    //kullanıcı id'si ile database'e ona özel bilgiler ekleme
+    private void addInfo2Database(){
+        //kullancıya özel database bilgi ekleme için eklendi
+        database=FirebaseDatabase.getInstance();
+        reference=database.getReference("bilgi/"+user.getUid());
+
+        Map map=new HashMap();
+        map.put("boy","180");
+        map.put("yas",26);
+        reference.setValue(map);
     }
 }
