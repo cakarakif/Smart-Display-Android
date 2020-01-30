@@ -27,7 +27,7 @@ import java.util.Map;
 public class Login extends AppCompatActivity {
 
     EditText username, password;
-    Button login, register, addInfo, exit,changePass,verifyMail;
+    Button login, register, addInfo, exit,changePass,verifyMail,resetPass;
 
     FirebaseAuth auth;
     FirebaseUser user;
@@ -54,11 +54,12 @@ public class Login extends AppCompatActivity {
         exit=findViewById(R.id.exit);
         changePass=findViewById(R.id.changePass);
         verifyMail=findViewById(R.id.verifyMail);
+        resetPass=findViewById(R.id.resetPass);
 
         auth = FirebaseAuth.getInstance();
 
         //kullanıcı giriş yapıp yapmadığının kontrolü
-        checkAuth();
+        checkAuth();//sürekli kontrol eder eğer çıkış yaparsa burada yakalanabilir yönlendirme için.
 
         //Kayıt için yönlendirildi.
         register.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +109,14 @@ public class Login extends AppCompatActivity {
                     emailVerify();
                 }else
                     Toast.makeText(getApplicationContext(), "Mail zaten doğrulanmış", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //şifre sıfırlama işlemi
+        resetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetPassword(user.getEmail());
             }
         });
     }
@@ -204,6 +213,22 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     //sayfaya yönlendir
                     Toast.makeText(getApplicationContext(), "başarılı", Toast.LENGTH_LONG).show();
+                } else {
+                    //başarısız tepkisi ver
+                    Toast.makeText(getApplicationContext(), "başarısız", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void resetPassword(String email){
+        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //başarılı ise buraya düşer
+                if (task.isSuccessful()) {
+                    //sayfaya yönlendir
+                    Toast.makeText(getApplicationContext(), "Sıfırlama Emaili gönderildi", Toast.LENGTH_LONG).show();
                 } else {
                     //başarısız tepkisi ver
                     Toast.makeText(getApplicationContext(), "başarısız", Toast.LENGTH_LONG).show();
