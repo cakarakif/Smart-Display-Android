@@ -1,4 +1,4 @@
-package com.example.smartdisplay.Login;
+package com.example.smartdisplay.silinecek;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
-import com.example.smartdisplay.ui.add.AddFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
