@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage.SignIn.signin"
-    android:background="@drawable/signinback">
+    tools:context=".LoginPage.ResetPassword.resetpass"
+    android:background="@drawable/resetback">
 
     <TextView
         android:id="@+id/emailTag"
@@ -27,47 +27,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:layout_marginTop="20dp"
-        android:id="@+id/passwordTag"
-        android:layout_below="@+id/email"
-        android:layout_marginLeft="50dp"
-        android:textColor="@color/gray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PASSWORD"/>
-
-    <EditText
-        android:maxLength="30"
-        android:inputType="textPassword"
-        app:backgroundTint="@color/gray"
-        android:textCursorDrawable="@drawable/black_cursor"
-        android:id="@+id/password"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="45dp"
-        android:layout_below="@+id/passwordTag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:contextClickable="true"
-        android:layout_marginRight="50dp"
-        android:textColor="@color/yellow"
-        android:clickable="true"
-        android:id="@+id/forgotPass"
-        android:layout_below="@+id/passwordTag"
-        android:layout_toRightOf="@+id/singupTag"
-        android:text="Forgot Password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
     <Button
         android:id="@+id/button"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_below="@+id/password"
-        android:background="@drawable/signinbutton"
+        android:layout_below="@+id/email"
+        android:background="@drawable/resetbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -75,8 +41,8 @@
         android:layout_marginTop="40dp"
         android:id="@+id/singupTag"
         android:layout_below="@+id/button"
-        android:layout_marginLeft="50dp"
-        android:text="So you want to create an account?"
+        android:layout_marginLeft="90dp"
+        android:text="Already have an account?"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -88,7 +54,7 @@
         android:id="@+id/signup"
         android:layout_below="@+id/button"
         android:layout_toRightOf="@+id/singupTag"
-        android:text="Sign up"
+        android:text="Sign in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
