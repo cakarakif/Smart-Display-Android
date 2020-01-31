@@ -168,7 +168,7 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    //kullanıcı id'si ile database'e ona özel bilgiler ekleme
+    //*****kullanıcı id'si ile database'e ona özel bilgiler ekleme
     private void addInfo2Database(){
         //kullancıya özel database bilgi ekleme için eklendi
         database=FirebaseDatabase.getInstance();
