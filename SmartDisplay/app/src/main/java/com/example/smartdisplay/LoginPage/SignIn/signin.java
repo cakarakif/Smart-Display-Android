@@ -1,7 +1,9 @@
 package com.example.smartdisplay.LoginPage.SignIn;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,13 +18,22 @@ import com.example.smartdisplay.LoginPage.ResetPassword.resetpass;
 import com.example.smartdisplay.LoginPage.SignUp.signup;
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class signin extends AppCompatActivity {
 
     private TextView forgotPass, signup;
     private TextView email, password;
     private Button button;
-    private database dtbase;
+
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+
+    private ProgressDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +48,8 @@ public class signin extends AppCompatActivity {
 
     private void define() {
         //database başlatıldı.
-        dtbase=new database();
-
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         forgotPass = findViewById(R.id.forgotPass);
         signup = findViewById(R.id.signup);
@@ -53,7 +64,7 @@ public class signin extends AppCompatActivity {
 
         //kullanıcı daha önceden giriş yapmış ise yönlendirme.
         //**Şuanlık fragmenlere geçerken hata veriyor normal activity çalışıyor.
-        if(dtbase.checkAuth()){
+        if(checkAuth()){
             Intent intnt=new Intent(this,MainActivity.class);
             startActivity(intnt);
         }
@@ -64,13 +75,7 @@ public class signin extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!email.getText().toString().equals("") && !password.getText().toString().equals("")) {
-                    if(dtbase.signInUser(email.getText().toString(),password.getText().toString())){
-                        //Başarılı giriş yönlendir
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Incorrect Email or Password!", Toast.LENGTH_LONG).show();
-                        email.setText("");
-                        password.setText("");
-                    }
+                    signInUser(email.getText().toString(),password.getText().toString());
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Enter all necessary information!", Toast.LENGTH_LONG).show();
@@ -97,5 +102,46 @@ public class signin extends AppCompatActivity {
             }
         });
 
+    }
+
+    //kullanıcı giriş yapıp yapmadığının kontrolü
+    private boolean checkAuth() {
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        if (user != null) {
+            //sayfaya yönlendir
+            Log.i("kontrol", "kullanıcı sistemde");
+            return true;
+        } else {
+            //sayfaya yönlendir
+            Log.i("kontrol", "kullanıcı sistemde değil");
+            return false;
+        }
+    }
+
+    private void signInUser(String usrname, String pass) {
+        loading = ProgressDialog.show(this,"Please wait...", "Retrieving data ...", true);
+        auth.signInWithEmailAndPassword(usrname, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if (task.isSuccessful()) {
+                    //sayfaya yönlendir
+                    Log.i("kontrol1", "başarılıLogin");
+
+                    Intent intnt=new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intnt);
+                } else {
+                    //başarısız tepkisi ver
+                    Log.i("kontrol1", "başarısızLogin");
+
+                    Toast.makeText(getApplicationContext(), "Incorrect Email or Password!", Toast.LENGTH_LONG).show();
+                    email.setText("");
+                    password.setText("");
+                }
+                loading.dismiss();
+            }
+        });
     }
 }

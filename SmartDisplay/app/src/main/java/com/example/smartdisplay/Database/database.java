@@ -99,17 +99,16 @@ public class database {
 
                 if (task.isSuccessful()) {
                     //sayfaya yönlendir
-                    Log.i("kontrol", "başarılıLogin");
+                    Log.i("kontrol1", "başarılıLogin");
                     returnValue=true;
                 } else {
                     //başarısız tepkisi ver
-                    Log.i("kontrol", "başarısızLogin");
+                    Log.i("kontrol1", "başarısızLogin");
                     returnValue=false;
                 }
 
             }
         });
-
         return returnValue;
     }
 
