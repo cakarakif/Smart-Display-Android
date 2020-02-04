@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartdisplay.LoginPage.SignIn.signin;
+import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -69,7 +70,7 @@ public class signup extends AppCompatActivity {
                     register(email.getText().toString(),password.getText().toString());
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Enter all necessary information!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.fillArea, Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -87,11 +88,13 @@ public class signup extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     //sayfaya yönlendir
                     Log.i("kontrol", "başarılı");
-                    Toast.makeText(getApplicationContext(), "Register Successful!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.regSuccess, Toast.LENGTH_LONG).show();
+                    Intent intnt=new Intent(getApplicationContext(), signin.class);
+                    startActivity(intnt);
                 } else {
                     //başarısız tepkisi ver
                     Log.i("kontrol", "başarısız");
-                    Toast.makeText(getApplicationContext(), "Enter a valid mail!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.validMail, Toast.LENGTH_LONG).show();
                     email.setText("");
                     password.setText("");
                 }

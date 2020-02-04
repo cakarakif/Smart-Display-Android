@@ -65,7 +65,7 @@ public class resetpass extends AppCompatActivity {
                 if(!email.getText().toString().equals("")){
                     resetPassword(email.getText().toString());
                 }else
-                    Toast.makeText(getApplicationContext(), "Enter all necessary information!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.fillArea, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -81,11 +81,11 @@ public class resetpass extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     //sayfaya yönlendir
                     Log.i("kontrol", "Mail Gönderildi");
-                    Toast.makeText(getApplicationContext(), "Reset email sent!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.resetSend, Toast.LENGTH_LONG).show();
                 } else {
                     //başarısız tepkisi ver
                     Log.i("kontrol", "başarısız");
-                    Toast.makeText(getApplicationContext(), "Incorrect Email!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.validMail, Toast.LENGTH_LONG).show();
                     email.setText("");
                 }
             }

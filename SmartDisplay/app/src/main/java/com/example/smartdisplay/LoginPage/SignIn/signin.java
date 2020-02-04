@@ -76,7 +76,7 @@ public class signin extends AppCompatActivity {
                     signInUser(email.getText().toString(),password.getText().toString());
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Enter all necessary information!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.fillArea, Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -134,7 +134,7 @@ public class signin extends AppCompatActivity {
                     //başarısız tepkisi ver
                     Log.i("kontrol1", "başarısızLogin");
 
-                    Toast.makeText(getApplicationContext(), "Incorrect Email or Password!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.incorrectInfo, Toast.LENGTH_LONG).show();
                     email.setText("");
                     password.setText("");
                 }

@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Smart Display</string>
-    <!--<string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>-->
+    <string name="regSuccess">Register Successful! Please SignIn...</string>
+    <string name="validMail">Enter a valid mail!</string>
+    <string name="fillArea">Enter all necessary information!</string>
+    <string name="incorrectInfo">Incorrect Email or Password!</string>
+    <string name="resetSend">Reset mail sent!</string>
+
 </resources>
