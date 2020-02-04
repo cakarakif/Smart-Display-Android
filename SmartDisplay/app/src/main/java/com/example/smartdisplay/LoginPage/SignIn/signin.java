@@ -13,9 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.smartdisplay.Database.database;
 import com.example.smartdisplay.LoginPage.ResetPassword.resetpass;
-import com.example.smartdisplay.LoginPage.SignUp.signup;
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
