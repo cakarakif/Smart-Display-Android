@@ -1,4 +1,4 @@
-package com.example.smartdisplay.ui.profile;
+package com.example.smartdisplay.ui.settings;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,20 +15,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.smartdisplay.R;
-import com.example.smartdisplay.ui.notifications.NotificationsViewModel;
 
-public class ProfileFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
-    private ProfileViewModel mViewModel;
+    private SettingsViewModel mViewModel;
 
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
+    public static SettingsFragment newInstance() {
+        return new SettingsFragment();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mViewModel =
-                ViewModelProviders.of(this).get(ProfileViewModel.class);
+                ViewModelProviders.of(this).get(SettingsViewModel.class);
         View root = inflater.inflate(R.layout.profile_fragment, container, false);
         final TextView textView = root.findViewById(R.id.text_profile);
         mViewModel.getText().observe(this, new Observer<String>() {

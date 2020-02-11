@@ -1,4 +1,4 @@
-package com.example.smartdisplay.ui.dashboard;
+package com.example.smartdisplay.ui.alltasks;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.smartdisplay.R;
 
-public class DashboardFragment extends Fragment {
+public class AllTasksFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private AllTasksViewModel alltasksViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
+        alltasksViewModel =
+                ViewModelProviders.of(this).get(AllTasksViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
+        alltasksViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

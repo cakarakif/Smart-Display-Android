@@ -1,4 +1,4 @@
-package com.example.smartdisplay.ui.home;
+package com.example.smartdisplay.ui.today;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.smartdisplay.R;
 
-public class HomeFragment extends Fragment {
+public class TodayFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private TodayViewModel todayViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+        todayViewModel =
+                ViewModelProviders.of(this).get(TodayViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        todayViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

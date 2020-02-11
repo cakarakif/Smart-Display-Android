@@ -5,7 +5,7 @@
     android:id="@+id/profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.profile.ProfileFragment">
+    tools:context=".ui.settings.SettingsFragment">
 
     <TextView
         android:id="@+id/text_profile"
