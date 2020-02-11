@@ -10,7 +10,7 @@ public class AllTasksViewModel extends ViewModel {
 
     public AllTasksViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        mText.setValue("This is alltask fragment");
     }
 
     public LiveData<String> getText() {
