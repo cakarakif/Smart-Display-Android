@@ -8,29 +8,29 @@
         android:id="@+id/navigation_today"
         android:name="com.example.smartdisplay.ui.today.TodayFragment"
         android:label=""
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_today" />
 
     <fragment
         android:id="@+id/navigation_alltasks"
         android:name="com.example.smartdisplay.ui.alltasks.AllTasksFragment"
         android:label=""
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_alltasks" />
 
     <fragment
         android:id="@+id/navigation_add"
         android:name="com.example.smartdisplay.ui.add.AddFragment"
         android:label=""
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/navigation_statistics"
         android:name="com.example.smartdisplay.ui.statistics.StatisticsFragment"
         android:label=""
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_statistics" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.smartdisplay.ui.settings.SettingsFragment"
         android:label=""
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/fragment_settings" />
 </navigation>

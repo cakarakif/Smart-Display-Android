@@ -22,7 +22,7 @@ public class AllTasksFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         alltasksViewModel =
                 ViewModelProviders.of(this).get(AllTasksViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View root = inflater.inflate(R.layout.fragment_alltasks, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
         alltasksViewModel.getText().observe(this, new Observer<String>() {
             @Override
