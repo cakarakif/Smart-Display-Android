@@ -16,24 +16,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class AddFragment extends Fragment {
 
-    private AddViewModel mViewModel;
-
-    public static AddFragment newInstance() {
-        return new AddFragment();
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mViewModel =
-                ViewModelProviders.of(this).get(AddViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add, container, false);
-        final TextView textView = root.findViewById(R.id.text_profile);
-        mViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+
+
         return root;
     }
 

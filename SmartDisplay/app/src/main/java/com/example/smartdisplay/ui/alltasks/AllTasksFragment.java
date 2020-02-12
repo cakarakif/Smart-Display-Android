@@ -16,20 +16,11 @@ import com.example.smartdisplay.R;
 
 public class AllTasksFragment extends Fragment {
 
-    private AllTasksViewModel alltasksViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        alltasksViewModel =
-                ViewModelProviders.of(this).get(AllTasksViewModel.class);
         View root = inflater.inflate(R.layout.fragment_alltasks, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        alltasksViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+
         return root;
     }
 }
