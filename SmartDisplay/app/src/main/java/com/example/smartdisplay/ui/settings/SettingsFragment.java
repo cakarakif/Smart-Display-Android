@@ -1,8 +1,10 @@
 package com.example.smartdisplay.ui.settings;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,15 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsFragment extends Fragment {
@@ -26,6 +33,8 @@ public class SettingsFragment extends Fragment {
 
     ImageView accountLogo,passwordLogo,helpLogo,feedbackLogo,aboutLogo,logoutLogo;
     TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
+
+    private ProgressDialog loading;
 
     private FirebaseAuth auth;
 
@@ -75,13 +84,13 @@ public class SettingsFragment extends Fragment {
         passwordLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                changePass();
             }
         });
         passwordText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                changePass();
             }
         });
         //////
@@ -152,6 +161,66 @@ public class SettingsFragment extends Fragment {
         Intent intnt=new Intent(root.getContext(), com.example.smartdisplay.LoginPage.SignIn.signin.class);
         startActivity(intnt);
 
+    }
+
+    private void changePass(){//şifre sıfırlama açılır ekran olarak ayarlandı.Tüm işlemler tek fonksiyonda yapıldı.
+        //AlertDialogP1
+        LayoutInflater inflater=getLayoutInflater();
+        View view=inflater.inflate(R.layout.alert_changepass,null);
+        //
+
+        EditText email=view.findViewById(R.id.email);
+        Button reset,cancel;
+        reset=view.findViewById(R.id.reset);
+        cancel=view.findViewById(R.id.cancel);
+
+        //AlertDialogP2
+        AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
+        alert.setView(view);
+        alert.setCancelable(true);
+        AlertDialog dialogueShow=alert.create();
+        dialogueShow.show();
+        //
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!email.getText().toString().equals("")){
+                    resetPassword(email.getText().toString());
+                }else
+                    Toast.makeText(root.getContext(), R.string.fillArea, Toast.LENGTH_LONG).show();
+
+                email.setText("");
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogueShow.dismiss();
+            }
+        });
+    }
+
+    //şifre sıfırlama işlemi
+    private void resetPassword(String emailInfo) {
+        auth = FirebaseAuth.getInstance();
+        loading = ProgressDialog.show(root.getContext(),"Please wait...", "Retrieving data ...", true);
+        auth.sendPasswordResetEmail(emailInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                loading.dismiss();
+                //başarılı ise buraya düşer
+                if (task.isSuccessful()) {
+                    //sayfaya yönlendir
+                    Log.i("kontrol", "Mail Gönderildi");
+                    Toast.makeText(root.getContext(), R.string.resetSend, Toast.LENGTH_LONG).show();
+                } else {
+                    //başarısız tepkisi ver
+                    Log.i("kontrol", "başarısız");
+                    Toast.makeText(root.getContext(), R.string.validMail, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
 }
