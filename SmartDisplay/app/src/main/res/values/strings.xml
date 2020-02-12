@@ -6,4 +6,14 @@
     <string name="incorrectInfo">Incorrect Email or Password!</string>
     <string name="resetSend">Reset mail sent!</string>
 
+    <!--Settings-->
+    <string name="SETTINGS">SETTINGS</string>
+    <string name="Account">Account</string>
+    <string name="Change_Password">Change Password</string>
+    <string name="Help">Help</string>
+    <string name="Feedback">Feedback</string>
+    <string name="About">About</string>
+    <string name="Logout">Logout</string>
+    <string name="LogoutSucces">Successfully Logout!</string>
+
 </resources>
