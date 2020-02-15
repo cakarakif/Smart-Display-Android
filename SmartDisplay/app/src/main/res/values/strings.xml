@@ -5,8 +5,10 @@
     <string name="fillArea">Enter all necessary information!</string>
     <string name="incorrectInfo">Incorrect Email or Password!</string>
     <string name="resetSend">Reset mail sent!</string>
+    <string name="version">Version 1.0</string>
 
     <!--Settings-->
+    <string name="email">EMAIL ADDRESS</string>
     <string name="SETTINGS">SETTINGS</string>
     <string name="Account">Account</string>
     <string name="Change_Password">Change Password</string>
@@ -16,5 +18,8 @@
     <string name="Logout">Logout</string>
     <string name="LogoutSucces">Successfully Logout!</string>
     <string name="resetMail">SEND PASSWORD RESET EMAIL</string>
+
+    <string name="aboutTitle">SMART DISPLAY</string>
+    <string name="aboutContent">Smart Display assists you in controlling your habits and controlling the activities of your relatives. This application, which can be used both on your own device and on a stationary device, will help you in your daily life.</string>
 
 </resources>

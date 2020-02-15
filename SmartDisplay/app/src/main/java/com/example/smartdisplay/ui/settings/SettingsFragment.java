@@ -34,6 +34,7 @@ public class SettingsFragment extends Fragment {
 
     ImageView accountLogo,passwordLogo,helpLogo,feedbackLogo,aboutLogo,logoutLogo;
     TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
+    Button ok;
 
     private ProgressDialog loading;
 
@@ -127,13 +128,13 @@ public class SettingsFragment extends Fragment {
         aboutLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                about();
             }
         });
         aboutText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                about();
             }
         });
         //////
@@ -223,6 +224,33 @@ public class SettingsFragment extends Fragment {
                     Log.i("kontrol", "başarısız");
                     Toast.makeText(root.getContext(), R.string.validMail, Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+    }
+
+    private void about(){
+        //AlertDialogP1
+        LayoutInflater inflater=getLayoutInflater();
+        View view=inflater.inflate(R.layout.alert_about,null);
+        //
+        // ;
+        ok=view.findViewById(R.id.ok);
+
+        //AlertDialogP2
+        AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
+        alert.setView(view);
+        alert.setCancelable(true);
+        AlertDialog dialogueShow=alert.create();
+        dialogueShow.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialogueShow.show();
+        //ekran boyutlandırması
+        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.90), (int)(getResources().getDisplayMetrics().heightPixels*0.50));
+        //
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogueShow.dismiss();
             }
         });
     }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/backonly"
+    android:layout_width="match_parent"
+    android:layout_height="370dp">
+
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:id="@+id/resetTitle"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_toRightOf="@+id/title"
+        android:text="@string/aboutTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:justificationMode="inter_word"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/resetTitle"
+        android:id="@+id/text"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/aboutContent"/>
+
+    <TextView
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/version"
+        android:layout_below="@id/text"
+        android:text="@string/version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/ok"
+        android:layout_weight="1"
+        android:layout_below="@+id/version"
+        android:background="@drawable/ic_ok"
+        android:layout_width="100dp"
+        android:layout_height="35dp"/>
+
+
+</RelativeLayout>

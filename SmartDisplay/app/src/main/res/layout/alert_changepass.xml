@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/backonly"
     android:layout_width="match_parent"
-    android:layout_height="400dp">
+    android:layout_height="370dp">
 
     <TextView
         android:layout_marginLeft="50dp"
@@ -25,7 +25,7 @@
         android:textColor="@color/gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EMAIL ADDRESS"/>
+        android:text="@string/email"/>
 
     <EditText
         app:backgroundTint="@color/gray"
