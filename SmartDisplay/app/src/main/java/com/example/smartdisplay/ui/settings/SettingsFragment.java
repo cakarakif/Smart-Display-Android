@@ -1,6 +1,8 @@
 package com.example.smartdisplay.ui.settings;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.ui.settings.account.accountSettings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,13 +75,13 @@ public class SettingsFragment extends Fragment {
         accountLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                accountSettings();
             }
         });
         accountText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                accountSettings();
             }
         });
         //////
@@ -100,13 +103,13 @@ public class SettingsFragment extends Fragment {
         helpLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                help();
             }
         });
         helpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                help();
             }
         });
         //////
@@ -268,6 +271,19 @@ public class SettingsFragment extends Fragment {
             Toast.makeText(getContext(), "There are no email clients installed.", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private void help(){
+        Toast.makeText(getContext(), "Being Developed...!", Toast.LENGTH_LONG).show();
+    }
+
+    private void accountSettings(){
+        //fragmentler arası geçiş
+        accountSettings frgmnt = new accountSettings();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.profile, frgmnt);
+        fragmentTransaction.commit();
     }
 
 }

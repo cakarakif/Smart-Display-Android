@@ -11,6 +11,7 @@
     <string name="email">EMAIL ADDRESS</string>
     <string name="SETTINGS">SETTINGS</string>
     <string name="Account">Account</string>
+    <string name="AccountBig">ACCOUNT SETTINGS</string>
     <string name="Change_Password">Change Password</string>
     <string name="Help">Help</string>
     <string name="Feedback">Feedback</string>

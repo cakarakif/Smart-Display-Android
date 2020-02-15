@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/accountSettngs"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.settings.account.accountSettings"
+    android:background="@drawable/uiback">
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        android:padding="35dp"
+        android:background="@drawable/titlelogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/accountLg"
+        android:background="@drawable/accountlogo"
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@+id/title"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:id="@+id/settingTitle"
+        android:layout_marginTop="50dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_toRightOf="@+id/accountLg"
+        android:text="@string/AccountBig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/basicLine"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/title"
+        android:background="@drawable/basicline"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+
+    <ImageView
+        android:id="@+id/accountLogo"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@id/basicLine"
+        android:background="@drawable/accountlogo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:id="@+id/accountText"
+        android:padding="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@+id/basicLine"
+        android:layout_toRightOf="@+id/accountLogo"
+        android:textColor="@color/gray"
+        android:textSize="15dp"
+        android:text="@string/Account"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <ImageView
+        android:id="@+id/passwordLogo"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@id/accountLogo"
+        android:background="@drawable/passwordlogo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:id="@+id/passwordText"
+        android:padding="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/accountText"
+        android:layout_toRightOf="@+id/passwordLogo"
+        android:textColor="@color/gray"
+        android:textSize="15dp"
+        android:text="@string/Change_Password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/passwordText"
+        android:background="@drawable/basicline"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <ImageView
+        android:id="@+id/helpLogo"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@id/passwordLogo"
+        android:background="@drawable/helplogo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:id="@+id/helpText"
+        android:paddingLeft="10dp"
+        android:paddingTop="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/passwordText"
+        android:layout_toRightOf="@+id/helpLogo"
+        android:textColor="@color/gray"
+        android:textSize="15dp"
+        android:text="@string/Help"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <ImageView
+        android:id="@+id/feedbackLogo"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@id/helpLogo"
+        android:background="@drawable/feedbacklogo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:id="@+id/feedbackText"
+        android:paddingTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/helpText"
+        android:layout_toRightOf="@+id/feedbackLogo"
+        android:textColor="@color/gray"
+        android:textSize="15dp"
+        android:text="@string/Feedback"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <ImageView
+        android:id="@+id/aboutLogo"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="38dp"
+        android:layout_below="@id/feedbackLogo"
+        android:background="@drawable/aboutlogo"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:id="@+id/aboutText"
+        android:paddingTop="23dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/feedbackText"
+        android:layout_toRightOf="@+id/aboutLogo"
+        android:textColor="@color/gray"
+        android:textSize="15dp"
+        android:text="@string/About"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/aboutLogo"
+        android:background="@drawable/basicline"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <ImageView
+        android:id="@+id/logoutLogo"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@id/aboutLogo"
+        android:background="@drawable/ic_logout"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:id="@+id/LogoutText"
+        android:paddingTop="28dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/aboutText"
+        android:layout_toRightOf="@+id/logoutLogo"
+        android:textColor="@color/colorAccent"
+        android:textSize="15dp"
+        android:text="@string/Logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+
+</RelativeLayout>
