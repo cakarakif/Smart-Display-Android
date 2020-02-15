@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -179,7 +180,10 @@ public class SettingsFragment extends Fragment {
         alert.setView(view);
         alert.setCancelable(true);
         AlertDialog dialogueShow=alert.create();
+        dialogueShow.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialogueShow.show();
+        //ekran boyutlandırması
+        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.90), (int)(getResources().getDisplayMetrics().heightPixels*0.50));
         //
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
