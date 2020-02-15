@@ -114,13 +114,13 @@ public class SettingsFragment extends Fragment {
         feedbackLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                sendFeedback();
             }
         });
         feedbackText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                sendFeedback();
             }
         });
         //////
@@ -253,6 +253,21 @@ public class SettingsFragment extends Fragment {
                 dialogueShow.dismiss();
             }
         });
+    }
+
+    private void sendFeedback(){
+        Intent intnt=new Intent(Intent.ACTION_SEND);
+        intnt.putExtra(Intent.EXTRA_EMAIL, new String[] {
+                "akifckr5@gmail.com"
+        });
+        intnt.putExtra(Intent.EXTRA_SUBJECT, "Smart Display Feedback");
+        intnt.setType("message/rfc822");
+        try {
+            startActivity(Intent.createChooser(intnt, "Send Email"));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getContext(), "There are no email clients installed.", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }
