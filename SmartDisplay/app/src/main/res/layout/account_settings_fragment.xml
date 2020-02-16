@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/accountSettngs"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -46,164 +47,229 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"/>
 
-    <ImageView
-        android:id="@+id/accountLogo"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="40dp"
-        android:layout_below="@id/basicLine"
-        android:background="@drawable/accountlogo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-
-    <TextView
-        android:id="@+id/accountText"
-        android:padding="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="25dp"
+    <LinearLayout
+        android:id="@+id/nameArea"
         android:layout_below="@+id/basicLine"
-        android:layout_toRightOf="@+id/accountLogo"
-        android:textColor="@color/gray"
-        android:textSize="15dp"
-        android:text="@string/Account"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/passwordLogo"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="40dp"
-        android:layout_below="@id/accountLogo"
-        android:background="@drawable/passwordlogo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        <ImageView
+            android:id="@+id/nameLogo"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:background="@drawable/name"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
 
-    <TextView
-        android:id="@+id/passwordText"
-        android:padding="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/accountText"
-        android:layout_toRightOf="@+id/passwordLogo"
-        android:textColor="@color/gray"
-        android:textSize="15dp"
-        android:text="@string/Change_Password"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        <TextView
+            android:id="@+id/nameText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-    <TextView
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_below="@id/passwordText"
-        android:background="@drawable/basicline"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"/>
-
-    <ImageView
-        android:id="@+id/helpLogo"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="40dp"
-        android:layout_below="@id/passwordLogo"
-        android:background="@drawable/helplogo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-
-    <TextView
-        android:id="@+id/helpText"
+    <EditText
         android:paddingLeft="10dp"
-        android:paddingTop="15dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
+        android:maxLength="30"
+        android:textCursorDrawable="@drawable/black_cursor"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/passwordText"
-        android:layout_toRightOf="@+id/helpLogo"
-        android:textColor="@color/gray"
-        android:textSize="15dp"
-        android:text="@string/Help"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
-
-    <ImageView
-        android:id="@+id/feedbackLogo"
-        android:layout_marginTop="30dp"
+        android:id="@+id/nameEdit"
+        android:layout_marginRight="60dp"
         android:layout_marginLeft="40dp"
-        android:layout_below="@id/helpLogo"
-        android:background="@drawable/feedbacklogo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-
-    <TextView
-        android:paddingLeft="10dp"
-        android:id="@+id/feedbackText"
-        android:paddingTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/helpText"
-        android:layout_toRightOf="@+id/feedbackLogo"
-        android:textColor="@color/gray"
-        android:textSize="15dp"
-        android:text="@string/Feedback"
+        android:layout_below="@+id/nameArea"
+        android:background="@drawable/inputback"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="wrap_content"/>
 
-    <ImageView
-        android:id="@+id/aboutLogo"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="38dp"
-        android:layout_below="@id/feedbackLogo"
-        android:background="@drawable/aboutlogo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
-
-    <TextView
-        android:paddingLeft="10dp"
-        android:id="@+id/aboutText"
-        android:paddingTop="23dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/feedbackText"
-        android:layout_toRightOf="@+id/aboutLogo"
-        android:textColor="@color/gray"
-        android:textSize="15dp"
-        android:text="@string/About"
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/surnameArea"
+        android:layout_below="@+id/nameEdit"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/surnameLogo"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:background="@drawable/surname"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:id="@+id/surnameText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/surname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <EditText
+        android:paddingLeft="10dp"
+        android:maxLength="30"
+        android:textCursorDrawable="@drawable/black_cursor"
+        android:layout_marginTop="5dp"
+        android:id="@+id/surnameEdit"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/surnameArea"
+        android:background="@drawable/inputback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/birthArea"
+        android:layout_below="@+id/surnameEdit"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/birthLogo"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:background="@drawable/ic_calendar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <TextView
+            android:id="@+id/birthText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/birthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <EditText
+        android:paddingLeft="10dp"
+        android:hint="@string/birthHint"
+        android:maxLength="30"
+        android:textCursorDrawable="@drawable/black_cursor"
+        android:layout_marginTop="5dp"
+        android:id="@+id/birthEdit"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/birthArea"
+        android:background="@drawable/inputback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <TextView
+        android:id="@+id/lineLabel"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_below="@id/aboutLogo"
+        android:layout_below="@id/birthEdit"
         android:background="@drawable/basicline"
         android:layout_width="match_parent"
         android:layout_height="2dp"/>
 
-    <ImageView
-        android:id="@+id/logoutLogo"
-        android:layout_marginTop="30dp"
+    <LinearLayout
+        android:layout_marginTop="15dp"
+        android:id="@+id/emailArea"
+        android:layout_below="@+id/lineLabel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/emailLogo"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:background="@drawable/ic_emaillock"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:id="@+id/emailText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/emailInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <EditText
+        android:editable="false"
+        android:paddingLeft="10dp"
+        android:maxLength="30"
+        android:textCursorDrawable="@drawable/black_cursor"
+        android:layout_marginTop="5dp"
+        android:id="@+id/emailEdit"
+        android:layout_marginRight="60dp"
         android:layout_marginLeft="40dp"
-        android:layout_below="@id/aboutLogo"
-        android:background="@drawable/ic_logout"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+        android:layout_below="@+id/emailArea"
+        android:background="@drawable/inputback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <TextView
-        android:paddingLeft="10dp"
-        android:id="@+id/LogoutText"
-        android:paddingTop="28dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/aboutText"
-        android:layout_toRightOf="@+id/logoutLogo"
-        android:textColor="@color/colorAccent"
-        android:textSize="15dp"
-        android:text="@string/Logout"
+        android:id="@+id/lineLabelTwo"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/emailEdit"
+        android:background="@drawable/basicline"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="2dp"/>
+
+    <LinearLayout
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/lineLabelTwo"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:id="@+id/cancel"
+            android:background="@drawable/smallcancelv2"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"/>
+
+        <Button
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:id="@+id/save"
+            android:background="@drawable/smallsave"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"/>
+
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>

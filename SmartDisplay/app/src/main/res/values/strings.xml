@@ -23,4 +23,9 @@
     <string name="aboutTitle">SMART DISPLAY</string>
     <string name="aboutContent">  Smart Display assists you in controlling your habits and controlling the activities of your relatives. This application, which can be used both on your own device and on a stationary device, will help you in your daily life.</string>
 
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="birthday">Birthday</string>
+    <string name="emailInfo">Email</string>
+    <string name="birthHint">dd/mm/yyyy</string>
 </resources>

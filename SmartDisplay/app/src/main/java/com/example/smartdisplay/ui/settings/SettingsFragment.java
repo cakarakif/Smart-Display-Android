@@ -48,7 +48,7 @@ public class SettingsFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_settings, container, false);
 
         define();
-        rotate();
+        routing();
 
         return root;
     }
@@ -71,7 +71,7 @@ public class SettingsFragment extends Fragment {
 
     }
 
-    private void rotate(){
+    private void routing(){
         accountLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
