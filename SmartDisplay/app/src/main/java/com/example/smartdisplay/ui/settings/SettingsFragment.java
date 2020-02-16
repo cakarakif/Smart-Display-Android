@@ -279,11 +279,8 @@ public class SettingsFragment extends Fragment {
 
     private void accountSettings(){
         //fragmentler arası geçiş
-        accountSettings frgmnt = new accountSettings();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.profile, frgmnt);
-        fragmentTransaction.commit();
+        accountSettings fragment = new accountSettings();
+        getFragmentManager().beginTransaction().add(R.id.profile, fragment).addToBackStack("first frag").commit();
     }
 
 }
