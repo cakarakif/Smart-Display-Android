@@ -4,12 +4,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +19,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.smartdisplay.DatabaseHelperClasses.UserInformation;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.ui.settings.SettingsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +44,8 @@ public class accountSettings extends Fragment {
     private DatabaseReference reference;
     private FirebaseUser user;
     private FirebaseAuth auth;
+
+    private ProgressDialog loading;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,18 +67,23 @@ public class accountSettings extends Fragment {
 
         cancel=root.findViewById(R.id.cancel);
         save=root.findViewById(R.id.save);
+
+
+        //kullancıya özel database bilgi ekleme/alma için eklendi
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference( user.getUid()+"/UserInfo/" );
     }
 
     private void routing(){
+        //kayıtlı veri varsa ilk olarak çekilsin
+        readUserInfo();
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //fragmentler arası geçiş
-                SettingsFragment frgmnt = new SettingsFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.accountSettngs, frgmnt);
-                fragmentTransaction.commit();
+                back2Setting();
             }
         });
 
@@ -87,20 +101,49 @@ public class accountSettings extends Fragment {
         });
     }
 
+    private void back2Setting(){
+        //fragmentler arası geçiş
+        SettingsFragment frgmnt = new SettingsFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.accountSettngs, frgmnt);
+        fragmentTransaction.commit();
+    }
+
     private void saveUserInfo(){
-        //kullancıya özel database bilgi ekleme için eklendi
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference( user.getUid()+"/UserInfo/" );
+        UserInformation usrinfo=new UserInformation(birthEdit.getText().toString(),surnameEdit.getText().toString(),nameEdit.getText().toString());
+        reference.setValue(usrinfo);
+        Toast.makeText(root.getContext(), R.string.saveSuccess, Toast.LENGTH_LONG).show();
+        back2Setting();
+    }
 
-        Map map = new HashMap();
-        map.put("name", nameEdit.getText().toString());
-        map.put("surname", surnameEdit.getText().toString());
-        map.put("birthday", birthEdit.getText().toString());
-        reference.setValue(map);
+    private void readUserInfo(){
+        loading = ProgressDialog.show(getContext(),"Please wait...", "Retrieving data ...", true);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() != null) {
+                    UserInformation usrinfo = dataSnapshot.getValue(UserInformation.class);
 
+                    //alınan bilgileri textlere atama
+                    nameEdit.setText(usrinfo.getName());
+                    surnameEdit.setText(usrinfo.getSurname());
+                    birthEdit.setText(usrinfo.getBirthday());
+                    emailEdit.setText(user.getEmail().toString());
 
+                }else{
+                    UserInformation usrinfo = new UserInformation();
+                    reference.setValue(usrinfo);
+                }
+                loading.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
+                loading.dismiss();
+            }
+        });
     }
 
 

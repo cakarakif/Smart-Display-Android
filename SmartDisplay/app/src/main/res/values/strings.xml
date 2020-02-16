@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Smart Display</string>
     <string name="regSuccess">Register Successful! Please SignIn...</string>
+    <string name="saveSuccess">Successfully saved!</string>
     <string name="validMail">Enter a valid mail!</string>
     <string name="fillArea">Enter all necessary information!</string>
     <string name="incorrectInfo">Incorrect Email or Password!</string>
@@ -19,6 +20,7 @@
     <string name="Logout">Logout</string>
     <string name="LogoutSucces">Successfully Logout!</string>
     <string name="resetMail">SEND PASSWORD RESET EMAIL</string>
+    <string name="controlInternet">Control internet connection!</string>
 
     <string name="aboutTitle">SMART DISPLAY</string>
     <string name="aboutContent">  Smart Display assists you in controlling your habits and controlling the activities of your relatives. This application, which can be used both on your own device and on a stationary device, will help you in your daily life.</string>
