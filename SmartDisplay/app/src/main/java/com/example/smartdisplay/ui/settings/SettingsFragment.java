@@ -280,7 +280,11 @@ public class SettingsFragment extends Fragment {
     private void accountSettings(){
         //fragmentler arası geçiş
         accountSettings fragment = new accountSettings();
-        getFragmentManager().beginTransaction().add(R.id.profile, fragment).addToBackStack("first frag").commit();
+        getFragmentManager()
+                .beginTransaction()
+                .add(R.id.profile, fragment)
+                .addToBackStack("first frag")
+                .commit();
     }
 
 }
