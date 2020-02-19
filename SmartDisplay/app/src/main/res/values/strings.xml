@@ -42,6 +42,10 @@
     <string name="hintGoal">Enter your habit goal day</string>
     <string name="repeatDay">Repeat Every Day</string>
     <string name="taskTime">Add Time</string>
+    <string name="taskType">Notification Type</string>
+    <string name="typeOne">Use Default Ringtone</string>
+    <string name="typetwo">Show Video Given Url</string>
+    <string name="hintURL">Enter URL</string>
 
 
 </resources>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,7 +24,9 @@ public class AddFragment extends Fragment {
     View root;
 
     CheckBox repeatLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    TextView selectTime;
+    TextView selectTime, timeText;
+    RadioGroup typeRadios;
+    EditText typeEdit;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +49,10 @@ public class AddFragment extends Fragment {
         sunday=root.findViewById(R.id.sunday);
 
         selectTime=root.findViewById(R.id.selectTime);
+        timeText=root.findViewById(R.id.timeText);
+
+        typeRadios=root.findViewById(R.id.typeRadio);
+        typeEdit=root.findViewById(R.id.typeEdit);
     }
 
     private void routing(){
@@ -68,6 +75,26 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 selectTime();
+            }
+        });
+
+        timeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectTime();
+            }
+        });
+
+        typeRadios.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int selectedRadio = typeRadios.getCheckedRadioButtonId();
+
+                if(selectedRadio == R.id.radioOne){
+                    typeEdit.setVisibility(View.INVISIBLE);
+                }else if(selectedRadio == R.id.radioTwo){
+                    typeEdit.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

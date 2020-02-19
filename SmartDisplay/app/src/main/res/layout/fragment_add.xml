@@ -42,14 +42,13 @@
         android:id="@+id/nameArea"
         android:layout_below="@+id/basicLine"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/nameLogo"
-            android:layout_marginTop="25dp"
             android:layout_marginLeft="40dp"
-            android:layout_below="@id/basicLine"
             android:background="@drawable/ic_titleadd"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
@@ -59,9 +58,6 @@
             android:padding="5dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
-            android:layout_below="@+id/basicLine"
-            android:layout_toRightOf="@+id/nameLogo"
             android:textColor="@color/gray"
             android:textSize="15dp"
             android:text="@string/taskName"
@@ -70,9 +66,10 @@
     </LinearLayout>
 
     <EditText
+        android:inputType="text"
         android:hint="@string/hintName"
         android:paddingLeft="10dp"
-        android:maxLength="30"
+        android:maxLength="40"
         android:textCursorDrawable="@drawable/black_cursor"
         android:layout_marginTop="5dp"
         android:id="@+id/nameEdit"
@@ -94,7 +91,6 @@
             android:id="@+id/descLogo"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="40dp"
-            android:layout_below="@id/basicLine"
             android:background="@drawable/ic_descriptionadd"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
@@ -105,8 +101,6 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/basicLine"
-            android:layout_toRightOf="@+id/nameLogo"
             android:textColor="@color/gray"
             android:textSize="15dp"
             android:text="@string/taskDesc"
@@ -117,7 +111,8 @@
     <EditText
         android:hint="@string/hintDesc"
         android:paddingLeft="10dp"
-        android:maxLength="30"
+        android:inputType="text"
+        android:maxLength="120"
         android:textCursorDrawable="@drawable/black_cursor"
         android:layout_marginTop="5dp"
         android:id="@+id/descEdit"
@@ -139,7 +134,6 @@
             android:id="@+id/goalLogo"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="40dp"
-            android:layout_below="@id/basicLine"
             android:background="@drawable/ic_goaladd"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
@@ -150,8 +144,6 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/basicLine"
-            android:layout_toRightOf="@+id/nameLogo"
             android:textColor="@color/gray"
             android:textSize="15dp"
             android:text="@string/taskGoal"
@@ -163,7 +155,7 @@
         android:inputType="number"
         android:hint="@string/hintGoal"
         android:paddingLeft="10dp"
-        android:maxLength="30"
+        android:maxLength="10"
         android:textCursorDrawable="@drawable/black_cursor"
         android:layout_marginTop="5dp"
         android:id="@+id/goalEdit"
@@ -200,8 +192,6 @@
             android:id="@+id/repeatLogo"
             android:layout_marginTop="4dp"
             android:layout_marginLeft="40dp"
-            android:layout_below="@id/basicLine"
-            android:layout_toRightOf="@+id/nameLogo"
             android:layout_width="22dp"
             android:layout_height="22dp"/>
 
@@ -211,7 +201,6 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/basicLine"
             android:textColor="@color/gray"
             android:textSize="15dp"
             android:text="@string/repeatDay"
@@ -312,14 +301,14 @@
         android:layout_below="@+id/lineLabelTwo"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="34dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:layout_marginTop="5dp"
             android:id="@+id/timeLogo"
-            android:background="@drawable/ic_ring"
+            android:background="@drawable/ic_clock"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
 
@@ -346,7 +335,79 @@
             android:layout_height="40dp"/>
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/lineLabelThree"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/timeArea"
+        android:background="@drawable/basicline"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
 
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:id="@+id/typeArea"
+        android:layout_below="@+id/lineLabelThree"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/typeLogo"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/ic_ring"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <TextView
+            android:id="@+id/typeText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/taskType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/typeRadio"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/typeArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radioOne"
+            android:text="@string/typeOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/radioTwo"
+            android:text="@string/typetwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
+
+    <EditText
+        android:paddingLeft="3dp"
+        android:inputType="text"
+        android:visibility="invisible"
+        android:layout_marginLeft="10dp"
+        android:hint="@string/hintURL"
+        android:textCursorDrawable="@drawable/black_cursor"
+        android:layout_marginTop="34dp"
+        android:id="@+id/typeEdit"
+        android:layout_marginRight="60dp"
+        android:layout_below="@+id/typeArea"
+        android:layout_toRightOf="@+id/typeRadio"
+        android:background="@drawable/inputback"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
 
 
 
