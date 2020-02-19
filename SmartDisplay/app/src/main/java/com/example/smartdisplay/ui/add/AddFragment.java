@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -27,6 +28,7 @@ public class AddFragment extends Fragment {
     TextView selectTime, timeText;
     RadioGroup typeRadios;
     EditText typeEdit;
+    ScrollView scroll;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,12 +55,15 @@ public class AddFragment extends Fragment {
 
         typeRadios=root.findViewById(R.id.typeRadio);
         typeEdit=root.findViewById(R.id.typeEdit);
+
+        scroll=root.findViewById(R.id.scroll);
     }
 
     private void routing(){
         repeatLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(repeatLogo.isChecked()){
                     repeatLogo.setBackgroundResource(R.drawable.ic_radiofill);
                     setAllDaysClicked();
@@ -88,6 +93,9 @@ public class AddFragment extends Fragment {
         typeRadios.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                scroll.smoothScrollTo(0, scroll.getBottom());//save buttonu gözükmesi için scroll yapıldı
+
                 int selectedRadio = typeRadios.getCheckedRadioButtonId();
 
                 if(selectedRadio == R.id.radioOne){
