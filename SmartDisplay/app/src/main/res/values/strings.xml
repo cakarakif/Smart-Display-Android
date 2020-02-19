@@ -30,4 +30,15 @@
     <string name="birthday">Birthday</string>
     <string name="emailInfo">Email</string>
     <string name="birthHint">dd/mm/yyyy</string>
+
+    <!--add-->
+    <string name="addTitle">ADD NEW HABIT</string>
+    <string name="taskName">Title</string>
+    <string name="hintName">Enter your habit title</string>
+    <string name="taskDesc">Description</string>
+    <string name="hintDesc">Enter your habit description</string>
+    <string name="taskGoal">Goal</string>
+    <string name="hintGoal">Enter your habit goal day</string>
+    <string name="repeatDay">Repeat Every Day</string>
+
 </resources>

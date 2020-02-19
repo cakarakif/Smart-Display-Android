@@ -1,9 +1,13 @@
 package com.example.smartdisplay.ui.add;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.smartdisplay.R;
@@ -15,14 +19,174 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class AddFragment extends Fragment {
+    View root;
+
+    CheckBox repeatLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_add, container, false);
+        root = inflater.inflate(R.layout.fragment_add, container, false);
 
-
+        define();
+        routing();
 
         return root;
+    }
+
+    private void define(){
+        repeatLogo=root.findViewById(R.id.repeatLogo);
+        monday=root.findViewById(R.id.monday);
+        tuesday=root.findViewById(R.id.tuesday);
+        wednesday=root.findViewById(R.id.wednesday);
+        thursday=root.findViewById(R.id.thursday);
+        friday=root.findViewById(R.id.friday);
+        saturday=root.findViewById(R.id.saturday);
+        sunday=root.findViewById(R.id.sunday);
+    }
+
+    private void routing(){
+        repeatLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(repeatLogo.isChecked()){
+                    repeatLogo.setBackgroundResource(R.drawable.ic_radiofill);
+                    setAllDaysClicked();
+                }else {
+                    repeatLogo.setBackgroundResource(R.drawable.ic_radioempty);
+                    checkRepeatCB();
+                }
+            }
+        });
+
+        daysClicked();//hangi günlerin seçildiği dinlenildi.
+    }
+
+    private void daysClicked(){
+        monday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(monday.isChecked()){
+                    checkRepeatCB();
+                    setBackgroundCB(monday,R.drawable.daymm);
+                }else {
+                    setBackgroundCB(monday,R.drawable.daym);
+                    repeatLogo.setChecked(false);
+                    setBackgroundCB(repeatLogo,R.drawable.ic_radioempty);
+                }
+            }
+        });
+
+        tuesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(tuesday.isChecked()){
+                    checkRepeatCB();
+                    setBackgroundCB(tuesday,R.drawable.daytt);
+                }else {
+                    setBackgroundCB(tuesday,R.drawable.dayt);
+                    repeatLogo.setChecked(false);
+                    setBackgroundCB(repeatLogo,R.drawable.ic_radioempty);
+                }
+            }
+        });
+
+        wednesday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(wednesday.isChecked()){
+                    checkRepeatCB();
+                    setBackgroundCB(wednesday,R.drawable.dayww);
+                }else {
+                    setBackgroundCB(wednesday,R.drawable.dayw);
+                    checkRepeatCB();
+                }
+            }
+        });
+
+        thursday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(thursday.isChecked()){
+                    checkRepeatCB();
+                    setBackgroundCB(thursday,R.drawable.daytt);
+                }else {
+                    setBackgroundCB(thursday,R.drawable.dayt);
+                    checkRepeatCB();
+                }
+            }
+        });
+
+        friday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(friday.isChecked()){
+                    checkRepeatCB();
+                    setBackgroundCB(friday,R.drawable.dayff);
+                }else {
+                    setBackgroundCB(friday,R.drawable.dayf);
+                    checkRepeatCB();
+                }
+            }
+        });
+
+        saturday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(saturday.isChecked()){
+                    checkRepeatCB();
+                    setBackgroundCB(saturday,R.drawable.dayss);
+                }else {
+                    setBackgroundCB(saturday,R.drawable.days);
+                    checkRepeatCB();
+                }
+            }
+        });
+
+        sunday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(sunday.isChecked()){
+                    checkRepeatCB();
+                    setBackgroundCB(sunday,R.drawable.dayss);
+                }else {
+                    setBackgroundCB(sunday,R.drawable.days);
+                    checkRepeatCB();
+                }
+            }
+        });
+    }
+
+    private void setBackgroundCB(CheckBox whichone, int background){//genelleştirme için yardımcı fonksiyon
+        whichone.setBackgroundResource(background);
+    }
+
+    private void checkRepeatCB(){//eğer tüm günler seçiliyse repeat checkboxı doldurulur.
+        if(monday.isChecked() && tuesday.isChecked() && wednesday.isChecked()
+                              && thursday.isChecked() && friday.isChecked() && saturday.isChecked() && sunday.isChecked()){
+            repeatLogo.setChecked(true);
+            setBackgroundCB(repeatLogo,R.drawable.ic_radiofill);
+        }else{
+            repeatLogo.setChecked(false);
+            setBackgroundCB(repeatLogo,R.drawable.ic_radioempty);
+        }
+    }
+
+    private void setAllDaysClicked(){//Repeat buttonu için işlem atandı.
+        monday.setChecked(true);
+        tuesday.setChecked(true);
+        wednesday.setChecked(true);
+        thursday.setChecked(true);
+        friday.setChecked(true);
+        saturday.setChecked(true);
+        sunday.setChecked(true);
+
+        setBackgroundCB(monday,R.drawable.daymm);
+        setBackgroundCB(tuesday,R.drawable.daytt);
+        setBackgroundCB(wednesday,R.drawable.dayww);
+        setBackgroundCB(thursday,R.drawable.daytt);
+        setBackgroundCB(friday,R.drawable.dayff);
+        setBackgroundCB(saturday,R.drawable.dayss);
+        setBackgroundCB(sunday,R.drawable.dayss);
     }
 
 }

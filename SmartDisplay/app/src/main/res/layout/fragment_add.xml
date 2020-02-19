@@ -8,17 +8,294 @@
     tools:context=".ui.add.AddFragment"
     android:background="@drawable/uiback">
 
+    <ImageView
+        android:id="@+id/title"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="20dp"
+        android:padding="35dp"
+        android:background="@drawable/titlelogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <TextView
-        android:id="@+id/text_profile"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/addTitle"
+        android:layout_marginTop="50dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_toRightOf="@+id/title"
+        android:text="@string/addTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/basicLine"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/title"
+        android:background="@drawable/basicline"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="5dp"/>
+
+    <LinearLayout
+        android:id="@+id/nameArea"
+        android:layout_below="@+id/basicLine"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/nameLogo"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:background="@drawable/name"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:id="@+id/nameText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_below="@+id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/taskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <EditText
+        android:hint="@string/hintName"
+        android:paddingLeft="10dp"
+        android:maxLength="30"
+        android:textCursorDrawable="@drawable/black_cursor"
+        android:layout_marginTop="5dp"
+        android:id="@+id/nameEdit"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/nameArea"
+        android:background="@drawable/inputback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/descArea"
+        android:layout_below="@+id/nameEdit"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/descLogo"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:background="@drawable/name"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:id="@+id/descText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/taskDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <EditText
+        android:hint="@string/hintDesc"
+        android:paddingLeft="10dp"
+        android:maxLength="30"
+        android:textCursorDrawable="@drawable/black_cursor"
+        android:layout_marginTop="5dp"
+        android:id="@+id/descEdit"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/descArea"
+        android:background="@drawable/inputback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/goalArea"
+        android:layout_below="@+id/descEdit"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/goalLogo"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:background="@drawable/name"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:id="@+id/goalText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/taskGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <EditText
+        android:inputType="number"
+        android:hint="@string/hintGoal"
+        android:paddingLeft="10dp"
+        android:maxLength="30"
+        android:textCursorDrawable="@drawable/black_cursor"
+        android:layout_marginTop="5dp"
+        android:id="@+id/goalEdit"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/goalArea"
+        android:background="@drawable/inputback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/lineLabel"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/goalEdit"
+        android:background="@drawable/basicline"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:id="@+id/repeatArea"
+        android:layout_below="@+id/lineLabel"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <CheckBox
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/ic_radiofill"
+            android:id="@+id/repeatLogo"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:layout_width="22dp"
+            android:layout_height="22dp"/>
+
+        <TextView
+            android:id="@+id/repeatText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/basicLine"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/repeatDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/repeatArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/daymm"
+            android:id="@+id/monday"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <CheckBox
+            android:layout_marginLeft="3dp"
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/daytt"
+            android:id="@+id/tuesday"
+            android:layout_marginTop="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <CheckBox
+            android:layout_marginLeft="3dp"
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/dayww"
+            android:id="@+id/wednesday"
+            android:layout_marginTop="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <CheckBox
+            android:layout_marginLeft="3dp"
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/daytt"
+            android:id="@+id/thursday"
+            android:layout_marginTop="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <CheckBox
+            android:layout_marginLeft="3dp"
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/dayff"
+            android:id="@+id/friday"
+            android:layout_marginTop="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <CheckBox
+            android:layout_marginLeft="3dp"
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/dayss"
+            android:id="@+id/saturday"
+            android:layout_marginTop="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <CheckBox
+            android:layout_marginLeft="3dp"
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/dayss"
+            android:id="@+id/sunday"
+            android:layout_marginTop="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>
