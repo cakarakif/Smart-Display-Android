@@ -1,27 +1,27 @@
 package com.example.smartdisplay.ui.add;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.smartdisplay.R;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 public class AddFragment extends Fragment {
     View root;
 
     CheckBox repeatLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    Button selectTime;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +42,8 @@ public class AddFragment extends Fragment {
         friday=root.findViewById(R.id.friday);
         saturday=root.findViewById(R.id.saturday);
         sunday=root.findViewById(R.id.sunday);
+
+        selectTime=root.findViewById(R.id.selectTime);
     }
 
     private void routing(){
@@ -59,6 +61,13 @@ public class AddFragment extends Fragment {
         });
 
         daysClicked();//hangi günlerin seçildiği dinlenildi.
+
+        selectTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectTime();
+            }
+        });
     }
 
     private void daysClicked(){
@@ -187,6 +196,49 @@ public class AddFragment extends Fragment {
         setBackgroundCB(friday,R.drawable.dayff);
         setBackgroundCB(saturday,R.drawable.dayss);
         setBackgroundCB(sunday,R.drawable.dayss);
+    }
+
+    private void selectTime(){
+        //AlertDialogP1
+        LayoutInflater inflater=getLayoutInflater();
+        View view=inflater.inflate(R.layout.alert_timepicker,null);
+        //
+
+        TimePicker picker;
+        Button btnGet;;
+
+        picker=(TimePicker)view.findViewById(R.id.datePicker1);
+        picker.setIs24HourView(true);
+        btnGet=(Button)view.findViewById(R.id.button1);
+
+
+        //AlertDialogP2
+        AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
+        alert.setView(view);
+        alert.setCancelable(false);//buraya özel değiştirildi.
+        AlertDialog dialogueShow=alert.create();
+        dialogueShow.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialogueShow.show();
+        //ekran boyutlandırması
+        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.60), (int)(getResources().getDisplayMetrics().heightPixels*0.20));
+
+        btnGet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int hour, minute;
+                String am_pm;
+                if (Build.VERSION.SDK_INT >= 23 ){
+                    hour = picker.getHour();
+                    minute = picker.getMinute();
+                }
+                else{
+                    hour = picker.getCurrentHour();
+                    minute = picker.getCurrentMinute();
+                }
+                //tvw.setText("Selected Date: "+ hour +":"+ minute+" "+am_pm);
+                Log.i("zaman","Selected Date: "+ hour +":"+ minute+" ");
+            }
+        });
     }
 
 }

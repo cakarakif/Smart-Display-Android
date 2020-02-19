@@ -7,6 +7,7 @@
     <string name="incorrectInfo">Incorrect Email or Password!</string>
     <string name="resetSend">Reset mail sent!</string>
     <string name="version">Version 1.0</string>
+    <string name="select">SELECT</string>
 
     <!--Settings-->
     <string name="email">EMAIL ADDRESS</string>
@@ -40,5 +41,7 @@
     <string name="taskGoal">Goal</string>
     <string name="hintGoal">Enter your habit goal day</string>
     <string name="repeatDay">Repeat Every Day</string>
+    <string name="taskTime">Time</string>
+
 
 </resources>

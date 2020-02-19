@@ -220,6 +220,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/days"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/repeatArea"
         android:layout_width="match_parent"
@@ -296,6 +297,53 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/lineLabelTwo"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/days"
+        android:background="@drawable/basicline"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:id="@+id/timeArea"
+        android:layout_below="@+id/lineLabelTwo"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/timeLogo"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@id/basicLine"
+            android:background="@drawable/ic_ring"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+
+        <TextView
+            android:id="@+id/timeText"
+            android:padding="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/basicLine"
+            android:layout_toRightOf="@+id/nameLogo"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/taskTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/selectTime"
+        android:text="sadasdas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>
