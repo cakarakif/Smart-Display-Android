@@ -50,7 +50,7 @@
             android:layout_marginTop="25dp"
             android:layout_marginLeft="40dp"
             android:layout_below="@id/basicLine"
-            android:background="@drawable/name"
+            android:background="@drawable/ic_titleadd"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
 
@@ -95,7 +95,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="40dp"
             android:layout_below="@id/basicLine"
-            android:background="@drawable/name"
+            android:background="@drawable/ic_descriptionadd"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
 
@@ -140,7 +140,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="40dp"
             android:layout_below="@id/basicLine"
-            android:background="@drawable/name"
+            android:background="@drawable/ic_goaladd"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
 
