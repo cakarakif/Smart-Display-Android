@@ -8,6 +8,11 @@
     tools:context=".ui.add.AddFragment"
     android:background="@drawable/uiback">
 
+    <RelativeLayout
+        android:id="@+id/layoutOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <ImageView
         android:id="@+id/title"
         android:layout_marginTop="25dp"
@@ -38,9 +43,22 @@
         android:layout_width="match_parent"
         android:layout_height="5dp"/>
 
+    </RelativeLayout>
+    <!--/////////////////////////////////////-->
+
+    <ScrollView
+        android:layout_below="@+id/layoutOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_below="@+id/layoutOne"
+        android:id="@+id/layoutTwo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/nameArea"
-        android:layout_below="@+id/basicLine"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -409,6 +427,46 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
 
+        <RadioGroup
+            android:id="@+id/asd"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@+id/typeRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/asde"
+                android:text="@string/typeOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/asde3"
+                android:text="@string/typetwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
 
+        <RadioGroup
+            android:id="@+id/asd4"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:layout_below="@+id/asd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/asde5"
+                android:text="@string/typeOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/asde7"
+                android:text="@string/typetwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+
+    </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
