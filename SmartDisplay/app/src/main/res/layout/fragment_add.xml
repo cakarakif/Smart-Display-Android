@@ -308,42 +308,46 @@
         android:layout_height="2dp"/>
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:id="@+id/timeArea"
         android:layout_below="@+id/lineLabelTwo"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/timeLogo"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="40dp"
-            android:layout_below="@id/basicLine"
+            android:id="@+id/timeLogo"
             android:background="@drawable/ic_ring"
             android:layout_width="30dp"
             android:layout_height="30dp"/>
 
         <TextView
+            android:layout_marginLeft="10dp"
             android:id="@+id/timeText"
             android:padding="5dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/basicLine"
-            android:layout_toRightOf="@+id/nameLogo"
             android:textColor="@color/gray"
             android:textSize="15dp"
             android:text="@string/taskTime"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            android:paddingVertical="10dp"
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:text="00:00"
+            android:id="@+id/selectTime"
+            android:background="@drawable/inputback"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/selectTime"
-        android:text="sadasdas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
+
 
 
 </RelativeLayout>

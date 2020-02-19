@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.smartdisplay.R;
@@ -21,7 +23,7 @@ public class AddFragment extends Fragment {
     View root;
 
     CheckBox repeatLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    Button selectTime;
+    TextView selectTime;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -207,9 +209,9 @@ public class AddFragment extends Fragment {
         TimePicker picker;
         Button btnGet;;
 
-        picker=(TimePicker)view.findViewById(R.id.datePicker1);
+        picker=(TimePicker)view.findViewById(R.id.datePicker);
         picker.setIs24HourView(true);
-        btnGet=(Button)view.findViewById(R.id.button1);
+        btnGet=(Button)view.findViewById(R.id.select);
 
 
         //AlertDialogP2
@@ -236,7 +238,8 @@ public class AddFragment extends Fragment {
                     minute = picker.getCurrentMinute();
                 }
                 //tvw.setText("Selected Date: "+ hour +":"+ minute+" "+am_pm);
-                Log.i("zaman","Selected Date: "+ hour +":"+ minute+" ");
+                selectTime.setText(hour +":"+ minute);
+                dialogueShow.dismiss();
             }
         });
     }

@@ -41,7 +41,7 @@
     <string name="taskGoal">Goal</string>
     <string name="hintGoal">Enter your habit goal day</string>
     <string name="repeatDay">Repeat Every Day</string>
-    <string name="taskTime">Time</string>
+    <string name="taskTime">Add Time</string>
 
 
 </resources>
