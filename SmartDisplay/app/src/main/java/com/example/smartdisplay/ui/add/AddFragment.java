@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -24,11 +25,12 @@ import androidx.fragment.app.Fragment;
 public class AddFragment extends Fragment {
     View root;
 
-    CheckBox repeatLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    TextView selectTime, timeText;
+    CheckBox repeatLogo, onceLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    TextView selectTime, timeText, repeatText, onceText;
     RadioGroup typeRadios;
     EditText typeEdit;
     ScrollView scroll;
+    LinearLayout days, dateArea;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +59,13 @@ public class AddFragment extends Fragment {
         typeEdit=root.findViewById(R.id.typeEdit);
 
         scroll=root.findViewById(R.id.scroll);
+        onceLogo=root.findViewById(R.id.onceLogo);
+
+        days=root.findViewById(R.id.days);
+        dateArea=root.findViewById(R.id.dateArea);
+        repeatText=root.findViewById(R.id.repeatText);
+        onceText=root.findViewById(R.id.onceText);
+
     }
 
     private void routing(){
@@ -65,12 +74,56 @@ public class AddFragment extends Fragment {
             public void onClick(View view) {
 
                 if(repeatLogo.isChecked()){
+
+                    days.setVisibility(View.VISIBLE);
+                    dateArea.setVisibility(View.INVISIBLE);
                     repeatLogo.setBackgroundResource(R.drawable.ic_radiofill);
-                    setAllDaysClicked();
+                    onceLogo.setBackgroundResource(R.drawable.ic_radioempty);
+                    onceLogo.setChecked(false);
                 }else {
+
+                    days.setVisibility(View.INVISIBLE);
+                    dateArea.setVisibility(View.VISIBLE);
                     repeatLogo.setBackgroundResource(R.drawable.ic_radioempty);
-                    checkRepeatCB();
+                    onceLogo.setBackgroundResource(R.drawable.ic_radiofill);
+                    onceLogo.setChecked(true);
                 }
+            }
+        });
+
+        onceLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(onceLogo.isChecked()){
+
+                    days.setVisibility(View.INVISIBLE);
+                    dateArea.setVisibility(View.VISIBLE);
+                    onceLogo.setBackgroundResource(R.drawable.ic_radiofill);
+                    repeatLogo.setBackgroundResource(R.drawable.ic_radioempty);
+                    repeatLogo.setChecked(false);
+
+                }else {
+
+                    days.setVisibility(View.VISIBLE);
+                    dateArea.setVisibility(View.INVISIBLE);
+                    onceLogo.setBackgroundResource(R.drawable.ic_radioempty);
+                    repeatLogo.setBackgroundResource(R.drawable.ic_radiofill);
+                    repeatLogo.setChecked(true);
+                }
+            }
+        });
+
+        repeatText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                repeatLogo.performClick();
+            }
+        });
+
+        onceText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onceLogo.performClick();
             }
         });
 
@@ -112,12 +165,9 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(monday.isChecked()){
-                    checkRepeatCB();
                     setBackgroundCB(monday,R.drawable.daymm);
                 }else {
                     setBackgroundCB(monday,R.drawable.daym);
-                    repeatLogo.setChecked(false);
-                    setBackgroundCB(repeatLogo,R.drawable.ic_radioempty);
                 }
             }
         });
@@ -126,12 +176,9 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(tuesday.isChecked()){
-                    checkRepeatCB();
                     setBackgroundCB(tuesday,R.drawable.daytt);
                 }else {
                     setBackgroundCB(tuesday,R.drawable.dayt);
-                    repeatLogo.setChecked(false);
-                    setBackgroundCB(repeatLogo,R.drawable.ic_radioempty);
                 }
             }
         });
@@ -140,11 +187,9 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(wednesday.isChecked()){
-                    checkRepeatCB();
                     setBackgroundCB(wednesday,R.drawable.dayww);
                 }else {
                     setBackgroundCB(wednesday,R.drawable.dayw);
-                    checkRepeatCB();
                 }
             }
         });
@@ -153,11 +198,9 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(thursday.isChecked()){
-                    checkRepeatCB();
                     setBackgroundCB(thursday,R.drawable.daytt);
                 }else {
                     setBackgroundCB(thursday,R.drawable.dayt);
-                    checkRepeatCB();
                 }
             }
         });
@@ -166,11 +209,9 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(friday.isChecked()){
-                    checkRepeatCB();
                     setBackgroundCB(friday,R.drawable.dayff);
                 }else {
                     setBackgroundCB(friday,R.drawable.dayf);
-                    checkRepeatCB();
                 }
             }
         });
@@ -179,11 +220,9 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(saturday.isChecked()){
-                    checkRepeatCB();
                     setBackgroundCB(saturday,R.drawable.dayss);
                 }else {
                     setBackgroundCB(saturday,R.drawable.days);
-                    checkRepeatCB();
                 }
             }
         });
@@ -192,11 +231,9 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(sunday.isChecked()){
-                    checkRepeatCB();
                     setBackgroundCB(sunday,R.drawable.dayss);
                 }else {
                     setBackgroundCB(sunday,R.drawable.days);
-                    checkRepeatCB();
                 }
             }
         });
@@ -206,7 +243,8 @@ public class AddFragment extends Fragment {
         whichone.setBackgroundResource(background);
     }
 
-    private void checkRepeatCB(){//eğer tüm günler seçiliyse repeat checkboxı doldurulur.
+    /*
+    private void checkRepeatCB(){//eğer tüm günler seçiliyse repeat checkboxı doldurulur.//Şuan Kullanılmıyor
         if(monday.isChecked() && tuesday.isChecked() && wednesday.isChecked()
                               && thursday.isChecked() && friday.isChecked() && saturday.isChecked() && sunday.isChecked()){
             repeatLogo.setChecked(true);
@@ -216,8 +254,10 @@ public class AddFragment extends Fragment {
             setBackgroundCB(repeatLogo,R.drawable.ic_radioempty);
         }
     }
+    */
 
-    private void setAllDaysClicked(){//Repeat buttonu için işlem atandı.
+    /*
+    private void setAllDaysClicked(){//Repeat buttonu için işlem atandı.//Şuan Kullanılmıyor
         monday.setChecked(true);
         tuesday.setChecked(true);
         wednesday.setChecked(true);
@@ -234,6 +274,7 @@ public class AddFragment extends Fragment {
         setBackgroundCB(saturday,R.drawable.dayss);
         setBackgroundCB(sunday,R.drawable.dayss);
     }
+    */
 
     private void selectTime(){
         //AlertDialogP1
@@ -252,7 +293,7 @@ public class AddFragment extends Fragment {
         //AlertDialogP2
         AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
         alert.setView(view);
-        alert.setCancelable(false);//buraya özel değiştirildi.
+        alert.setCancelable(true);
         AlertDialog dialogueShow=alert.create();
         dialogueShow.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialogueShow.show();

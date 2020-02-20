@@ -40,12 +40,14 @@
     <string name="hintDesc">Enter your habit description</string>
     <string name="taskGoal">Goal</string>
     <string name="hintGoal">Enter your habit goal day</string>
-    <string name="repeatDay">Repeat Every Day</string>
+    <string name="repeatWeek">Repeat Weekly</string>
     <string name="taskTime">Add Time</string>
+    <string name="taskDate">Select Date</string>
     <string name="taskType">Notification Type</string>
     <string name="typeOne">Use Default Ringtone</string>
     <string name="typetwo">Show Video Given Url</string>
     <string name="hintURL">Enter URL</string>
+    <string name="onlyOnce">Only Once</string>
 
 
 </resources>

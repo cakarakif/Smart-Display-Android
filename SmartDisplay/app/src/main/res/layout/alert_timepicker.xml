@@ -13,7 +13,8 @@
         android:timePickerMode="spinner"/>
 
     <Button
-        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
         android:background="@null"
         android:layout_centerHorizontal="true"
         android:id="@+id/select"
