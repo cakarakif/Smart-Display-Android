@@ -289,6 +289,11 @@ public class AddFragment extends Fragment {
         picker.setIs24HourView(true);
         btnGet=(Button)view.findViewById(R.id.select);
 
+        //seçileni time picker başlangı olarak atadık.
+        String[] times = selectTime.getText().toString().split(":");
+        picker.setHour(Integer.parseInt(times[0]));
+        picker.setMinute(Integer.parseInt(times[1]));
+
 
         //AlertDialogP2
         AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
