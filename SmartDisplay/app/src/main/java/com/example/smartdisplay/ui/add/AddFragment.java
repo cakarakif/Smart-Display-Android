@@ -80,7 +80,7 @@ public class AddFragment extends Fragment {
         dateText=root.findViewById(R.id.dateText);
         //ilk açılışta datetext'i için tarih çekildi.
         final Calendar cldr = Calendar.getInstance();
-        selectDate.setText(cldr.get(Calendar.DAY_OF_MONTH)+"/"+ (cldr.get(Calendar.MONTH)+1)+"/"+cldr.get(Calendar.YEAR));
+        selectDate.setText(convertDateString(cldr.get(Calendar.DAY_OF_MONTH),(cldr.get(Calendar.MONTH)+1),cldr.get(Calendar.YEAR)));
 
 
 
@@ -346,7 +346,8 @@ public class AddFragment extends Fragment {
 
             @Override
             public void onDismiss(DialogInterface dialog) {
-                selectTime.setText(picker.getHour() +":"+ picker.getMinute());
+                selectTime.setText(((picker.getHour() < 10) ? "0"+picker.getHour(): picker.getHour()) +":"+
+                        ((picker.getMinute() < 10 ) ? "0"+picker.getMinute(): picker.getMinute()));
             }
         });
         AlertDialog dialogueShow=alert.create();
@@ -358,18 +359,7 @@ public class AddFragment extends Fragment {
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int hour, minute;
-                String am_pm;
-                if (Build.VERSION.SDK_INT >= 23 ){
-                    hour = picker.getHour();
-                    minute = picker.getMinute();
-                }
-                else{
-                    hour = picker.getCurrentHour();
-                    minute = picker.getCurrentMinute();
-                }
-                selectTime.setText(hour +":"+ minute);
-                dialogueShow.dismiss();
+                dialogueShow.dismiss();//yukarıdaki dismiss yakalamaya düşüyor.
             }
         });
     }
@@ -401,6 +391,7 @@ public class AddFragment extends Fragment {
 
 
 
+
         //AlertDialogP2
         AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
         alert.setView(view);
@@ -410,7 +401,7 @@ public class AddFragment extends Fragment {
 
             @Override
             public void onDismiss(DialogInterface dialog) {
-                selectDate.setText(picker.getDayOfMonth()+"/"+ (picker.getMonth() + 1)+"/"+picker.getYear());
+                selectDate.setText(convertDateString(picker.getDayOfMonth(),picker.getMonth() + 1,picker.getYear()));
             }
         });
         AlertDialog dialogueShow=alert.create();
@@ -424,11 +415,14 @@ public class AddFragment extends Fragment {
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectDate.setText(picker.getDayOfMonth()+"/"+ (picker.getMonth() + 1)+"/"+picker.getYear());
                 dialogueShow.dismiss();
             }
         });
 
+    }
+
+    private String convertDateString(int day, int month, int year){//0-9 arası sayılar 00/01 tarzı gösterimi için
+        return  ((day < 10 ) ? "0"+day: day )+"/"+((month < 10) ? "0"+month: month)+"/"+year;
     }
 
 }
