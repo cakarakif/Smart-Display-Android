@@ -150,6 +150,7 @@ public class AddFragment extends Fragment {
         selectTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scroll.smoothScrollTo(0, scroll.getBottom());
                 selectTime();
             }
         });
@@ -157,6 +158,7 @@ public class AddFragment extends Fragment {
         timeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                scroll.smoothScrollTo(0, scroll.getBottom());
                 selectTime();
             }
         });
