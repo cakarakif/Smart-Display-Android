@@ -1,5 +1,7 @@
 package com.example.smartdisplay.ui.add;
 
+import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -18,19 +22,24 @@ import android.widget.TimePicker;
 
 import com.example.smartdisplay.R;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 public class AddFragment extends Fragment {
-    View root;
+    private View root;
 
-    CheckBox repeatLogo, onceLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    TextView selectTime, timeText, repeatText, onceText;
-    RadioGroup typeRadios;
-    EditText typeEdit;
-    ScrollView scroll;
-    LinearLayout days, dateArea;
+    private CheckBox repeatLogo, onceLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    private TextView selectTime, timeText, repeatText, onceText, selectDate,dateText;
+    private RadioGroup typeRadios;
+    private EditText typeEdit;
+    private ScrollView scroll;
+    private LinearLayout days, dateArea;
+    private ImageView dateLogo;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +74,15 @@ public class AddFragment extends Fragment {
         dateArea=root.findViewById(R.id.dateArea);
         repeatText=root.findViewById(R.id.repeatText);
         onceText=root.findViewById(R.id.onceText);
+
+        dateLogo=root.findViewById(R.id.dateLogo);
+        selectDate=root.findViewById(R.id.selectDate);
+        dateText=root.findViewById(R.id.dateText);
+        //ilk açılışta datetext'i için tarih çekildi.
+        final Calendar cldr = Calendar.getInstance();
+        selectDate.setText(cldr.get(Calendar.DAY_OF_MONTH)+"/"+ (cldr.get(Calendar.MONTH)+1)+"/"+cldr.get(Calendar.YEAR));
+
+
 
     }
 
@@ -158,6 +176,28 @@ public class AddFragment extends Fragment {
                 }
             }
         });
+
+        dateLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDate();
+            }
+        });
+
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDate();
+            }
+        });
+
+        selectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDate();
+            }
+        });
+
     }
 
     private void daysClicked(){
@@ -299,6 +339,14 @@ public class AddFragment extends Fragment {
         AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
         alert.setView(view);
         alert.setCancelable(true);
+        //dialog dissmiss edilirse burası çalışır.
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                selectTime.setText(picker.getHour() +":"+ picker.getMinute());
+            }
+        });
         AlertDialog dialogueShow=alert.create();
         dialogueShow.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialogueShow.show();
@@ -318,11 +366,67 @@ public class AddFragment extends Fragment {
                     hour = picker.getCurrentHour();
                     minute = picker.getCurrentMinute();
                 }
-                //tvw.setText("Selected Date: "+ hour +":"+ minute+" "+am_pm);
                 selectTime.setText(hour +":"+ minute);
                 dialogueShow.dismiss();
             }
         });
+    }
+
+    private void selectDate(){
+        ///*****///
+        //uygulama dili ingilizce olarak ayarlandıki tarihler ona göre gelsin
+        Locale.setDefault(Locale.ENGLISH);
+        Configuration configuration = root.getResources().getConfiguration();
+        configuration.setLocale(Locale.ENGLISH);
+        configuration.setLayoutDirection(Locale.ENGLISH);
+        root.getContext().createConfigurationContext(configuration);
+        //////////////////
+
+        //AlertDialogP1
+        LayoutInflater inflater=getLayoutInflater();
+        View view=inflater.inflate(R.layout.alert_datepicker,null);
+        //
+
+        DatePicker picker;
+        Button btnGet;;
+
+        picker=(DatePicker)view.findViewById(R.id.datePicker);
+        btnGet=view.findViewById(R.id.select);
+
+        //seçileni date picker başlangı olarak atadık.
+        String[] date = selectDate.getText().toString().split("/");
+        picker.init(Integer.parseInt(date[2]), Integer.parseInt(date[1])-1, Integer.parseInt(date[0]), null);
+
+
+
+        //AlertDialogP2
+        AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
+        alert.setView(view);
+        alert.setCancelable(true);
+        //dialog dissmiss edilirse burası çalışır.
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                selectDate.setText(picker.getDayOfMonth()+"/"+ (picker.getMonth() + 1)+"/"+picker.getYear());
+            }
+        });
+        AlertDialog dialogueShow=alert.create();
+        dialogueShow.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialogueShow.show();
+
+        //ekran boyutlandırması
+        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.80), (int)(getResources().getDisplayMetrics().heightPixels*0.55));
+
+
+        btnGet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectDate.setText(picker.getDayOfMonth()+"/"+ (picker.getMonth() + 1)+"/"+picker.getYear());
+                dialogueShow.dismiss();
+            }
+        });
+
     }
 
 }
