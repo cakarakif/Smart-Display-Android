@@ -14,6 +14,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -279,13 +281,19 @@ public class SettingsFragment extends Fragment {
     }
 
     private void accountSettings(){
-        //fragmentler arası geçiş
-        accountSettings fragment = new accountSettings();
+        //Eski Yöntem(Bir önceki fragment tıklanabiliyor oluyor bunda.
+        /*accountSettings fragment = new accountSettings();
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.profile, fragment)
                 .addToBackStack(null)
                 .commit();
+        */
+
+        //fragmentler arası geçiş
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_accountSettings);
+        //mobile_navigation.xml'ine id'yi ekledikten sonra çağırılabiliyor.
     }
 
 }
