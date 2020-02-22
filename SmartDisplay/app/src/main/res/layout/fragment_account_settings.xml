@@ -165,6 +165,7 @@
     </LinearLayout>
 
     <EditText
+        android:editable="false"
         android:paddingLeft="10dp"
         android:hint="@string/birthHint"
         android:maxLength="30"

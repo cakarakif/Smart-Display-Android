@@ -1,9 +1,13 @@
 package com.example.smartdisplay.ui.settings.account;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,6 +31,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Locale;
 
 public class accountSettings extends Fragment {
     View root;
@@ -72,6 +79,13 @@ public class accountSettings extends Fragment {
     private void routing(){
         //kayıtlı veri varsa ilk olarak çekilsin
         readUserInfo();
+
+        birthEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDate();
+            }
+        });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +153,63 @@ public class accountSettings extends Fragment {
         });
     }
 
+    private void selectDate(){
+        ///*****///
+        //uygulama dili ingilizce olarak ayarlandıki tarihler ona göre gelsin
+        Locale.setDefault(Locale.ENGLISH);
+        Configuration configuration = root.getResources().getConfiguration();
+        configuration.setLocale(Locale.ENGLISH);
+        configuration.setLayoutDirection(Locale.ENGLISH);
+        root.getContext().createConfigurationContext(configuration);
+        //////////////////
 
+        //AlertDialogP1
+        LayoutInflater inflater=getLayoutInflater();
+        View view=inflater.inflate(R.layout.alert_datepicker,null);
+        //
+
+        DatePicker picker;
+        Button btnGet;;
+
+        picker=(DatePicker)view.findViewById(R.id.datePicker);
+        btnGet=view.findViewById(R.id.select);
+
+        //seçileni date picker başlangı olarak atadık.
+        String[] date = birthEdit.getText().toString().split("/");
+        picker.init(Integer.parseInt(date[2]), Integer.parseInt(date[1])-1, Integer.parseInt(date[0]), null);
+
+
+        //AlertDialogP2
+        AlertDialog.Builder alert=new AlertDialog.Builder(root.getContext());
+        alert.setView(view);
+        alert.setCancelable(true);
+        //dialog dissmiss edilirse burası çalışır.
+        alert.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                birthEdit.setText(convertDateString(picker.getDayOfMonth(),picker.getMonth() + 1,picker.getYear()));
+            }
+        });
+        AlertDialog dialogueShow=alert.create();
+        dialogueShow.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialogueShow.show();
+
+        //ekran boyutlandırması
+        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.80), (int)(getResources().getDisplayMetrics().heightPixels*0.55));
+
+
+        btnGet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogueShow.dismiss();
+            }
+        });
+
+    }
+
+    private String convertDateString(int day, int month, int year){//0-9 arası sayılar 00/01 tarzı gösterimi için
+        return  ((day < 10 ) ? "0"+day: day )+"/"+((month < 10) ? "0"+month: month)+"/"+year;
+    }
 
 }
