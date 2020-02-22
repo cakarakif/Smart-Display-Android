@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.example.smartdisplay.DatabaseHelperClasses.UserInformation;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.ui.alltasks.AllTasksFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +43,11 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 public class AddFragment extends Fragment {
     private View root;
@@ -403,7 +410,7 @@ public class AddFragment extends Fragment {
 
         loading.dismiss();
         showToast(""+getString(R.string.saveSuccess));
-        //tasks sayfasına yönlendir
+        back2AllTasks();
 
     }
 
@@ -426,6 +433,11 @@ public class AddFragment extends Fragment {
             return false;
         }
         return true;
+    }
+
+    private void back2AllTasks(){//Task eklenince taskların listelendiği ekrana yönlendirildi.
+        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.navigation_alltasks);
     }
 
     private String repeatInfoForDatebase(){//database yazılmak üzere seçilen tarih  için kalıp oluşturuldu.
