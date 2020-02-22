@@ -1,10 +1,12 @@
 package com.example.smartdisplay.ui.add;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +17,23 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.example.smartdisplay.DatabaseHelperClasses.UserInformation;
+import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -35,10 +48,21 @@ public class AddFragment extends Fragment {
     private CheckBox repeatLogo, onceLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private TextView selectTime, timeText, repeatText, onceText, selectDate,dateText;
     private RadioGroup typeRadios;
-    private EditText typeEdit;
+    private RadioButton radioOne;
+    private EditText typeEdit, nameEdit,descEdit,goalEdit;
     private ScrollView scroll;
     private LinearLayout days, dateArea;
     private ImageView dateLogo;
+    private Button save;
+
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
+    private FirebaseUser user;
+    private FirebaseAuth auth;
+
+    private ProgressDialog loading;
+    private int counter=0;
+    private Boolean blockDouble;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -65,6 +89,7 @@ public class AddFragment extends Fragment {
         timeText=root.findViewById(R.id.timeText);
 
         typeRadios=root.findViewById(R.id.typeRadio);
+        radioOne=root.findViewById(R.id.radioOne);
         typeEdit=root.findViewById(R.id.typeEdit);
 
         scroll=root.findViewById(R.id.scroll);
@@ -82,8 +107,16 @@ public class AddFragment extends Fragment {
         final Calendar cldr = Calendar.getInstance();
         selectDate.setText(convertDateString(cldr.get(Calendar.DAY_OF_MONTH),(cldr.get(Calendar.MONTH)+1),cldr.get(Calendar.YEAR)));
 
+        save=root.findViewById(R.id.save);
 
+        //kullancıya özel database bilgi ekleme/alma için eklendi
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
 
+        nameEdit=root.findViewById(R.id.nameEdit);
+        descEdit=root.findViewById(R.id.descEdit);
+        goalEdit=root.findViewById(R.id.goalEdit);
     }
 
     private void routing(){
@@ -200,6 +233,12 @@ public class AddFragment extends Fragment {
             }
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                readUserCounterInfo();
+            }
+        });
     }
 
     private void daysClicked(){
@@ -317,6 +356,106 @@ public class AddFragment extends Fragment {
         setBackgroundCB(sunday,R.drawable.dayss);
     }
     */
+
+    private void readUserCounterInfo(){//counter yapısını datebasede oluşturarak taskların sıralamasını beliledik.
+        if(isFormValid()) {
+            blockDouble=true;//reference'de olan değişkeni değiştirdiğimiziçin onDataChange iki kere düşmesini engelledik.
+            loading = ProgressDialog.show(getContext(), "Please wait...", "Saving...", true);
+            reference = database.getReference(user.getUid() + "/counter");
+
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.getValue() != null && blockDouble) {
+                        blockDouble=false;
+                        counter = Integer.parseInt(dataSnapshot.getValue().toString());
+                        counter++;
+                        reference.setValue(counter);
+                        saveUserInfo();
+                    }else if (blockDouble){
+                        blockDouble=false;
+                        reference.setValue(counter);
+                        saveUserInfo();
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    showToast("" + R.string.controlInternet);
+                    loading.dismiss();
+                }
+            });
+
+
+        }
+    }
+
+    private void saveUserInfo(){
+        reference = database.getReference( user.getUid()+"/Tasks/"+counter);//nereye kaydedileceğinin bilgisi.
+
+
+
+        UserTask usrtask= new UserTask(nameEdit.getText().toString(),descEdit.getText().toString(),goalEdit.getText().toString(),
+                repeatInfoForDatebase(),repeatLogo.isChecked(),selectTime.getText().toString(),radioOne.isChecked(),typeEdit.getText().toString());
+        reference.setValue(usrtask);
+
+        loading.dismiss();
+        showToast(""+getString(R.string.saveSuccess));
+        //tasks sayfasına yönlendir
+
+    }
+
+    private boolean isFormValid(){
+        Log.i("kontrol",nameEdit.getText()+"");
+
+        if(nameEdit.getText().toString().equals("")){
+            showToast(""+getString(R.string.titleMissing));
+            return false;
+        }
+        if (repeatLogo.isChecked() && !monday.isChecked() && !tuesday.isChecked()
+                && !wednesday.isChecked() && !thursday.isChecked() && !friday.isChecked() && !saturday.isChecked() && !sunday.isChecked()){
+            showToast(""+getString(R.string.dateMissing));
+            return false;
+        }
+
+        int selectedRadio = typeRadios.getCheckedRadioButtonId();
+        if((selectedRadio == R.id.radioTwo) && typeEdit.getText().toString().equals("")){
+            showToast(""+getString(R.string.typeEmpty));
+            return false;
+        }
+        return true;
+    }
+
+    private String repeatInfoForDatebase(){//database yazılmak üzere seçilen tarih  için kalıp oluşturuldu.
+        String info="";
+
+        if(repeatLogo.isChecked()){
+            if(monday.isChecked())
+                info +="monday/";
+            if(tuesday.isChecked())
+                info +="tuesday/";
+            if(wednesday.isChecked())
+                info +="wednesday/";
+            if(thursday.isChecked())
+                info +="thursday/";
+            if(friday.isChecked())
+                info +="friday/";
+            if(saturday.isChecked())
+                info +="saturday/";
+            if(sunday.isChecked())
+                info +="sunday/";
+        }else{
+            info += selectDate.getText().toString();
+        }
+
+        return info;
+    }
+
+    private void showToast(String message){
+        Toast.makeText(root.getContext(), message, Toast.LENGTH_LONG).show();
+    }
 
     private void selectTime(){
         //AlertDialogP1

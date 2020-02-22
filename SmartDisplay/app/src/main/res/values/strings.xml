@@ -8,6 +8,9 @@
     <string name="resetSend">Reset mail sent!</string>
     <string name="version">Version 1.0</string>
     <string name="select">SELECT</string>
+    <string name="titleMissing">Enter title!</string>
+    <string name="dateMissing">Select at least one day!</string>
+    <string name="typeEmpty">Enter URL!</string>
 
     <!--Settings-->
     <string name="email">EMAIL ADDRESS</string>
