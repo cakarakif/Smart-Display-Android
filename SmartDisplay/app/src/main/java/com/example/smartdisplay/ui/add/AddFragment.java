@@ -404,8 +404,8 @@ public class AddFragment extends Fragment {
 
 
 
-        UserTask usrtask= new UserTask(nameEdit.getText().toString(),descEdit.getText().toString(),goalEdit.getText().toString(),
-                repeatInfoForDatebase(),repeatLogo.isChecked(),selectTime.getText().toString(),radioOne.isChecked(),typeEdit.getText().toString());
+        UserTask usrtask= new UserTask(true,nameEdit.getText().toString(),descEdit.getText().toString(),goalEdit.getText().toString(),
+                repeatInfoForDatebase(),repeatLogo.isChecked(),selectTime.getText().toString(),radioOne.isChecked(),typeEdit.getText().toString(),String.valueOf(counter));
         reference.setValue(usrtask);
 
         loading.dismiss();

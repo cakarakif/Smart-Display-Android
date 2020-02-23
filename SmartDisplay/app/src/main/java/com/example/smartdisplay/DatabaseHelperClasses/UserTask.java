@@ -2,6 +2,8 @@ package com.example.smartdisplay.DatabaseHelperClasses;
 
 public class UserTask {
 
+    private Boolean isActive;
+    private String id;
     private String title;
     private String description;
     private String goal;
@@ -11,7 +13,9 @@ public class UserTask {
     private Boolean alertType;//Eğer true ise default false ise video seçimi
     private String videoUrl;
 
-    public UserTask(String title, String description, String goal, String repeatInfo, Boolean repeatType, String time, Boolean alertType, String videoUrl) {
+    public UserTask(Boolean isActive,String title, String description, String goal, String repeatInfo, Boolean repeatType, String time, Boolean alertType, String videoUrl, String id) {
+        this.isActive=isActive;
+        this.id=id;
         this.title = title;
         this.description = description;
         this.goal = goal;
@@ -31,6 +35,23 @@ public class UserTask {
         this.time = "";
         this.alertType = false;
         this.videoUrl = "";
+    }
+
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {

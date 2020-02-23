@@ -50,7 +50,6 @@ public class AllTasksFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_alltasks, container, false);
 
         define();
-        //showList();
         readUserTasks();
 
         return root;
@@ -64,21 +63,6 @@ public class AllTasksFragment extends Fragment {
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference(user.getUid() + "/Tasks");
-    }
-
-    private void showList() {
-        //verilerimizi aldık
-        taskList = new ArrayList<>();
-        UserTask oneTask = new UserTask();
-        UserTask twoTask = new UserTask();
-        taskList.add(oneTask);
-        taskList.add(twoTask);
-
-        //list'in nasıl görüneceğinin adapterı
-        listAdapter = new TaskListAdapter(taskList, getContext());
-
-        //bağlama işlemi yaptık
-        listView.setAdapter(listAdapter);
     }
 
     private void readUserTasks() {
