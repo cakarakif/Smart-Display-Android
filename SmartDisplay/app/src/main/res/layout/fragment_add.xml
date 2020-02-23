@@ -95,7 +95,7 @@
                 android:background="@drawable/inputback"
                 android:hint="@string/hintName"
                 android:inputType="text"
-                android:maxLength="40"
+                android:maxLength="25"
                 android:paddingLeft="10dp"
                 android:textCursorDrawable="@drawable/black_cursor" />
 

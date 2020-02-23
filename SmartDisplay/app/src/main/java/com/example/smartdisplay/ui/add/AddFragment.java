@@ -445,19 +445,21 @@ public class AddFragment extends Fragment {
 
         if(repeatLogo.isChecked()){
             if(monday.isChecked())
-                info +="monday/";
+                info +="Mo/";
             if(tuesday.isChecked())
-                info +="tuesday/";
+                info +="Tu/";
             if(wednesday.isChecked())
-                info +="wednesday/";
+                info +="We/";
             if(thursday.isChecked())
-                info +="thursday/";
+                info +="Th/";
             if(friday.isChecked())
-                info +="friday/";
+                info +="Fr/";
             if(saturday.isChecked())
-                info +="saturday/";
+                info +="Sa/";
             if(sunday.isChecked())
-                info +="sunday/";
+                info +="Su/";
+
+            info = info.substring(0, info.length() - 1);
         }else{
             info += selectDate.getText().toString();
         }
