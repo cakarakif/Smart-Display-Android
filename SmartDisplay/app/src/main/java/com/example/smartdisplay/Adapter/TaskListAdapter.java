@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
@@ -47,7 +48,11 @@ public class TaskListAdapter extends BaseAdapter {
         TextView name=listDesign.findViewById(R.id.name);
         TextView date=listDesign.findViewById(R.id.date);
         TextView time=listDesign.findViewById(R.id.time);
+        LinearLayout designlist=listDesign.findViewById(R.id.designlist);
 
+        if(!list.get(i).getIsActive()){
+            designlist.setBackgroundResource(R.drawable.ic_passive_tasklist);
+        }
         name.setText(list.get(i).getTitle().toUpperCase());
         date.setText(list.get(i).getRepeatInfo());
         time.setText(list.get(i).getTime());
