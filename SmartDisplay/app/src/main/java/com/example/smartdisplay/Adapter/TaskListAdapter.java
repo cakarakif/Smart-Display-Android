@@ -1,6 +1,8 @@
 package com.example.smartdisplay.Adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +11,23 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 public class TaskListAdapter extends BaseAdapter {
 
@@ -27,6 +39,14 @@ public class TaskListAdapter extends BaseAdapter {
     TextView name,date,time;
     TextView description,goal,notification;
     Button edit,delete;
+
+    //silme işlemi için database bağlantısı gerekli
+    private FirebaseDatabase database;
+    private DatabaseReference reference;
+    private FirebaseUser user;
+    private FirebaseAuth auth;
+
+    private ProgressDialog loading;
 
 
     public TaskListAdapter(List<UserTask> list, Context context){
@@ -75,17 +95,7 @@ public class TaskListAdapter extends BaseAdapter {
             }
         });
 
-        //task silme işlemi
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("geldii",list.get(i).getTitle().toUpperCase());
-            }
-        });
-
-
-
-
+        routing(i);
 
         return listDesign;
     }
@@ -101,6 +111,12 @@ public class TaskListAdapter extends BaseAdapter {
 
         edit=listDesign.findViewById(R.id.edit);
         delete=listDesign.findViewById(R.id.delete);
+
+        //kullancıya özel database bilgi ekleme/alma için eklendi
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference(user.getUid() + "/Tasks");
     }
 
     private void fillInfos(int i){
@@ -111,5 +127,56 @@ public class TaskListAdapter extends BaseAdapter {
         description.setText(list.get(i).getDescription());
         goal.setText(list.get(i).getGoal()+" day");
         notification.setText(list.get(i).getAlertType()? "Default" : "VideoURL");
+    }
+
+    private void routing(int i){
+        //task silme işlemi
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                areUSureDialog(Integer.parseInt(list.get(i).getId()));
+            }
+        });
+    }
+
+    private void areUSureDialog(int id){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        loading = ProgressDialog.show(context, "Please wait...", "Retrieving data ...", true);
+                        reference = database.getReference(user.getUid() + "/Tasks/"+id);
+
+                        //silme işlemi
+                        reference.removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(context, "Successfully deleted!", Toast.LENGTH_LONG).show();
+                                        loading.dismiss();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(context, "Error deleting task!", Toast.LENGTH_LONG).show();
+                                        loading.dismiss();
+                                    }
+                                });
+
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.AlertDialogTheme);
+        builder.setMessage("Are you sure you want to delete?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 }
