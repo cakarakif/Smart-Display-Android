@@ -63,7 +63,8 @@ public class UserTask {
     }
 
     public String getDescription() {
-        return description;
+
+        return description.equals("") ? "No description":description;
     }
 
     public void setDescription(String description) {
@@ -71,7 +72,7 @@ public class UserTask {
     }
 
     public String getGoal() {
-        return goal;
+        return goal.equals("") ? "0":goal;
     }
 
     public void setGoal(String goal) {

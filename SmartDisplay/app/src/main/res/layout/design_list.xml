@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/mainList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_task_back"
@@ -81,14 +82,17 @@
     </LinearLayout>
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/moreInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/ic_more_info"
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -181,8 +185,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
         </LinearLayout>
-
-
 
     </LinearLayout>
 
