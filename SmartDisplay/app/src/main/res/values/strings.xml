@@ -52,5 +52,7 @@
     <string name="hintURL">Enter URL</string>
     <string name="onlyOnce">Only Once</string>
 
+    <string name="search">Search</string>
+
 
 </resources>

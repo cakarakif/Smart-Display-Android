@@ -128,11 +128,7 @@ public class AllTasksFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 taskList=new ArrayList<>(tempSearchtaskList);;
-                taskList.removeIf(p -> {
-                    Log.i("kontrol",p.getTitle().toUpperCase().contains(charSequence.toString().toUpperCase())+"");
-                    Log.i("kontrol2",p.getTitle());
-                    return !p.getTitle().toUpperCase().contains(charSequence.toString().toUpperCase());
-                });
+                taskList.removeIf(p -> !p.getTitle().toUpperCase().contains(charSequence.toString().toUpperCase()));
 
                 //list'in nasıl görüneceğinin adapterı
                 listAdapter = new TaskListAdapter(taskList, getContext());
