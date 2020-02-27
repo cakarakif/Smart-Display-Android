@@ -1,8 +1,10 @@
 package com.example.smartdisplay.Adapter;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.viewpager.widget.ViewPager;
 
 public class TaskListAdapter extends BaseAdapter {
 
@@ -35,10 +41,10 @@ public class TaskListAdapter extends BaseAdapter {
     private Context context;
 
     //view için tanımlamalar
-    View listDesign;
-    TextView name,date,time;
-    TextView description,goal,notification;
-    Button edit,delete;
+    private View listDesign;
+    private TextView name,date,time;
+    private TextView description,goal,notification;
+    private Button edit,delete;
 
     //silme işlemi için database bağlantısı gerekli
     private FirebaseDatabase database;
@@ -47,6 +53,9 @@ public class TaskListAdapter extends BaseAdapter {
     private FirebaseAuth auth;
 
     private ProgressDialog loading;
+
+    //edite tıklandığında All tasks fragmentine bildirim olsun diye değişken dinlenildi.
+    private MutableLiveData<Integer> editID;
 
 
     public TaskListAdapter(List<UserTask> list, Context context){
@@ -137,7 +146,27 @@ public class TaskListAdapter extends BaseAdapter {
                 areUSureDialog(Integer.parseInt(list.get(i).getId()));
             }
         });
+
+        //task silme işlemi
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                routingEdit(Integer.parseInt(list.get(i).getId()));
+            }
+        });
     }
+
+    private void routingEdit(int i){//edite basınca task idsi AllTaskFragmentte dinlenilen yere gönderildi.
+        geteditID().postValue(i);
+    }
+
+    public MutableLiveData<Integer> geteditID(){//editin dinlenildiği yer ile bağlantı.
+        if(editID == null){
+            editID = new MutableLiveData<>();
+        }
+        return editID;
+    }
+
 
     private void areUSureDialog(int id){
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {

@@ -101,6 +101,9 @@ public class AllTasksFragment extends Fragment {
                     //bağlama işlemi yaptık
                     listView.setAdapter(listAdapter);
 
+                    //edite tıklanma dinlemesi yapıldı
+                    listenEditClicked();
+
 
                 } else {
                     //UserInformation usrinfo = new UserInformation();
@@ -113,6 +116,16 @@ public class AllTasksFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
                 loading.dismiss();
+            }
+        });
+    }
+
+    private void listenEditClicked(){
+        listAdapter.geteditID().observe(getActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer editId) {
+                //do what you want when the varriable change.
+                Log.i("Geldiii2",editId+"");
             }
         });
     }
