@@ -228,10 +228,25 @@ public class TaskListAdapter extends BaseAdapter {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         //Yes button clicked
+                        loading = ProgressDialog.show(context, "Please wait...", "Saving ...", true);
                         reference = database.getReference(user.getUid() + "/Tasks/"+id+"/isActive");
 
                         //restore veya tamamlanmış işaretlemesi yapıldı.
-                        reference.setValue(!isActive);
+                        reference.setValue(!isActive)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(context, "Successfully saved!", Toast.LENGTH_LONG).show();
+                                        loading.dismiss();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(context, "Error changing task!", Toast.LENGTH_LONG).show();
+                                        loading.dismiss();
+                                    }
+                                });
 
 
 

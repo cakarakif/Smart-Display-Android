@@ -1,6 +1,7 @@
 package com.example.smartdisplay.ui.alltasks;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,6 +47,7 @@ public class AllTasksFragment extends Fragment {
     private List<UserTask> tempSearchtaskList;
     private TaskListAdapter listAdapter;
     private ListView listView;
+    private Button searchLogo,todo,done,closeSearch;
 
     private ProgressDialog loading;
 
@@ -74,6 +78,11 @@ public class AllTasksFragment extends Fragment {
         reference = database.getReference(user.getUid() + "/Tasks");
 
         search=root.findViewById(R.id.search);
+        searchLogo=root.findViewById(R.id.searchLogo);
+
+        todo=root.findViewById(R.id.todo);
+        done=root.findViewById(R.id.done);
+        closeSearch=root.findViewById(R.id.closeSearch);
     }
 
     private void readUserTasks() {
@@ -142,6 +151,40 @@ public class AllTasksFragment extends Fragment {
     }
 
     private void searchText(){
+        searchLogo.setOnClickListener(new View.OnClickListener() {//search mantığı tasarlandı
+            @Override
+            public void onClick(View view) {
+
+                if(search.getVisibility() == View.INVISIBLE) {
+                    search.setVisibility(View.VISIBLE);
+                    closeSearch.setVisibility(View.VISIBLE);
+                    todo.setVisibility(View.INVISIBLE);
+                    done.setVisibility(View.INVISIBLE);
+
+                    //klavye açıldı ve search edittexine tıklandı
+                    search.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) root.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(search, InputMethodManager.SHOW_IMPLICIT);
+                }else{
+                    search.setVisibility(View.INVISIBLE);
+                    closeSearch.setVisibility(View.INVISIBLE);
+                    todo.setVisibility(View.VISIBLE);
+                    done.setVisibility(View.VISIBLE);
+                    //klavye kapatıldı.
+                    InputMethodManager imm = (InputMethodManager) root.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+            }
+        });
+
+        closeSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchLogo.performClick();
+            }
+        });
+
+
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
