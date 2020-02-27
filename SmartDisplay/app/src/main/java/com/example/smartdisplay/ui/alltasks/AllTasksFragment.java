@@ -137,7 +137,7 @@ public class AllTasksFragment extends Fragment {
                 }
             });
         }catch (Exception e){
-            
+
         }
     }
 

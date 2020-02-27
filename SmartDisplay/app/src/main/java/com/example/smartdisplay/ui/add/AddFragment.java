@@ -53,7 +53,7 @@ public class AddFragment extends Fragment {
     private View root;
 
     private CheckBox repeatLogo, onceLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-    private TextView selectTime, timeText, repeatText, onceText, selectDate,dateText;
+    private TextView selectTime, timeText, repeatText, onceText, selectDate,dateText,addTitle;
     private RadioGroup typeRadios;
     private RadioButton radioOne,radioTwo;
     private EditText typeEdit, nameEdit,descEdit,goalEdit;
@@ -85,6 +85,8 @@ public class AddFragment extends Fragment {
     }
 
     private void define(){
+        addTitle=root.findViewById(R.id.addTitle);
+
         repeatLogo=root.findViewById(R.id.repeatLogo);
         monday=root.findViewById(R.id.monday);
         tuesday=root.findViewById(R.id.tuesday);
@@ -346,30 +348,35 @@ public class AddFragment extends Fragment {
             loading = ProgressDialog.show(getContext(), "Please wait...", "Saving...", true);
             reference = database.getReference(user.getUid() + "/counter");
 
-            reference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            if(!isEditableValue()) {//edit mi new mi durumu kontrolü
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    if (dataSnapshot.getValue() != null && blockDouble) {
-                        blockDouble=false;
-                        counter = Integer.parseInt(dataSnapshot.getValue().toString());
-                        counter++;
-                        reference.setValue(counter);
-                        saveUserInfo();
-                    }else if (blockDouble){
-                        blockDouble=false;
-                        reference.setValue(counter);
-                        saveUserInfo();
+                        if (dataSnapshot.getValue() != null && blockDouble) {
+                            blockDouble = false;
+                            counter = Integer.parseInt(dataSnapshot.getValue().toString());
+                            counter++;
+                            reference.setValue(counter);
+                            saveUserInfo();
+                        } else if (blockDouble) {
+                            blockDouble = false;
+                            reference.setValue(counter);
+                            saveUserInfo();
+                        }
+
                     }
 
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    showToast("" + R.string.controlInternet);
-                    loading.dismiss();
-                }
-            });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        showToast("" + R.string.controlInternet);
+                        loading.dismiss();
+                    }
+                });
+            }
+            else{
+                saveUserInfo();
+            }
 
 
         }
@@ -426,6 +433,11 @@ public class AddFragment extends Fragment {
     }
 
     private void fillPageEdit(){//edit edilmek istenen bilgiler sayfaya dolduruldu.
+        addTitle.setText(getString(R.string.updateTitle));
+        save.setBackgroundResource(R.drawable.updatelong);
+
+        counter=Integer.parseInt(editTask.getId());//update için reference counterı değiştirildi.
+
         nameEdit.setText(editTask.getTitle());
         descEdit.setText(editTask.getDescription());
         goalEdit.setText(editTask.getGoal());

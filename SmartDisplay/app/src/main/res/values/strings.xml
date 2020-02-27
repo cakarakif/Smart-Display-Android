@@ -37,6 +37,7 @@
 
     <!--add-->
     <string name="addTitle">ADD NEW HABIT</string>
+    <string name="updateTitle">UPDATE HABIT</string>
     <string name="taskName">Title</string>
     <string name="hintName">Enter your habit title</string>
     <string name="taskDesc">Description</string>
