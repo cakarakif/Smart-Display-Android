@@ -44,7 +44,7 @@ public class TaskListAdapter extends BaseAdapter {
     private View listDesign;
     private TextView name,date,time;
     private TextView description,goal,notification;
-    private Button edit,delete;
+    private Button edit,delete,complete;
 
     //silme işlemi için database bağlantısı gerekli
     private FirebaseDatabase database;
@@ -88,9 +88,9 @@ public class TaskListAdapter extends BaseAdapter {
         moreInfo=listDesign.findViewById(R.id.moreInfo);
 
         //görev pasifse arka planı değişikliği
-        //if(!list.get(i).getIsActive()){
-        //    mainList.setBackgroundResource(R.drawable.ic_passive_tasklist);
-        //}
+        if(!list.get(i).getIsActive()){
+            mainList.setBackgroundResource(R.drawable.ic_passive_tasklist);
+        }
 
         define();
         fillInfos(i);
@@ -120,6 +120,7 @@ public class TaskListAdapter extends BaseAdapter {
 
         edit=listDesign.findViewById(R.id.edit);
         delete=listDesign.findViewById(R.id.delete);
+        complete=listDesign.findViewById(R.id.complete);
 
         //kullancıya özel database bilgi ekleme/alma için eklendi
         auth = FirebaseAuth.getInstance();
@@ -129,6 +130,9 @@ public class TaskListAdapter extends BaseAdapter {
     }
 
     private void fillInfos(int i){
+
+        if(!list.get(i).getIsActive()) complete.setBackgroundResource(R.drawable.ic_restore);
+
         //veriler atandı
         name.setText(list.get(i).getTitle().toUpperCase());
         date.setText(list.get(i).getRepeatInfo());
@@ -143,7 +147,7 @@ public class TaskListAdapter extends BaseAdapter {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                areUSureDialog(Integer.parseInt(list.get(i).getId()));
+                areUSureDialogDelete(Integer.parseInt(list.get(i).getId()));
             }
         });
 
@@ -152,6 +156,14 @@ public class TaskListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 routingEdit(i);
+            }
+        });
+
+        //complete olarak işaretle
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                areUSureTickCompleted(Integer.parseInt(list.get(i).getId()),list.get(i).getIsActive());
             }
         });
     }
@@ -168,14 +180,14 @@ public class TaskListAdapter extends BaseAdapter {
     }
 
 
-    private void areUSureDialog(int id){
+    private void areUSureDialogDelete(int id){
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         //Yes button clicked
-                        loading = ProgressDialog.show(context, "Please wait...", "Retrieving data ...", true);
+                        loading = ProgressDialog.show(context, "Please wait...", "Deleting ...", true);
                         reference = database.getReference(user.getUid() + "/Tasks/"+id);
 
                         //silme işlemi
@@ -206,6 +218,35 @@ public class TaskListAdapter extends BaseAdapter {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.AlertDialogTheme);
         builder.setMessage("Are you sure you want to delete?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
+
+    private void areUSureTickCompleted(int id, Boolean isActive){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        reference = database.getReference(user.getUid() + "/Tasks/"+id+"/isActive");
+
+                        //restore veya tamamlanmış işaretlemesi yapıldı.
+                        reference.setValue(!isActive);
+
+
+
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        String message=isActive? "Do you want to mark the task as completed?":"Do you want to restore the task?";
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message).setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
     }
 }
