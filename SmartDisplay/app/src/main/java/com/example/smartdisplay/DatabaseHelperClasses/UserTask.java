@@ -1,6 +1,8 @@
 package com.example.smartdisplay.DatabaseHelperClasses;
 
-public class UserTask {
+import java.io.Serializable;
+
+public class UserTask implements Serializable {
 
     private Boolean isActive;
     private String id;

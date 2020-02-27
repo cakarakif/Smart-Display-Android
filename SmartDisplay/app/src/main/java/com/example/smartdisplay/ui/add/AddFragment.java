@@ -55,7 +55,7 @@ public class AddFragment extends Fragment {
     private CheckBox repeatLogo, onceLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private TextView selectTime, timeText, repeatText, onceText, selectDate,dateText;
     private RadioGroup typeRadios;
-    private RadioButton radioOne;
+    private RadioButton radioOne,radioTwo;
     private EditText typeEdit, nameEdit,descEdit,goalEdit;
     private ScrollView scroll;
     private LinearLayout days, dateArea;
@@ -70,6 +70,8 @@ public class AddFragment extends Fragment {
     private ProgressDialog loading;
     private int counter=0;
     private Boolean blockDouble;
+
+    private UserTask editTask;//edit ile geldiyse dolar
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -97,6 +99,7 @@ public class AddFragment extends Fragment {
 
         typeRadios=root.findViewById(R.id.typeRadio);
         radioOne=root.findViewById(R.id.radioOne);
+        radioTwo=root.findViewById(R.id.radioTwo);
         typeEdit=root.findViewById(R.id.typeEdit);
 
         scroll=root.findViewById(R.id.scroll);
@@ -124,9 +127,11 @@ public class AddFragment extends Fragment {
         nameEdit=root.findViewById(R.id.nameEdit);
         descEdit=root.findViewById(R.id.descEdit);
         goalEdit=root.findViewById(R.id.goalEdit);
+
     }
 
     private void routing(){
+
         repeatLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,6 +251,10 @@ public class AddFragment extends Fragment {
                 readUserCounterInfo();
             }
         });
+
+        if(isEditableValue()){//Eğer edit ile geldiyse
+            fillPageEdit();
+        }
     }
 
     private void daysClicked(){
@@ -331,39 +340,6 @@ public class AddFragment extends Fragment {
         whichone.setBackgroundResource(background);
     }
 
-    /*
-    private void checkRepeatCB(){//eğer tüm günler seçiliyse repeat checkboxı doldurulur.//Şuan Kullanılmıyor
-        if(monday.isChecked() && tuesday.isChecked() && wednesday.isChecked()
-                              && thursday.isChecked() && friday.isChecked() && saturday.isChecked() && sunday.isChecked()){
-            repeatLogo.setChecked(true);
-            setBackgroundCB(repeatLogo,R.drawable.ic_radiofill);
-        }else{
-            repeatLogo.setChecked(false);
-            setBackgroundCB(repeatLogo,R.drawable.ic_radioempty);
-        }
-    }
-    */
-
-    /*
-    private void setAllDaysClicked(){//Repeat buttonu için işlem atandı.//Şuan Kullanılmıyor
-        monday.setChecked(true);
-        tuesday.setChecked(true);
-        wednesday.setChecked(true);
-        thursday.setChecked(true);
-        friday.setChecked(true);
-        saturday.setChecked(true);
-        sunday.setChecked(true);
-
-        setBackgroundCB(monday,R.drawable.daymm);
-        setBackgroundCB(tuesday,R.drawable.daytt);
-        setBackgroundCB(wednesday,R.drawable.dayww);
-        setBackgroundCB(thursday,R.drawable.daytt);
-        setBackgroundCB(friday,R.drawable.dayff);
-        setBackgroundCB(saturday,R.drawable.dayss);
-        setBackgroundCB(sunday,R.drawable.dayss);
-    }
-    */
-
     private void readUserCounterInfo(){//counter yapısını datebasede oluşturarak taskların sıralamasını beliledik.
         if(isFormValid()) {
             blockDouble=true;//reference'de olan değişkeni değiştirdiğimiziçin onDataChange iki kere düşmesini engelledik.
@@ -438,6 +414,73 @@ public class AddFragment extends Fragment {
     private void back2AllTasks(){//Task eklenince taskların listelendiği ekrana yönlendirildi.
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         navController.navigate(R.id.navigation_alltasks);
+    }
+
+    private boolean isEditableValue(){//Eğer edit ile geldiyse onun kontrolü
+        try {
+            editTask = (UserTask) getArguments().getSerializable("selectedTask");
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    private void fillPageEdit(){//edit edilmek istenen bilgiler sayfaya dolduruldu.
+        nameEdit.setText(editTask.getTitle());
+        descEdit.setText(editTask.getDescription());
+        goalEdit.setText(editTask.getGoal());
+        selectTime.setText(editTask.getTime());
+
+        if(editTask.getAlertType())radioOne.setChecked(true);
+        else {
+            radioTwo.setChecked(true);
+            typeEdit.setText(editTask.getVideoUrl());
+            typeEdit.setVisibility(View.VISIBLE);
+        }
+
+
+        if(editTask.getRepeatType()){
+            //repeatLogo.performClick();
+            String[] tokens = editTask.getRepeatInfo().split("/");
+
+            setAllDaysNotClicked();
+            for (String t : tokens)
+                if(t.equals("Mo"))
+                    monday.performClick();
+                else if(t.equals("Tu"))
+                    tuesday.performClick();
+                else if(t.equals("We"))
+                    wednesday.performClick();
+                else if(t.equals("Th"))
+                    thursday.performClick();
+                else if(t.equals("Fr"))
+                    friday.performClick();
+                else if(t.equals("Sa"))
+                    saturday.performClick();
+                else if(t.equals("Su"))
+                    sunday.performClick();
+        } else {
+            onceLogo.performClick();
+            selectDate.setText(editTask.getRepeatInfo());
+        }
+    }
+
+    private void setAllDaysNotClicked(){//Repeat buttonu için işlem atandı.//Şuan Kullanılmıyor
+        monday.setChecked(false);
+        tuesday.setChecked(false);
+        wednesday.setChecked(false);
+        thursday.setChecked(false);
+        friday.setChecked(false);
+        saturday.setChecked(false);
+        sunday.setChecked(false);
+
+        setBackgroundCB(monday,R.drawable.daym);
+        setBackgroundCB(tuesday,R.drawable.dayt);
+        setBackgroundCB(wednesday,R.drawable.dayw);
+        setBackgroundCB(thursday,R.drawable.dayt);
+        setBackgroundCB(friday,R.drawable.dayf);
+        setBackgroundCB(saturday,R.drawable.days);
+        setBackgroundCB(sunday,R.drawable.days);
     }
 
     private String repeatInfoForDatebase(){//database yazılmak üzere seçilen tarih  için kalıp oluşturuldu.

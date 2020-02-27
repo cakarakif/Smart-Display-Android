@@ -151,7 +151,7 @@ public class TaskListAdapter extends BaseAdapter {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                routingEdit(Integer.parseInt(list.get(i).getId()));
+                routingEdit(i);
             }
         });
     }

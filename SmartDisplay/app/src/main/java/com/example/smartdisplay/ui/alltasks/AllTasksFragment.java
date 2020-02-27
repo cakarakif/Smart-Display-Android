@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.smartdisplay.Adapter.TaskListAdapter;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
@@ -120,14 +122,23 @@ public class AllTasksFragment extends Fragment {
         });
     }
 
-    private void listenEditClicked(){
-        listAdapter.geteditID().observe(getActivity(), new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer editId) {
-                //do what you want when the varriable change.
-                Log.i("Geldiii2",editId+"");
-            }
-        });
+    private void listenEditClicked(){//edit için add sayfasına bilgiler ile birlikte yönlendirme yapıldı.
+        try {
+            listAdapter.geteditID().observe(getActivity(), new Observer<Integer>() {
+                @Override
+                public void onChanged(@Nullable Integer editId) {
+                    //do what you want when the varriable change.
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("selectedTask", taskList.get(editId));
+
+                    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                    navController.navigate(R.id.navigation_add, bundle);
+                }
+            });
+        }catch (Exception e){
+            
+        }
     }
 
     private void searchText(){
