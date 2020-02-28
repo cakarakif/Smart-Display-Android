@@ -13,6 +13,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,11 +45,13 @@ public class AllTasksFragment extends Fragment {
 
     private View root;
 
-    private List<UserTask> taskList;
+    private List<UserTask> taskList, todoList, doneList;
     private List<UserTask> tempSearchtaskList;
     private TaskListAdapter listAdapter;
     private ListView listView;
-    private Button searchLogo,todo,done,closeSearch;
+    private Button searchLogo,closeSearch;
+    private RadioButton todo,done;
+    private RadioGroup tabs;
 
     private ProgressDialog loading;
 
@@ -64,12 +68,13 @@ public class AllTasksFragment extends Fragment {
 
         define();
         readUserTasks();
+        routing();
 
         return root;
     }
 
     private void define() {
-        listView = root.findViewById(R.id.taskList);
+        listView = root.findViewById(R.id.taskListView);
 
         //kullancıya özel database bilgi ekleme/alma için eklendi
         auth = FirebaseAuth.getInstance();
@@ -83,6 +88,7 @@ public class AllTasksFragment extends Fragment {
         todo=root.findViewById(R.id.todo);
         done=root.findViewById(R.id.done);
         closeSearch=root.findViewById(R.id.closeSearch);
+        tabs=root.findViewById(R.id.tabs);
     }
 
     private void readUserTasks() {
@@ -94,26 +100,25 @@ public class AllTasksFragment extends Fragment {
                 Log.i("tasks", dataSnapshot.getValue() + "");
 
                 if (dataSnapshot.getValue() != null) {
-
                     //verilerimizi aldık
                     taskList = new ArrayList<>();
+                    todoList = new ArrayList<>();
+                    doneList = new ArrayList<>();
 
+                    //listeler ayrıştırılıp hangisi kullanılacaksa routingde taskliste atandı. Burada dolduruldu.
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         UserTask usrtasks = postSnapshot.getValue(UserTask.class);
-                        taskList.add(usrtasks);
+                        if(usrtasks.getIsActive())
+                            todoList.add(usrtasks);
+                        else
+                            doneList.add(usrtasks);
                     }
 
-                    tempSearchtaskList = new ArrayList<>(taskList);//search için yedeklendi
-                    searchText();//search aktif edildi.
-
-                    //list'in nasıl görüneceğinin adapterı
-                    listAdapter = new TaskListAdapter(taskList, getContext());
-
-                    //bağlama işlemi yaptık
-                    listView.setAdapter(listAdapter);
-
-                    //edite tıklanma dinlemesi yapıldı
-                    listenEditClicked();
+                    //herhangi bir değişiklikte databaseden gelen veri için yönlendirme yapıldı.
+                    if(todo.isChecked() || (!todo.isChecked() && !done.isChecked()))
+                        performToDoView();
+                    else
+                        performDoneView();
 
 
                 } else {
@@ -129,6 +134,53 @@ public class AllTasksFragment extends Fragment {
                 loading.dismiss();
             }
         });
+    }
+
+    private void routing(){
+        //tab'a göre liste ataması yapıldı.
+        tabs.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                switch (checkedId) {
+                    case R.id.todo:
+                        performToDoView();
+                        break;
+                    case R.id.done:
+                        performDoneView();
+                        break;
+                }
+            }
+        });
+    }
+
+    private void startListView(){
+        tempSearchtaskList = new ArrayList<>(taskList);//search için yedeklendi
+        searchText();//search aktif edildi.
+
+        //list'in nasıl görüneceğinin adapterı
+        listAdapter = new TaskListAdapter(taskList, getContext());
+
+        //bağlama işlemi yaptık
+        listView.setAdapter(listAdapter);
+
+        //edite tıklanma dinlemesi yapıldı
+        listenEditClicked();
+    }
+
+    private void performToDoView(){
+        //To-do seçildiğindeki atamalar
+        taskList=new ArrayList<>(todoList);
+        startListView();
+        todo.setBackgroundResource(R.drawable.ic_tab_fill);
+        done.setBackgroundResource(R.drawable.ic_tab_empty);
+    }
+
+    private void performDoneView(){
+        //Done seçildiğindeki atamalar
+        taskList=new ArrayList<>(doneList);
+        startListView();
+        todo.setBackgroundResource(R.drawable.ic_tab_empty);
+        done.setBackgroundResource(R.drawable.ic_tab_fill);
     }
 
     private void listenEditClicked(){//edit için add sayfasına bilgiler ile birlikte yönlendirme yapıldı.

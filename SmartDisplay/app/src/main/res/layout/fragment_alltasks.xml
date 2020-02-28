@@ -14,7 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <RadioGroup
+            android:id="@+id/tabs"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <RadioButton
+            android:textAlignment="center"
+            android:button="@null"
             android:visibility="visible"
             android:id="@+id/todo"
             android:text="@string/todo"
@@ -22,7 +30,9 @@
             android:layout_width="130dp"
             android:layout_height="30dp"/>
 
-        <Button
+        <RadioButton
+            android:textAlignment="center"
+            android:button="@null"
             android:visibility="visible"
             android:layout_toRightOf="@+id/todo"
             android:id="@+id/done"
@@ -30,6 +40,8 @@
             android:background="@drawable/ic_tab_empty"
             android:layout_width="130dp"
             android:layout_height="30dp"/>
+
+        </RadioGroup>
 
         <EditText
             android:visibility="invisible"
@@ -57,7 +69,7 @@
             android:id="@+id/searchLogo"
             android:layout_marginLeft="7dp"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/done"
+            android:layout_toRightOf="@+id/tabs"
             android:background="@drawable/ic_search"
             android:layout_width="20dp"
             android:layout_height="20dp"/>
@@ -80,7 +92,7 @@
         android:dividerHeight="5dp"
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
-        android:id="@+id/taskList"
+        android:id="@+id/taskListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
