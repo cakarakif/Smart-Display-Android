@@ -1,20 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/alltasks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/uiback">
+    android:background="@drawable/ic_today_list_top">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/dateArea"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="90dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/one"
+            android:orientation="vertical"
+            android:background="@drawable/ic_empty_date"
+            android:layout_width="40dp"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/oneName"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="TUE"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/oneDate"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="18"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/two"
+            android:layout_marginLeft="6dp"
+            android:orientation="vertical"
+            android:background="@drawable/ic_empty_date"
+            android:layout_width="40dp"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/twoName"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="TUE"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/twoDate"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="18"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/three"
+            android:layout_marginLeft="6dp"
+            android:orientation="vertical"
+            android:background="@drawable/ic_empty_date"
+            android:layout_width="40dp"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/threeName"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="TUE"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/threeDate"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="18"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/four"
+            android:layout_marginLeft="6dp"
+            android:orientation="vertical"
+            android:background="@drawable/ic_fill_date"
+            android:layout_width="40dp"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/fourName"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="TUE"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/fourDate"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="18"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/five"
+            android:layout_marginLeft="6dp"
+            android:orientation="vertical"
+            android:background="@drawable/ic_empty_date"
+            android:layout_width="40dp"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/fiveName"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="TUE"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/fiveDate"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="18"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/six"
+            android:layout_marginLeft="6dp"
+            android:orientation="vertical"
+            android:background="@drawable/ic_empty_date"
+            android:layout_width="40dp"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/sixName"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="TUE"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/sixDate"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="18"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/seven"
+            android:layout_marginLeft="6dp"
+            android:orientation="vertical"
+            android:background="@drawable/ic_empty_date"
+            android:layout_width="40dp"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/sevenName"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="TUE"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/sevenDate"
+                android:textAlignment="center"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:text="18"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_marginBottom="55dp"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/dateArea"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/taskListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
 </RelativeLayout>
