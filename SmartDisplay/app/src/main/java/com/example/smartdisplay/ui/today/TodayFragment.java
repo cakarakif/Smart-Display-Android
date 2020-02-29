@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -105,6 +106,9 @@ public class TodayFragment extends Fragment {
     }
 
     private void routing(){
+
+        /////////////////////////
+        //takvim seçme işlemleri
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
