@@ -54,6 +54,7 @@ public class TodayFragment extends Fragment {
     private TextView oneName,oneDate, twoName,twoDate, threeName,threeDate, fourName,fourDate, fiveName,fiveDate, sixName,sixDate,sevenName,sevenDate;
     private Calendar cal;
     private Button filterMenu;
+    private TextView todayTitle;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -106,6 +107,8 @@ public class TodayFragment extends Fragment {
         sevenDate = root.findViewById(R.id.sevenDate);
 
         filterMenu = root.findViewById(R.id.filterMenu);
+
+        todayTitle= root.findViewById(R.id.todayTitle);
     }
 
     private void routing(){
@@ -113,7 +116,7 @@ public class TodayFragment extends Fragment {
         filterMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //eklenecek
             }
         });
 
@@ -177,33 +180,43 @@ public class TodayFragment extends Fragment {
 
         cal.add(cal.DATE, numberMov);
         fourDate.setText(cal.get(cal.DAY_OF_MONTH)+"");
-        fourName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,2).toUpperCase());
+        fourName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,3).toUpperCase());
+
+        //Eğer bugünün günü seçilmediyse üste o tarih yazılır.
+        if(cal.get(cal.DAY_OF_MONTH) == Calendar.getInstance().get(cal.DAY_OF_MONTH) &&
+                (cal.get(cal.MONTH)+1) == (Calendar.getInstance().get(cal.MONTH)+1) &&
+                cal.get(cal.YEAR) == Calendar.getInstance().get(cal.YEAR)){
+
+            todayTitle.setText(getString(R.string.today));
+        }else{
+            todayTitle.setText((cal.getDisplayName(cal.MONTH,cal.SHORT, Locale.getDefault()))+" "+cal.get(cal.DAY_OF_MONTH));
+        }
 
         //ileri üç gün
         cal.add(cal.DATE, 1);
         fiveDate.setText(cal.get(cal.DAY_OF_MONTH)+"");
-        fiveName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,2).toUpperCase());
+        fiveName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,3).toUpperCase());
 
         cal.add(cal.DATE, 1);
         sixDate.setText(cal.get(cal.DAY_OF_MONTH)+"");
-        sixName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,2).toUpperCase());
+        sixName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,3).toUpperCase());
 
         cal.add(cal.DATE, 1);
         sevenDate.setText(cal.get(cal.DAY_OF_MONTH)+"");
-        sevenName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,2).toUpperCase());
+        sevenName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,3).toUpperCase());
 
         //geri üç gün
         cal.add(cal.DATE, -4);
         threeDate.setText(cal.get(cal.DAY_OF_MONTH)+"");
-        threeName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,2).toUpperCase());
+        threeName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,3).toUpperCase());
 
         cal.add(cal.DATE, -1);
         twoDate.setText(cal.get(cal.DAY_OF_MONTH)+"");
-        twoName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,2).toUpperCase());
+        twoName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,3).toUpperCase());
 
         cal.add(cal.DATE, -1);
         oneDate.setText(cal.get(cal.DAY_OF_MONTH)+"");
-        oneName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,2).toUpperCase());
+        oneName.setText((cal.getDisplayName(cal.DAY_OF_WEEK,cal.SHORT, Locale.getDefault())).substring(0,3).toUpperCase());
 
         //default almak için dördüncüye çekildi
         cal.add(cal.DATE, 3);
@@ -253,7 +266,7 @@ public class TodayFragment extends Fragment {
 
                 //gün olarak seçilenlerin, seçili günde olup olmadığına bakılıp eklendi.
                 if (list.getIsActive() && list.getRepeatType() && (list.getRepeatInfo())
-                        .contains((cal.getDisplayName(cal.DAY_OF_WEEK, cal.SHORT, Locale.getDefault())).substring(0, 2))) {
+                        .contains((cal.getDisplayName(cal.DAY_OF_WEEK, cal.SHORT, Locale.getDefault())).substring(0, 3))) {
                     filteredList.add(list);
                 }
 

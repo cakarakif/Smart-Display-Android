@@ -4,7 +4,18 @@
     android:id="@+id/alltasks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_today_list_top">
+    android:background="@drawable/ic_today_list_back">
+
+    <TextView
+        android:id="@+id/todayTitle"
+        android:layout_marginLeft="143dp"
+        android:layout_marginTop="17dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:text="TODAY"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:gravity="center"
@@ -222,8 +233,8 @@
 
     <Button
         android:id="@+id/filterMenu"
-        android:layout_marginTop="12.5dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="20dp"
         android:layout_alignParentEnd="true"
         android:background="@drawable/ic_filter_menu"
         android:layout_width="55dp"

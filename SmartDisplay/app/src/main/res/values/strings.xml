@@ -57,5 +57,7 @@
     <string name="todo">TO DO</string>
     <string name="done">DONE</string>
 
+    <string name="today">TODAY</string>
+
 
 </resources>

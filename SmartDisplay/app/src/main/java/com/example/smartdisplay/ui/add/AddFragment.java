@@ -500,19 +500,19 @@ public class AddFragment extends Fragment {
 
         if(repeatLogo.isChecked()){
             if(monday.isChecked())
-                info +="Mo/";
+                info +="Mon/";
             if(tuesday.isChecked())
-                info +="Tu/";
+                info +="Tue/";
             if(wednesday.isChecked())
-                info +="We/";
+                info +="Wed/";
             if(thursday.isChecked())
-                info +="Th/";
+                info +="Thu/";
             if(friday.isChecked())
-                info +="Fr/";
+                info +="Fri/";
             if(saturday.isChecked())
-                info +="Sa/";
+                info +="Sat/";
             if(sunday.isChecked())
-                info +="Su/";
+                info +="Sun/";
 
             info = info.substring(0, info.length() - 1);
         }else{
