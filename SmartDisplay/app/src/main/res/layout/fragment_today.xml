@@ -220,14 +220,14 @@
 
     </LinearLayout>
 
-    <!--<Button
+    <Button
         android:id="@+id/filterMenu"
         android:layout_marginTop="12.5dp"
         android:layout_marginRight="40dp"
         android:layout_alignParentEnd="true"
         android:background="@drawable/ic_filter_menu"
         android:layout_width="55dp"
-        android:layout_height="55dp"/>-->
+        android:layout_height="55dp"/>
 
     <ListView
         android:layout_marginBottom="55dp"

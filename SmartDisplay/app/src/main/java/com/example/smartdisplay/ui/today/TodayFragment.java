@@ -53,6 +53,7 @@ public class TodayFragment extends Fragment {
     private LinearLayout one,two,three,four,five,six,seven;
     private TextView oneName,oneDate, twoName,twoDate, threeName,threeDate, fourName,fourDate, fiveName,fiveDate, sixName,sixDate,sevenName,sevenDate;
     private Calendar cal;
+    private Button filterMenu;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -103,9 +104,18 @@ public class TodayFragment extends Fragment {
         sixDate = root.findViewById(R.id.sixDate);
         sevenName = root.findViewById(R.id.sevenName);
         sevenDate = root.findViewById(R.id.sevenDate);
+
+        filterMenu = root.findViewById(R.id.filterMenu);
     }
 
     private void routing(){
+
+        filterMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         /////////////////////////
         //takvim seçme işlemleri
