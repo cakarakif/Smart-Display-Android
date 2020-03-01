@@ -201,7 +201,7 @@ public class TodayFragment extends Fragment {
 
             todayTitle.setText(getString(R.string.today));
         }else{
-            todayTitle.setText((cal.getDisplayName(cal.MONTH,cal.SHORT, Locale.getDefault()))+" "+cal.get(cal.DAY_OF_MONTH));
+            todayTitle.setText((cal.getDisplayName(cal.MONTH,cal.SHORT, Locale.getDefault())).toUpperCase()+" "+cal.get(cal.DAY_OF_MONTH));
         }
 
         //ileri üç gün
@@ -293,6 +293,9 @@ public class TodayFragment extends Fragment {
                     }
                 }
             }
+
+            //liste default olarak time'a göre sıralı gelsin
+            Collections.sort(filteredList, (p1, p2) -> (p1.getHours() - p2.getHours())*60+p1.getMinutes() - p2.getMinutes());
 
             //liste başlatıldı.
             startListView();

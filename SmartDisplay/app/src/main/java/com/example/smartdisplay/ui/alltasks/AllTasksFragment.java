@@ -7,12 +7,14 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -39,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class AllTasksFragment extends Fragment {
@@ -61,6 +64,8 @@ public class AllTasksFragment extends Fragment {
     private FirebaseAuth auth;
 
     private EditText search;
+    private Button filterMenu;
+    private PopupMenu popup;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -89,6 +94,8 @@ public class AllTasksFragment extends Fragment {
         done=root.findViewById(R.id.done);
         closeSearch=root.findViewById(R.id.closeSearch);
         tabs=root.findViewById(R.id.tabs);
+
+        filterMenu = root.findViewById(R.id.filterMenu);
     }
 
     private void readUserTasks() {
@@ -151,6 +158,19 @@ public class AllTasksFragment extends Fragment {
                 }
             }
         });
+
+        //Filtreleme popupı başlatıldı ve yönledirildi.
+        filterMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                popup = new PopupMenu(root.getContext(), filterMenu);
+                popup.inflate(R.menu.today_option_menu);
+                startPopupMenu();
+                popup.show();
+
+            }
+        });
     }
 
     private void startListView(){
@@ -170,6 +190,8 @@ public class AllTasksFragment extends Fragment {
     private void performToDoView(){
         //To-do seçildiğindeki atamalar
         taskList=new ArrayList<>(todoList);
+        //default olarak time'göre sıralandı.
+        Collections.sort(taskList, (p1, p2) -> (p1.getHours() - p2.getHours())*60+p1.getMinutes() - p2.getMinutes());
         startListView();
         todo.setBackgroundResource(R.drawable.ic_tab_fill);
         done.setBackgroundResource(R.drawable.ic_tab_empty);
@@ -178,6 +200,8 @@ public class AllTasksFragment extends Fragment {
     private void performDoneView(){
         //Done seçildiğindeki atamalar
         taskList=new ArrayList<>(doneList);
+        //default olarak time'göre sıralandı.
+        Collections.sort(taskList, (p1, p2) -> (p1.getHours() - p2.getHours())*60+p1.getMinutes() - p2.getMinutes());
         startListView();
         todo.setBackgroundResource(R.drawable.ic_tab_empty);
         done.setBackgroundResource(R.drawable.ic_tab_fill);
@@ -260,6 +284,33 @@ public class AllTasksFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+    }
+
+    private void startPopupMenu(){//istenilen filtrelemeler liste üzerinde yapıldı.
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.sortAz:
+                        Collections.sort(taskList, (p1, p2) -> p1.getTitle().toUpperCase().compareTo(p2.getTitle().toUpperCase()));
+                        startListView();
+                        return true;
+                    case R.id.sortZa:
+                        Collections.sort(taskList, (p1, p2) -> p2.getTitle().toUpperCase().compareTo(p1.getTitle().toUpperCase()));
+                        startListView();
+                        return true;
+                    case R.id.sortCf:
+                        Collections.sort(taskList, (p1, p2) -> (p1.getHours() - p2.getHours())*60+p1.getMinutes() - p2.getMinutes());
+                        startListView();
+                        return true;
+                    case R.id.sortFc:
+                        Collections.sort(taskList, (p1, p2) -> (p2.getHours() - p1.getHours())*60+p2.getMinutes() - p1.getMinutes());
+                        startListView();
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
     }
