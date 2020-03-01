@@ -52,7 +52,7 @@ public class AllTasksFragment extends Fragment {
     private List<UserTask> tempSearchtaskList;
     private TaskListAdapter listAdapter;
     private ListView listView;
-    private Button searchLogo,closeSearch;
+    private Button searchLogo,closeSearch,intrvlCal;
     private RadioButton todo,done;
     private RadioGroup tabs;
 
@@ -96,6 +96,7 @@ public class AllTasksFragment extends Fragment {
         tabs=root.findViewById(R.id.tabs);
 
         filterMenu = root.findViewById(R.id.filterMenu);
+        intrvlCal = root.findViewById(R.id.intrvlCal);
     }
 
     private void readUserTasks() {
@@ -169,6 +170,14 @@ public class AllTasksFragment extends Fragment {
                 startPopupMenu();
                 popup.show();
 
+            }
+        });
+
+        //tarih aralığına göre filtreleme başlatıldı
+        intrvlCal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //eksik
             }
         });
     }

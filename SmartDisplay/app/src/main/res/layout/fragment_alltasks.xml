@@ -7,11 +7,12 @@
     android:background="@drawable/ic_all_list_top">
 
     <RelativeLayout
+        android:layout_centerHorizontal="true"
         android:id="@+id/filterArea"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="90dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <RadioGroup
@@ -27,7 +28,7 @@
             android:id="@+id/todo"
             android:text="@string/todo"
             android:background="@drawable/ic_tab_fill"
-            android:layout_width="130dp"
+            android:layout_width="133dp"
             android:layout_height="30dp"/>
 
         <RadioButton
@@ -38,7 +39,7 @@
             android:id="@+id/done"
             android:text="@string/done"
             android:background="@drawable/ic_tab_empty"
-            android:layout_width="130dp"
+            android:layout_width="133dp"
             android:layout_height="30dp"/>
 
         </RadioGroup>
@@ -52,7 +53,7 @@
             android:textAlignment="center"
             android:hint="@string/search"
             android:background="@drawable/ic_search_back"
-            android:layout_width="260dp"
+            android:layout_width="266dp"
             android:layout_height="30dp"/>
 
         <Button
@@ -75,10 +76,11 @@
             android:layout_height="20dp"/>
 
         <Button
-            android:layout_marginLeft="8dp"
+            android:id="@+id/intrvlCal"
+            android:layout_marginLeft="6dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/searchLogo"
-            android:background="@drawable/ic_filter"
+            android:background="@drawable/ic_calendar"
             android:layout_width="15dp"
             android:layout_height="20dp"/>
 

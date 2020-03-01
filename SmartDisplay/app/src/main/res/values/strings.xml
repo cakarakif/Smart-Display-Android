@@ -65,5 +65,6 @@
     <string name="sortCf">Sort Time: Closest to Farthest</string>
     <string name="sortFc">Sort Time: Farthest to Closest</string>
 
+    <string name="filter">Filter</string>
 
 </resources>
