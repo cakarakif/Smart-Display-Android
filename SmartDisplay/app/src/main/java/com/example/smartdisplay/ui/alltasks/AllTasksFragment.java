@@ -96,7 +96,6 @@ public class AllTasksFragment extends Fragment {
         tabs=root.findViewById(R.id.tabs);
 
         filterMenu = root.findViewById(R.id.filterMenu);
-        intrvlCal = root.findViewById(R.id.intrvlCal);
     }
 
     private void readUserTasks() {
@@ -170,14 +169,6 @@ public class AllTasksFragment extends Fragment {
                 startPopupMenu();
                 popup.show();
 
-            }
-        });
-
-        //tarih aralığına göre filtreleme başlatıldı
-        intrvlCal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //eksik
             }
         });
     }
