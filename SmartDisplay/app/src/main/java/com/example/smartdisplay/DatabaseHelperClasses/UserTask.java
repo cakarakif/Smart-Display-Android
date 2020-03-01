@@ -120,4 +120,12 @@ public class UserTask implements Serializable {
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
     }
+
+    public int getHours(){
+        return Integer.parseInt(time.substring(0,2));
+    }
+
+    public int getMinutes(){
+        return Integer.parseInt(time.substring(time.length() - 2));
+    }
 }

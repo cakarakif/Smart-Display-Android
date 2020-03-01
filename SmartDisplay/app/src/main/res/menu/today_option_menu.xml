@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/sortAz"
+        android:title="@string/sortAz" />
+    <item android:id="@+id/sortZa"
+        android:title="@string/sortZa"/>
+    <item android:id="@+id/sortCf"
+        android:title="@string/sortCf" />
+    <item android:id="@+id/sortFc"
+        android:title="@string/sortFc" />
+</menu>

@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -49,6 +54,7 @@ public class TodayFragment extends Fragment {
     private FirebaseAuth auth;
 
     private ProgressDialog loading;
+    private PopupMenu popup;
 
     private LinearLayout one,two,three,four,five,six,seven;
     private TextView oneName,oneDate, twoName,twoDate, threeName,threeDate, fourName,fourDate, fiveName,fiveDate, sixName,sixDate,sevenName,sevenDate;
@@ -113,10 +119,16 @@ public class TodayFragment extends Fragment {
 
     private void routing(){
 
+        //Filtreleme popupı başlatıldı ve yönledirildi.
         filterMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //eklenecek
+
+                popup = new PopupMenu(root.getContext(), filterMenu);
+                popup.inflate(R.menu.today_option_menu);
+                startPopupMenu();
+                popup.show();
+
             }
         });
 
@@ -316,6 +328,33 @@ public class TodayFragment extends Fragment {
         }catch (Exception e){
 
         }
+    }
+
+    private void startPopupMenu(){//istenilen filtrelemeler liste üzerinde yapıldı.
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.sortAz:
+                        Collections.sort(filteredList, (p1, p2) -> p1.getTitle().toUpperCase().compareTo(p2.getTitle().toUpperCase()));
+                        startListView();
+                        return true;
+                    case R.id.sortZa:
+                        Collections.sort(filteredList, (p1, p2) -> p2.getTitle().toUpperCase().compareTo(p1.getTitle().toUpperCase()));
+                        startListView();
+                        return true;
+                    case R.id.sortCf:
+                        Collections.sort(filteredList, (p1, p2) -> (p1.getHours() - p2.getHours())*60+p1.getMinutes() - p2.getMinutes());
+                        startListView();
+                        return true;
+                    case R.id.sortFc:
+                        Collections.sort(filteredList, (p1, p2) -> (p2.getHours() - p1.getHours())*60+p2.getMinutes() - p1.getMinutes());
+                        startListView();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
 }
