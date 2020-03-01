@@ -236,6 +236,7 @@ public class AllTasksFragment extends Fragment {
                     closeSearch.setVisibility(View.VISIBLE);
                     todo.setVisibility(View.INVISIBLE);
                     done.setVisibility(View.INVISIBLE);
+                    search.setText("");
 
                     //klavye açıldı ve search edittexine tıklandı
                     search.requestFocus();
@@ -246,6 +247,7 @@ public class AllTasksFragment extends Fragment {
                     closeSearch.setVisibility(View.INVISIBLE);
                     todo.setVisibility(View.VISIBLE);
                     done.setVisibility(View.VISIBLE);
+                    search.setText("");
                     //klavye kapatıldı.
                     InputMethodManager imm = (InputMethodManager) root.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
