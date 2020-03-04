@@ -14,6 +14,7 @@ public class UserTask implements Serializable {
     private String time;
     private Boolean alertType;//Eğer true ise default false ise video seçimi
     private String videoUrl;
+    private String whichType;//'D' default-kullanıcı eklemiş //'C' calendardan çekilmiş
 
     public UserTask(Boolean isActive,String title, String description, String goal, String repeatInfo, Boolean repeatType, String time, Boolean alertType, String videoUrl, String id) {
         this.isActive=isActive;
@@ -26,6 +27,7 @@ public class UserTask implements Serializable {
         this.time = time;
         this.alertType = alertType;
         this.videoUrl = videoUrl;
+        this.whichType = "D";
     }
 
     public UserTask() {
@@ -127,5 +129,13 @@ public class UserTask implements Serializable {
 
     public int getMinutes(){
         return Integer.parseInt(time.substring(time.length() - 2));
+    }
+
+    public String getWhichType() {
+        return whichType;
+    }
+
+    public void setWhichType(String whichType) {
+        this.whichType = whichType;
     }
 }

@@ -104,6 +104,9 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
                 public void onChanged(@Nullable Boolean isCheckedCounter) {
                     //do what you want when the varriable change.
 
+                    //ilk önce calendardan çekilenler silindi/tekrarlı veri engellendi. Sonrasında ekleme yapıldı.
+                    dtbs.deleteCalendarTasks();
+
                     //liste firabase işlenmeye hazır-DatabaseProcessing clasından gerekli metot uygulanır
                     for(UserTask task : calendarList){
                         dtbs.saveTask(task,"calendar");

@@ -30,7 +30,7 @@ public class DatabaseProcessing extends Fragment {
 
     private MutableLiveData<Boolean> isCheckedCounter;//firabaseden counter alındıktan sonra işlem yapılması sağlandı-Bunun için bekleme sağlandı. Değişimden sonra gerekli classlardaki metotlar tetikledi.
     private int counter;
-    private Boolean blockDouble;
+    private Boolean blockDouble,blockDoubleToDelete;
 
 
 
@@ -82,13 +82,10 @@ public class DatabaseProcessing extends Fragment {
     public void saveTask(UserTask usrtask,String fromWhere){//counterdan yönlendirilen bilgiler database'e işlendi.
 
         if(fromWhere.equals("calendar")) {//calendardan gelenler C kodu ile kaydedildi, kolayca silinebilsin diye
-            reference = database.getReference(user.getUid() + "/Tasks/" + counter+"C");//nereye kaydedileceğinin bilgisi.
-            usrtask.setId(counter+"C");
-        }
-        else {
+            usrtask.setWhichType("C");
             reference = database.getReference(user.getUid() + "/Tasks/" + counter);//nereye kaydedileceğinin bilgisi.
-            usrtask.setId(""+counter);
         }
+        usrtask.setId(counter+"");
         reference.setValue(usrtask);
         counter++;
 
@@ -105,6 +102,37 @@ public class DatabaseProcessing extends Fragment {
             isCheckedCounter = new MutableLiveData<>();
         }
         return isCheckedCounter;
+    }
+
+    public void deleteCalendarTasks(){//calendardan daha önce eklenenler temizlenir/ Yeniler eklenirken tekrarlı veri olmasın diye veya direkt calendardan çekilenler silinebilir.
+        blockDoubleToDelete=true;//tasklist değiştiği için kendi kendini tetiklemesin
+
+        reference = database.getReference(user.getUid() + "/Tasks");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Log.i("tasks", dataSnapshot.getValue() + "");
+
+                if (dataSnapshot.getValue() != null && blockDoubleToDelete) {
+                    blockDoubleToDelete=false;
+                    //listeler ayrıştırılıp hangisi kullanılacaksa routingde taskliste atandı. Burada dolduruldu.
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        UserTask usrtasks = postSnapshot.getValue(UserTask.class);
+                        if(usrtasks.getWhichType().equals("C")){
+                            DatabaseReference tempReference=database.getReference(user.getUid() + "/Tasks/"+usrtasks.getId());
+                            tempReference.removeValue();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
 
