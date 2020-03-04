@@ -164,7 +164,8 @@ public class SettingsFragment extends Fragment {
         syncCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Sync_Calendar.syncCalendar(root);
+                Sync_Calendar syncclndr=new Sync_Calendar(root,getActivity());
+                syncclndr.syncCalendar();
             }
         });
 
