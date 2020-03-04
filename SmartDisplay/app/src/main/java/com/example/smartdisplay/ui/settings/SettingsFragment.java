@@ -30,6 +30,7 @@ import android.widget.Toast;
 
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.SyncApps.Sync_Calendar;
 import com.example.smartdisplay.ui.settings.account.accountSettings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +41,7 @@ public class SettingsFragment extends Fragment {
 
     ImageView accountLogo,passwordLogo,helpLogo,feedbackLogo,aboutLogo,logoutLogo;
     TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
-    Button ok;
+    Button ok,syncCalendar;
 
     private ProgressDialog loading;
 
@@ -71,6 +72,8 @@ public class SettingsFragment extends Fragment {
         feedbackText=root.findViewById(R.id.feedbackText);
         aboutText=root.findViewById(R.id.aboutText);
         LogoutText=root.findViewById(R.id.LogoutText);
+
+        syncCalendar=root.findViewById(R.id.syncCalendar);
 
     }
 
@@ -155,6 +158,13 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 logout();
+            }
+        });
+        ////
+        syncCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Sync_Calendar.syncCalendar(root);
             }
         });
 
@@ -295,5 +305,4 @@ public class SettingsFragment extends Fragment {
         navController.navigate(R.id.navigation_accountSettings);
         //mobile_navigation.xml'ine id'yi ekledikten sonra çağırılabiliyor.
     }
-
 }

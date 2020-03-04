@@ -8,6 +8,12 @@
     tools:context=".ui.settings.SettingsFragment"
     android:background="@drawable/uiback">
 
+    <Button
+        android:text="BAS"
+        android:id="@+id/syncCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></Button>
+
     <ImageView
         android:id="@+id/title"
         android:layout_marginTop="25dp"
