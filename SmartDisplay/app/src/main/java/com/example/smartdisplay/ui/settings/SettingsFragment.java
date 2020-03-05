@@ -45,6 +45,7 @@ public class SettingsFragment extends Fragment {
     TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
     Button ok;
     ToggleButton syncCalendar;
+    Boolean isFirstRead=false;
 
     private ProgressDialog loading;
 
@@ -170,12 +171,11 @@ public class SettingsFragment extends Fragment {
         syncCalendar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isChecked && !syncclndr.isFirstRead) {
-                    syncclndr.syncCalendar();
-                } else if (!syncclndr.isFirstRead){
+                if (isChecked ) {
                     syncclndr.deleteCalendarTasks();
-                }else
-                    syncclndr.isFirstRead=false;
+                    syncclndr.syncCalendar();
+                } else
+                    syncclndr.deleteCalendarTasks();
             }
         });
 

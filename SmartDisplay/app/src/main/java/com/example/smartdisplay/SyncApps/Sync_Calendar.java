@@ -30,7 +30,6 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
     private View root;
 
     private ArrayList<UserTask> calendarList;
-    public Boolean isFirstRead;//ilk okumada toggle tepki vermesin diye atama yapıldı.
 
     private ProgressDialog loading;
 
@@ -40,7 +39,6 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
         dtbs=new DatabaseProcessing(root);
 
         calendarList=new ArrayList<UserTask>();
-        isFirstRead=false;
     }
 
     public void  syncCalendar(){//telefonun takviminden eventleri çeken temel metot
@@ -123,7 +121,7 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
 
                     dtbs.updateCounterAfterSaveFinished();
 
-                    Toast.makeText(root.getContext(), R.string.successSync, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(root.getContext(), R.string.successSync, Toast.LENGTH_SHORT).show();
                     loading.dismiss();
 
                 }
@@ -135,7 +133,7 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
     public void deleteCalendarTasks(){//eğer 'sync toggle' off olursa direkt silme işlemine ulaşsın
         dtbs.setSyncCalendar(false);
         dtbs.deleteCalendarTasks();
-        Toast.makeText(root.getContext(), R.string.successDeleted, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(root.getContext(), R.string.successDeleted, Toast.LENGTH_SHORT).show();
     }
 
     public void listenSyncCalendarInfo(){//syncCalendar bilgisi firabaseden çekildikten sonra burası tetiklenir(kullanıcı daha önce aktif etmiş mi etmemiş mi)
@@ -148,7 +146,6 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
                     //do what you want when the varriable change.
 
                     //direkt sayfadaki toggle bağlanılarak checked infosu değiştirildi.
-                    isFirstRead=true;
                     ToggleButton syncCalendar=root.findViewById(R.id.syncCalendar);
                     syncCalendar.setChecked(isSyncCalendarChecked);
                 }
