@@ -29,8 +29,9 @@ public class DatabaseProcessing extends Fragment {
     private FirebaseAuth auth;
 
     private MutableLiveData<Boolean> isCheckedCounter;//firabaseden counter alındıktan sonra işlem yapılması sağlandı-Bunun için bekleme sağlandı. Değişimden sonra gerekli classlardaki metotlar tetikledi.
+    private MutableLiveData<Boolean> isSyncCalendarChecked;
     private int counter;
-    private Boolean blockDouble,blockDoubleToDelete;
+    private Boolean blockDouble,blockDoubleToDelete,blockDoubleToSyncCalendar;
 
 
 
@@ -41,8 +42,6 @@ public class DatabaseProcessing extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-
-        readUserCounterInfo();
     }
 
 
@@ -133,6 +132,47 @@ public class DatabaseProcessing extends Fragment {
             }
         });
 
+    }
+
+    public void setSyncCalendar(Boolean isSyncCalendarChecked){//sync calendar togglenın seçilip seçilmediğinin güncel bilgisi firabase'e yazılır
+        reference = database.getReference(user.getUid() + "/SyncCalendar");
+        reference.setValue(isSyncCalendarChecked);
+
+    }
+
+    public void getSyncCalendar(){//kullanıcının sync calendar ayarını daha önceden seçme tercihini aldık
+        blockDoubleToSyncCalendar = true;//reference'de olan değişkeni değiştirdiğimiziçin onDataChange iki kere düşmesini engelledik.
+
+
+        DatabaseReference references = database.getReference(user.getUid() + "/SyncCalendar");
+
+        references.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.getValue() != null && blockDoubleToSyncCalendar) {
+                    blockDoubleToSyncCalendar = false;
+                    getisSyncCalendar().postValue((Boolean)dataSnapshot.getValue());
+                } else if (blockDoubleToSyncCalendar) {
+                    blockDoubleToSyncCalendar = false;
+                    references.setValue(false);
+                    getisSyncCalendar().postValue(false);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public MutableLiveData<Boolean> getisSyncCalendar(){//getisSyncCalendar dinlenildiği yer ile bağlantı.(observe yapısı)
+        if(isSyncCalendarChecked == null){
+            isSyncCalendarChecked = new MutableLiveData<>();
+        }
+        return isSyncCalendarChecked;
     }
 
 

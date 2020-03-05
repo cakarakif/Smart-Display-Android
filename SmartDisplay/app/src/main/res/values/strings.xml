@@ -66,5 +66,8 @@
     <string name="sortFc">Sort Time: Farthest to Closest</string>
 
     <string name="filter">Filter</string>
+    <string name="syncCalendar">Sync Calendar</string>
+    <string name="successSync">Successfully Synced Calendar Tasks!</string>
+    <string name="successDeleted">Successfully Deleted Calendar Tasks!</string>
 
 </resources>

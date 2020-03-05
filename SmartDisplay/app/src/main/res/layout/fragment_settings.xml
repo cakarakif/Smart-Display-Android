@@ -8,12 +8,6 @@
     tools:context=".ui.settings.SettingsFragment"
     android:background="@drawable/uiback">
 
-    <Button
-        android:text="BAS"
-        android:id="@+id/syncCalendar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></Button>
-
     <ImageView
         android:id="@+id/title"
         android:layout_marginTop="25dp"
@@ -91,6 +85,7 @@
         android:layout_height="50dp"/>
 
     <TextView
+        android:id="@+id/line2"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_below="@id/passwordText"
@@ -98,11 +93,63 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"/>
 
+    <LinearLayout
+        android:id="@+id/syncCalendarArea"
+        android:orientation="horizontal"
+        android:layout_below="@id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_weight="1"
+            android:id="@+id/syncCalendarLogo"
+            android:layout_marginTop="13dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/ic_sync"
+            android:layout_width="28dp"
+            android:layout_height="28dp"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_weight="20"
+            android:id="@+id/syncCalendarText"
+            android:padding="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/line2"
+            android:textColor="@color/gray"
+            android:textSize="15dp"
+            android:text="@string/syncCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"/>
+
+        <ToggleButton
+            android:textColor="@color/white"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="25dp"
+            android:layout_weight="1"
+            android:id="@+id/syncCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/line4"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_below="@id/syncCalendarArea"
+        android:background="@drawable/basicline"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+
     <ImageView
         android:id="@+id/helpLogo"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="12dp"
         android:layout_marginLeft="40dp"
-        android:layout_below="@id/passwordLogo"
+        android:layout_below="@id/line4"
         android:background="@drawable/helplogo"
         android:layout_width="30dp"
         android:layout_height="30dp"/>
@@ -114,7 +161,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/passwordText"
+        android:layout_below="@+id/line4"
         android:layout_toRightOf="@+id/helpLogo"
         android:textColor="@color/gray"
         android:textSize="15dp"

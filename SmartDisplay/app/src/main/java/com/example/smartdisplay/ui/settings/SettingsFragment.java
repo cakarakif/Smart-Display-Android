@@ -22,11 +22,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
@@ -41,7 +43,8 @@ public class SettingsFragment extends Fragment {
 
     ImageView accountLogo,passwordLogo,helpLogo,feedbackLogo,aboutLogo,logoutLogo;
     TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
-    Button ok,syncCalendar;
+    Button ok;
+    ToggleButton syncCalendar;
 
     private ProgressDialog loading;
 
@@ -160,14 +163,23 @@ public class SettingsFragment extends Fragment {
                 logout();
             }
         });
-        ////
-        syncCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Sync_Calendar syncclndr=new Sync_Calendar(root,getActivity());
-                syncclndr.syncCalendar();
+
+        ////Sync Calendar durumları oluşturuldu ve bağlandı
+        Sync_Calendar syncclndr=new Sync_Calendar(root,getActivity());
+        syncclndr.listenSyncCalendarInfo();
+        syncCalendar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked && !syncclndr.isFirstRead) {
+                    syncclndr.syncCalendar();
+                } else if (!syncclndr.isFirstRead){
+                    syncclndr.deleteCalendarTasks();
+                }else
+                    syncclndr.isFirstRead=false;
             }
         });
+
+        ///////
 
     }
 
@@ -183,6 +195,7 @@ public class SettingsFragment extends Fragment {
     }
 
     private void changePass(){//şifre sıfırlama açılır ekran olarak ayarlandı.Tüm işlemler tek fonksiyonda yapıldı.
+
         //AlertDialogP1
         LayoutInflater inflater=getLayoutInflater();
         View view=inflater.inflate(R.layout.alert_changepass,null);

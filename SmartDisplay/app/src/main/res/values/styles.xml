@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/yellow</item>
+
+
+        <!--toggle renkleri ayarlanması-->
+        <item name="android:colorControlNormal">@color/yellow</item>
+        <item name="android:colorControlHighlight">@color/yellow</item>
+        <item name="android:colorButtonNormal">@color/gray</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">

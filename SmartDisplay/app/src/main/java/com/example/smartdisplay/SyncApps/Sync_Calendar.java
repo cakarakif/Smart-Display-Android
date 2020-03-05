@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
@@ -28,6 +30,7 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
     private View root;
 
     private ArrayList<UserTask> calendarList;
+    public Boolean isFirstRead;//ilk okumada toggle tepki vermesin diye atama yapıldı.
 
     private ProgressDialog loading;
 
@@ -37,9 +40,15 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
         dtbs=new DatabaseProcessing(root);
 
         calendarList=new ArrayList<UserTask>();
+        isFirstRead=false;
     }
 
     public void  syncCalendar(){//telefonun takviminden eventleri çeken temel metot
+
+        //tekrarlı veriden kaçınmak için sıfırlandılar
+        calendarList=new ArrayList<UserTask>();
+        dtbs=new DatabaseProcessing(root);
+
         String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION, CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, CalendarContract.Events.ALL_DAY, CalendarContract.Events.EVENT_LOCATION };
 
         Calendar startTime = Calendar.getInstance();//hangi tarihten sonraki tasklar gelsin
@@ -105,7 +114,7 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
                     //do what you want when the varriable change.
 
                     //ilk önce calendardan çekilenler silindi/tekrarlı veri engellendi. Sonrasında ekleme yapıldı.
-                    dtbs.deleteCalendarTasks();
+                    dtbs.setSyncCalendar(true);
 
                     //liste firabase işlenmeye hazır-DatabaseProcessing clasından gerekli metot uygulanır
                     for(UserTask task : calendarList){
@@ -114,9 +123,34 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
 
                     dtbs.updateCounterAfterSaveFinished();
 
-
+                    Toast.makeText(root.getContext(), R.string.successSync, Toast.LENGTH_SHORT).show();
                     loading.dismiss();
 
+                }
+            });
+        }catch (Exception e){
+        }
+    }
+
+    public void deleteCalendarTasks(){//eğer 'sync toggle' off olursa direkt silme işlemine ulaşsın
+        dtbs.setSyncCalendar(false);
+        dtbs.deleteCalendarTasks();
+        Toast.makeText(root.getContext(), R.string.successDeleted, Toast.LENGTH_SHORT).show();
+    }
+
+    public void listenSyncCalendarInfo(){//syncCalendar bilgisi firabaseden çekildikten sonra burası tetiklenir(kullanıcı daha önce aktif etmiş mi etmemiş mi)
+        dtbs.getSyncCalendar();
+
+        try {
+            dtbs.getisSyncCalendar().observe(activity, new Observer<Boolean>() {
+                @Override
+                public void onChanged(@Nullable Boolean isSyncCalendarChecked) {
+                    //do what you want when the varriable change.
+
+                    //direkt sayfadaki toggle bağlanılarak checked infosu değiştirildi.
+                    isFirstRead=true;
+                    ToggleButton syncCalendar=root.findViewById(R.id.syncCalendar);
+                    syncCalendar.setChecked(isSyncCalendarChecked);
                 }
             });
         }catch (Exception e){
