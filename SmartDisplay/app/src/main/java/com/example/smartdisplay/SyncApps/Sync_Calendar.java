@@ -2,9 +2,7 @@ package com.example.smartdisplay.SyncApps;
 
 import android.app.ProgressDialog;
 import android.database.Cursor;
-import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -16,7 +14,6 @@ import com.example.smartdisplay.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -49,7 +46,7 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
         calendarList=new ArrayList<UserTask>();
         dtbs=new DatabaseProcessing(root);
 
-        String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, CalendarContract.Events.TITLE, CalendarContract.Events.DESCRIPTION, CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, CalendarContract.Events.ALL_DAY, CalendarContract.Events.EVENT_LOCATION };
+        String[] projection = new String[] { CalendarContract.Events.CALENDAR_ID, CalendarContract.Events.TITLE ,CalendarContract.Events.DESCRIPTION, CalendarContract.Events.DTSTART, CalendarContract.Events.DTEND, CalendarContract.Events.ALL_DAY, CalendarContract.Events.EVENT_LOCATION,CalendarContract.Events.ORGANIZER};
 
         Calendar startTime = Calendar.getInstance();//hangi tarihten sonraki tasklar gelsin
         startTime.set(Calendar.HOUR_OF_DAY,0);
@@ -73,12 +70,13 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
 
         if (cursor!=null&&cursor.getCount()>0&&cursor.moveToFirst()) {
             do {
+                if(!cursor.getString(7).toString().contains("holiday")) {//tatil günlerinin eklenmesi engellendi.
+                    //bilgiler listeye atandı.
+                    UserTask usrtask = new UserTask(true, cursor.getString(1) + "", cursor.getString(2) == null ? "" : cursor.getString(2) + "",
+                            "1", getDate(cursor.getString(3) + "", true), false, getDate(cursor.getString(3) + "", false), true, "", "C");
 
-                //bilgiler listeye atandı.
-                UserTask usrtask=new UserTask(true,cursor.getString(1)+"",cursor.getString(2)== null ? "": cursor.getString(2)+"",
-                        "1",getDate(cursor.getString(3)+"",true),false,getDate(cursor.getString(3)+"",false),true,"","C");
-
-                calendarList.add(usrtask);
+                    calendarList.add(usrtask);
+                }
 
             } while ( cursor.moveToNext());
 

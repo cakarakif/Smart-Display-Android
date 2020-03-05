@@ -172,10 +172,21 @@ public class SettingsFragment extends Fragment {
         syncCalendar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isChecked && !syncclndr.isFirstRead)
-                    syncclndr.syncCalendar();
-                else if (!syncclndr.isFirstRead)
-                    syncclndr.deleteCalendarTasks();
+                if (isChecked && !syncclndr.isFirstRead) {
+                    try {
+                        syncclndr.syncCalendar();
+                    } catch (Exception e) {
+
+                    }
+                }
+                else if (!syncclndr.isFirstRead) {
+                    try {
+                        syncclndr.deleteCalendarTasks();
+                    } catch (Exception e) {
+
+                    }
+                }
+
             }
         });
 
