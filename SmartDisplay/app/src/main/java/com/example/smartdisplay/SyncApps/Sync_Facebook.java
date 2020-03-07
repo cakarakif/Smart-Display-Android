@@ -53,7 +53,7 @@ public class Sync_Facebook {
         Log.i("AkifCntrl", "Shared Name : "+first_name+"\nLast Name : "+last_name+"\nEmail : "+email+"\nid : "+id);
     }
 
-    public void getFacebookUserInfo(){
+    public void getFacebookUserInfo(){//Bundle olarakda geri gönderilebilir-ihtiyaca göre
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(root.getContext());
         Log.i("AkifCntrl", "Name : "+prefs.getString("fb_first_name",null)+" "+prefs.getString("fb_last_name",null)+"\nEmail : "+prefs.getString("fb_email",null)
                 +"\nID : "+prefs.getString("fb_id",null));
