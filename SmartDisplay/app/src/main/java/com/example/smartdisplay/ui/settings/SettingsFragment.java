@@ -33,17 +33,32 @@ import android.widget.ToggleButton;
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.SyncApps.Sync_Calendar;
+import com.example.smartdisplay.SyncApps.Sync_Facebook;
 import com.example.smartdisplay.ui.settings.account.accountSettings;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class SettingsFragment extends Fragment {
     View root;
 
     ImageView accountLogo,passwordLogo,helpLogo,feedbackLogo,aboutLogo,logoutLogo;
     TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
-    Button ok;
+    Button ok,facebookInfo;
+    LoginButton facebook;
+    CallbackManager callbackManager;
     ToggleButton syncCalendar;
     Boolean isFirstRead=false;
 
@@ -78,7 +93,8 @@ public class SettingsFragment extends Fragment {
         LogoutText=root.findViewById(R.id.LogoutText);
 
         syncCalendar=root.findViewById(R.id.syncCalendar);
-
+        facebook=(LoginButton)root.findViewById(R.id.facebook);
+        facebookInfo= root.findViewById(R.id.facebookInfo);
     }
 
     private void routing(){
@@ -190,8 +206,79 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        ///////
+        ///////Facebook
+        routingFacebook();
+    }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("akifControl", "0");
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void routingFacebook(){
+        Log.i("akifControl", "1");
+
+        // Facebook SDK init
+        FacebookSdk.sdkInitialize(root.getContext());
+        callbackManager = CallbackManager.Factory.create();
+        facebook.setFragment(this);
+
+        facebook.setReadPermissions(Arrays.asList("public_profile", "email"));
+
+        Sync_Facebook sync=new Sync_Facebook(root);
+
+
+
+
+        facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+
+                        Log.i("akifControl", "3");
+                        String accessToken = loginResult.getAccessToken().getToken();
+
+                        // save accessToken to SharedPreference
+                        sync.saveAccessToken(accessToken);
+
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject jsonObject,
+                                                            GraphResponse response) {
+
+                                        Log.i("akifControl", "Success");
+                                        Log.i("akifControl", jsonObject+"");
+
+                                        // Getting FB User Data
+                                        Bundle facebookData = sync.getFacebookData(jsonObject);
+
+                                    }
+                                });
+
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,first_name,last_name,email,gender");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+                    }
+
+
+                    @Override
+                    public void onCancel () {
+                        Log.i("akifControl", "Login attempt cancelled.");
+                    }
+
+                    @Override
+                    public void onError (FacebookException e){
+                        e.printStackTrace();
+                        Log.i("akifControl", "Login attempt failed.");
+                        sync.clearToken();
+                    }
+                }
+        );
     }
 
     private void logout(){
