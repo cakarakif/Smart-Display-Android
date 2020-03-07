@@ -1,19 +1,13 @@
 package com.example.smartdisplay.ui.settings;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,32 +19,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.SyncApps.Sync_Calendar;
-import com.example.smartdisplay.SyncApps.Sync_Facebook;
-import com.example.smartdisplay.ui.settings.account.accountSettings;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-
-import org.json.JSONObject;
-
-import java.util.Arrays;
 
 public class SettingsFragment extends Fragment {
     View root;
@@ -58,8 +36,6 @@ public class SettingsFragment extends Fragment {
     ImageView accountLogo,passwordLogo,helpLogo,feedbackLogo,aboutLogo,logoutLogo;
     TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
     Button ok;
-    LoginButton facebook;
-    CallbackManager callbackManager;
     ToggleButton syncCalendar;
     Boolean isFirstRead=false;
 
@@ -94,7 +70,6 @@ public class SettingsFragment extends Fragment {
         LogoutText=root.findViewById(R.id.LogoutText);
 
         syncCalendar=root.findViewById(R.id.syncCalendar);
-        facebook=(LoginButton)root.findViewById(R.id.facebook);
     }
 
     private void routing(){
@@ -205,9 +180,6 @@ public class SettingsFragment extends Fragment {
 
             }
         });
-
-        ///////Facebook
-        routingFacebook();
     }
 
     private void logout(){
@@ -345,87 +317,5 @@ public class SettingsFragment extends Fragment {
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
         navController.navigate(R.id.navigation_accountSettings);
         //mobile_navigation.xml'ine id'yi ekledikten sonra çağırılabiliyor.
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {//facebook sekmesinden sonra düşen kısım-zorunlu
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void routingFacebook(){
-
-        // Facebook SDK init
-        FacebookSdk.sdkInitialize(root.getContext());
-        callbackManager = CallbackManager.Factory.create();
-        facebook.setFragment(this);
-
-        facebook.setReadPermissions(Arrays.asList("user_events", "user_birthday", "user_likes"));
-        facebook.setPermissions(Arrays.asList("user_events", "user_birthday", "user_likes"));
-        facebook.setPermissions(Arrays.asList("user_events", "user_birthday", "user_likes"));
-
-        Sync_Facebook sync=new Sync_Facebook(root);
-        sync.getToken();
-        sync.getFacebookUserInfo();
-
-        facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        String accessToken = loginResult.getAccessToken().getToken();
-                        Log.i("akifControl", loginResult.getRecentlyGrantedPermissions()+"");
-
-                        // save accessToken to SharedPreference
-                        sync.saveAccessToken(accessToken);
-
-                        //izin aldıktan sonra isteğe göre cevap gelir
-                        //fakat facebook sınırlamaları yüzünden istenilen herşey gelmez
-                        GraphRequest mGraphRequest = GraphRequest.newMeRequest(
-                                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject me, GraphResponse response) {
-                                        if (response.getError() != null) {
-                                            Log.i("asdasd",response.getError()+"");
-                                        } else {
-                                            Log.i("asdasd",me+"");
-                                            Log.i("asdasd",response+"");
-                                            String email = me.optString("email");
-                                            String name = me.optString("name");
-                                            String birthday = me.optString("birthday");
-                                            String gender = me.optString("gender")+"-";
-                                            String events = me.optString("events")+"-";
-
-                                            Log.i("asdasd",email);
-                                            Log.i("asdasd",name);
-                                            Log.i("asdasd",birthday);
-                                            Log.i("asdasd",gender+"123");
-                                            Log.i("asdasd",events+"123");
-
-                                            // Getting FB User Data //***veriler gelenlere göre değiştirilmeli
-                                            //Bundle facebookData = sync.parseFacebookData(jsonObject);
-                                            //sync.getFacebookUserInfo();
-                                        }
-                                    }
-                                });
-                        Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,first_name,last_name,email,gender, birthday,feed");
-                        mGraphRequest.setParameters(parameters);
-                        mGraphRequest.executeAsync();
-                    }
-
-
-                    @Override
-                    public void onCancel () {
-                        Log.i("akifControl", "Login attempt cancelled.");
-                    }
-
-                    @Override
-                    public void onError (FacebookException e){
-                        e.printStackTrace();
-                        Log.i("akifControl", "Login attempt failed.");
-                        sync.clearToken();
-                    }
-                }
-        );
     }
 }
