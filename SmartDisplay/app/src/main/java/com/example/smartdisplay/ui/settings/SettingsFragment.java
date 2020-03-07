@@ -229,7 +229,8 @@ public class SettingsFragment extends Fragment {
         facebook.setReadPermissions(Arrays.asList("public_profile", "email"));
 
         Sync_Facebook sync=new Sync_Facebook(root);
-
+        sync.getToken();
+        sync.getFacebookUserInfo();
 
 
 
@@ -254,7 +255,8 @@ public class SettingsFragment extends Fragment {
                                         Log.i("akifControl", jsonObject+"");
 
                                         // Getting FB User Data
-                                        Bundle facebookData = sync.getFacebookData(jsonObject);
+                                        Bundle facebookData = sync.parseFacebookData(jsonObject);
+                                        sync.getFacebookUserInfo();
 
                                     }
                                 });

@@ -31,6 +31,7 @@ public class Sync_Facebook {
 
     public String getToken() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(root.getContext());
+        Log.i("AkifCntrl",prefs.getString("fb_access_token", null));
         return prefs.getString("fb_access_token", null);
     }
 
@@ -41,28 +42,31 @@ public class Sync_Facebook {
         editor.apply(); // This line is IMPORTANT !!!
     }
 
-    public void saveFacebookUserInfo(String first_name,String last_name, String email, String gender, String profileURL){
+    public void saveFacebookUserInfo(String id,String first_name,String last_name, String email){//kayıt edilen bilgileri getFacebook'tanda güncelle
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(root.getContext());
         SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("fb_id", id);
         editor.putString("fb_first_name", first_name);
         editor.putString("fb_last_name", last_name);
         editor.putString("fb_email", email);
-        editor.putString("fb_gender", gender);
-        editor.putString("fb_profileURL", profileURL);
         editor.apply(); // This line is IMPORTANT !!!
-        Log.i("AkifCntrl", "Shared Name : "+first_name+"\nLast Name : "+last_name+"\nEmail : "+email+"\nGender : "+gender+"\nProfile Pic : "+profileURL);
+        Log.i("AkifCntrl", "Shared Name : "+first_name+"\nLast Name : "+last_name+"\nEmail : "+email+"\nid : "+id);
     }
 
     public void getFacebookUserInfo(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(root.getContext());
-        Log.i("AkifCntrl", "Name : "+prefs.getString("fb_name",null)+"\nEmail : "+prefs.getString("fb_email",null));
+        Log.i("AkifCntrl", "Name : "+prefs.getString("fb_first_name",null)+" "+prefs.getString("fb_last_name",null)+"\nEmail : "+prefs.getString("fb_email",null)
+                +"\nID : "+prefs.getString("fb_id",null));
     }
 
-    public Bundle getFacebookData(JSONObject object) {
-        Bundle bundle = new Bundle();
+    public Bundle parseFacebookData(JSONObject object) {
+        Log.i("AkfJsonControl",object+"");
+        Bundle bundle = new Bundle();//bundlesız direkt aşağıda kaydedilebilir. Ek bir durum yani
 
         try {
             String id = object.getString("id");
+
+
             URL profile_pic;
             try {
                 profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?type=large");
@@ -80,13 +84,11 @@ public class Sync_Facebook {
                 bundle.putString("last_name", object.getString("last_name"));
             if (object.has("email"))
                 bundle.putString("email", object.getString("email"));
-            if (object.has("gender"))
-                bundle.putString("gender", object.getString("gender"));
 
 
-            saveFacebookUserInfo(object.getString("first_name"),
-                    object.getString("last_name"),object.getString("email"),
-                    object.getString("gender"), profile_pic.toString());
+            //kaydedildiği kısım
+            saveFacebookUserInfo(id,object.getString("first_name"),
+                    object.getString("last_name"),object.getString("email"));
 
         } catch (Exception e) {
             Log.i("AkifCntrl", "BUNDLE Exception : "+e.toString());
