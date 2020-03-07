@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
@@ -354,12 +355,15 @@ public class SettingsFragment extends Fragment {
     }
 
     private void routingFacebook(){
+
         // Facebook SDK init
         FacebookSdk.sdkInitialize(root.getContext());
         callbackManager = CallbackManager.Factory.create();
         facebook.setFragment(this);
 
-        facebook.setReadPermissions(Arrays.asList("public_profile", "email","user_events"));
+        facebook.setReadPermissions(Arrays.asList("user_events", "user_birthday", "user_likes"));
+        facebook.setPermissions(Arrays.asList("user_events", "user_birthday", "user_likes"));
+        facebook.setPermissions(Arrays.asList("user_events", "user_birthday", "user_likes"));
 
         Sync_Facebook sync=new Sync_Facebook(root);
         sync.getToken();
@@ -369,31 +373,44 @@ public class SettingsFragment extends Fragment {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         String accessToken = loginResult.getAccessToken().getToken();
+                        Log.i("akifControl", loginResult.getRecentlyGrantedPermissions()+"");
 
                         // save accessToken to SharedPreference
                         sync.saveAccessToken(accessToken);
 
-                        GraphRequest request = GraphRequest.newMeRequest(
-                                loginResult.getAccessToken(),
-                                new GraphRequest.GraphJSONObjectCallback() {
+                        //izin aldıktan sonra isteğe göre cevap gelir
+                        //fakat facebook sınırlamaları yüzünden istenilen herşey gelmez
+                        GraphRequest mGraphRequest = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
-                                    public void onCompleted(JSONObject jsonObject,
-                                                            GraphResponse response) {
+                                    public void onCompleted(JSONObject me, GraphResponse response) {
+                                        if (response.getError() != null) {
+                                            Log.i("asdasd",response.getError()+"");
+                                        } else {
+                                            Log.i("asdasd",me+"");
+                                            Log.i("asdasd",response+"");
+                                            String email = me.optString("email");
+                                            String name = me.optString("name");
+                                            String birthday = me.optString("birthday");
+                                            String gender = me.optString("gender")+"-";
+                                            String events = me.optString("events")+"-";
 
-                                        Log.i("akifControl", "Success");
-                                        Log.i("akifControl", jsonObject+"");
+                                            Log.i("asdasd",email);
+                                            Log.i("asdasd",name);
+                                            Log.i("asdasd",birthday);
+                                            Log.i("asdasd",gender+"123");
+                                            Log.i("asdasd",events+"123");
 
-                                        // Getting FB User Data
-                                        Bundle facebookData = sync.parseFacebookData(jsonObject);
-                                        sync.getFacebookUserInfo();
-
+                                            // Getting FB User Data //***veriler gelenlere göre değiştirilmeli
+                                            //Bundle facebookData = sync.parseFacebookData(jsonObject);
+                                            //sync.getFacebookUserInfo();
+                                        }
                                     }
                                 });
-
                         Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,first_name,last_name,email,gender");
-                        request.setParameters(parameters);
-                        request.executeAsync();
+                        parameters.putString("fields", "id,first_name,last_name,email,gender, birthday,feed");
+                        mGraphRequest.setParameters(parameters);
+                        mGraphRequest.executeAsync();
                     }
 
 

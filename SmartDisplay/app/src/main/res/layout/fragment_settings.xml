@@ -8,17 +8,6 @@
     tools:context=".ui.settings.SettingsFragment"
     android:background="@drawable/uiback">
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/facebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        />
-
     <ImageView
         android:id="@+id/title"
         android:layout_marginTop="25dp"
@@ -260,6 +249,20 @@
         android:text="@string/Logout"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
+
+
+    <com.facebook.login.widget.LoginButton
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@+id/LogoutText"
+        android:id="@+id/facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
 
 
 </RelativeLayout>
