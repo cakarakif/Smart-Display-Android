@@ -369,7 +369,7 @@ public class AddFragment extends Fragment {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        showToast("" + R.string.controlInternet);
+                        //showToast("" + R.string.controlInternet);
                         loading.dismiss();
                     }
                 });

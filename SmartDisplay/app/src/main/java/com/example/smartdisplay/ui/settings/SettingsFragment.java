@@ -26,6 +26,7 @@ import android.widget.ToggleButton;
 
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.SyncApps.Sync_Calendar;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -185,6 +186,7 @@ public class SettingsFragment extends Fragment {
     private void logout(){
         auth = FirebaseAuth.getInstance();
         auth.signOut();
+        LoginManager.getInstance().logOut();
 
         Toast.makeText(root.getContext(), R.string.LogoutSucces, Toast.LENGTH_LONG).show();
 

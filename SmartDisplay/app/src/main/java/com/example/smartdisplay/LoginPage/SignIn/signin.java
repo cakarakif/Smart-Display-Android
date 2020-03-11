@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartdisplay.DatabaseHelperClasses.UserInformation;
 import com.example.smartdisplay.LoginPage.ResetPassword.resetpass;
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
-import com.example.smartdisplay.SyncApps.Sync_Facebook;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -33,6 +33,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONObject;
 
@@ -46,6 +48,8 @@ public class signin extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
+    private FirebaseDatabase database;
+    DatabaseReference reference;
 
     private ProgressDialog loading;
 
@@ -68,6 +72,7 @@ public class signin extends AppCompatActivity {
         //database başlatıldı.
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        database= FirebaseDatabase.getInstance();
 
         forgotPass = findViewById(R.id.forgotPass);
         signup = findViewById(R.id.signup);
@@ -188,7 +193,6 @@ public class signin extends AppCompatActivity {
                     public void onSuccess(LoginResult loginResult) {
                         String accessToken = loginResult.getAccessToken().getToken();
                         Log.i("akifControl", loginResult.getRecentlyGrantedPermissions()+"");
-                        handleFacebookAccessToken(loginResult.getAccessToken());
 
                         //izin aldıktan sonra isteğe göre cevap gelir
                         //fakat facebook sınırlamaları yüzünden istenilen herşey gelmez
@@ -199,19 +203,15 @@ public class signin extends AppCompatActivity {
                                         if (response.getError() != null) {
                                             Log.i("asdasd",response.getError()+"");
                                         } else {
-                                            Log.i("asdasd",me+"");
-                                            Log.i("asdasd",response+"");
-                                            String email = me.optString("email");
-                                            String name = me.optString("name");
-                                            String birthday = me.optString("birthday");
-                                            String gender = me.optString("gender")+"-";
-                                            String events = me.optString("events")+"-";
+                                            String birthday="";
+                                            if(me.optString("birthday").equals("")) {
+                                                String[] birthParts = (me.optString("birthday")).split("/");
+                                                birthday = birthParts[1] + "/" + birthParts[0] + "/" + birthParts[2];
+                                            }
 
-                                            Log.i("asdasd",email);
-                                            Log.i("asdasd",name);
-                                            Log.i("asdasd",birthday);
-                                            Log.i("asdasd",gender+"123");
-                                            Log.i("asdasd",events+"123");
+
+                                            UserInformation usrinfo=new UserInformation(birthday,me.optString("last_name"),me.optString("first_name"));
+                                            handleFacebookAccessToken(loginResult.getAccessToken(),usrinfo);
                                         }
                                     }
                                 });
@@ -236,7 +236,7 @@ public class signin extends AppCompatActivity {
         );
     }
 
-    private void handleFacebookAccessToken(AccessToken token) {
+    private void handleFacebookAccessToken(AccessToken token,UserInformation usrinfo) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -246,6 +246,9 @@ public class signin extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.i("kntrl", "signInWithCredential:success");
                             user = auth.getCurrentUser();
+
+                            reference = database.getReference( user.getUid()+"/UserInfo/" );
+                            reference.setValue(usrinfo);
 
                             Intent intnt=new Intent(getApplicationContext(),MainActivity.class);
                             startActivity(intnt);

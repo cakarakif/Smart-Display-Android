@@ -137,7 +137,7 @@ public class AllTasksFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
+                //Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
                 loading.dismiss();
             }
         });

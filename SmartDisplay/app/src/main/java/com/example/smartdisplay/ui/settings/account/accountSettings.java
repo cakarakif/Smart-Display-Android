@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 public class accountSettings extends Fragment {
@@ -44,6 +46,8 @@ public class accountSettings extends Fragment {
     private DatabaseReference reference;
     private FirebaseUser user;
     private FirebaseAuth auth;
+
+    private Calendar cldr ;
 
     private ProgressDialog loading;
 
@@ -74,6 +78,8 @@ public class accountSettings extends Fragment {
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
         reference = database.getReference( user.getUid()+"/UserInfo/" );
+
+        cldr = Calendar.getInstance();
     }
 
     private void routing(){
@@ -147,7 +153,7 @@ public class accountSettings extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
+                //Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
                 loading.dismiss();
             }
         });
@@ -176,7 +182,11 @@ public class accountSettings extends Fragment {
 
         //seçileni date picker başlangı olarak atadık.
         String[] date = birthEdit.getText().toString().split("/");
-        picker.init(Integer.parseInt(date[2]), Integer.parseInt(date[1])-1, Integer.parseInt(date[0]), null);
+        if(date.length == 2)
+            picker.init(Integer.parseInt(date[2]), Integer.parseInt(date[1])-1, Integer.parseInt(date[0]), null);
+        else//eğer girilmemişse bugünün tarihi olarak picker başlatıldı
+            picker.init(Integer.parseInt(cldr.get(Calendar.YEAR)+"")-18,Integer.parseInt(cldr.get(Calendar.MONTH)+""),Integer.parseInt(cldr.get(Calendar.DAY_OF_MONTH)+""), null);
+
 
 
         //AlertDialogP2

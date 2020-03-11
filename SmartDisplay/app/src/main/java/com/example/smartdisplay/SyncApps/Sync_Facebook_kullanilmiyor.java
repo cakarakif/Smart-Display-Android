@@ -13,11 +13,11 @@ import java.net.URL;
 
 import static com.facebook.share.internal.DeviceShareDialogFragment.TAG;
 
-public class Sync_Facebook {
+public class Sync_Facebook_kullanilmiyor {/////ŞUANLIK BİRYERDE KULLANILMIYOR
     private View root;
 
     // Constructor
-    public Sync_Facebook(View root) {
+    public Sync_Facebook_kullanilmiyor(View root) {
         this.root = root;
     }
 
