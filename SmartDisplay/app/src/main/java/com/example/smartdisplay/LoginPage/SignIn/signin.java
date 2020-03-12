@@ -26,6 +26,12 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -33,6 +39,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -56,6 +63,9 @@ public class signin extends AppCompatActivity {
 
     LoginButton facebook;
     CallbackManager callbackManager;
+
+    GoogleSignInClient mGoogleSignInClient;
+    SignInButton google;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +92,11 @@ public class signin extends AppCompatActivity {
 
 
         facebook=findViewById(R.id.facebook);
+        google=findViewById(R.id.google);
 
         rotate();
+
+
     }
 
     private void rotate() {
@@ -131,6 +144,16 @@ public class signin extends AppCompatActivity {
         ///////Facebook
         routingFacebook();
 
+        ///////Google
+        routingGoogle();
+        google.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, 101);
+            }
+        });
+
     }
 
     //kullanıcı giriş yapıp yapmadığının kontrolü
@@ -174,11 +197,7 @@ public class signin extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {//facebook sekmesinden sonra düşen kısım-zorunlu
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+
 
     private void routingFacebook(){
 
@@ -249,6 +268,65 @@ public class signin extends AppCompatActivity {
 
                             reference = database.getReference( user.getUid()+"/UserInfo/" );
                             reference.setValue(usrinfo);
+
+                            Intent intnt=new Intent(getApplicationContext(),MainActivity.class);
+                            startActivity(intnt);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.i("kntrl", "signInWithCredential:failure", task.getException());
+                            Toast.makeText(getApplicationContext(), "Authentication failed.",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == 101) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.i("kntrl", "Google sign in failed", e);
+            }
+        }else{
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+
+    private void routingGoogle(){
+        //Başlık stringi atandı
+        TextView textView = (TextView) google.getChildAt(0);
+        textView.setText("Continue with Google");
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.i("kntrl", "firebaseAuthWithGoogle:");
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.i("kntrl", "signInWithCredential:success");
+                            user = auth.getCurrentUser();
 
                             Intent intnt=new Intent(getApplicationContext(),MainActivity.class);
                             startActivity(intnt);

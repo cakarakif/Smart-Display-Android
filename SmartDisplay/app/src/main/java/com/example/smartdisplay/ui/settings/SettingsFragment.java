@@ -184,9 +184,8 @@ public class SettingsFragment extends Fragment {
     }
 
     private void logout(){
-        auth = FirebaseAuth.getInstance();
-        auth.signOut();
         LoginManager.getInstance().logOut();
+        FirebaseAuth.getInstance().signOut();
 
         Toast.makeText(root.getContext(), R.string.LogoutSucces, Toast.LENGTH_LONG).show();
 
