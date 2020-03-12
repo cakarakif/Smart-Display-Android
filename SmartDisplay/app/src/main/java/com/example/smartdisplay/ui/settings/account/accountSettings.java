@@ -171,13 +171,13 @@ public class accountSettings extends Fragment {
 
         //AlertDialogP1
         LayoutInflater inflater=getLayoutInflater();
-        View view=inflater.inflate(R.layout.alert_datepicker,null);
+        View view=inflater.inflate(R.layout.alert_date_picker_spinner,null);
         //
 
         DatePicker picker;
         Button btnGet;;
 
-        picker=(DatePicker)view.findViewById(R.id.datePicker);
+        picker=(DatePicker)view.findViewById(R.id.datePickerSpinner);
         btnGet=view.findViewById(R.id.select);
 
         //seçileni date picker başlangı olarak atadık.
@@ -185,7 +185,7 @@ public class accountSettings extends Fragment {
         if(date.length == 2)
             picker.init(Integer.parseInt(date[2]), Integer.parseInt(date[1])-1, Integer.parseInt(date[0]), null);
         else//eğer girilmemişse bugünün tarihi olarak picker başlatıldı
-            picker.init(Integer.parseInt(cldr.get(Calendar.YEAR)+"")-18,Integer.parseInt(cldr.get(Calendar.MONTH)+""),Integer.parseInt(cldr.get(Calendar.DAY_OF_MONTH)+""), null);
+            picker.init(Integer.parseInt(cldr.get(Calendar.YEAR)+""),Integer.parseInt(cldr.get(Calendar.MONTH)+""),Integer.parseInt(cldr.get(Calendar.DAY_OF_MONTH)+""), null);
 
 
 
@@ -206,7 +206,7 @@ public class accountSettings extends Fragment {
         dialogueShow.show();
 
         //ekran boyutlandırması
-        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.80), (int)(getResources().getDisplayMetrics().heightPixels*0.55));
+        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.70), (int)(getResources().getDisplayMetrics().heightPixels*0.45));
 
 
         btnGet.setOnClickListener(new View.OnClickListener() {

@@ -592,6 +592,7 @@ public class AddFragment extends Fragment {
 
         picker=(DatePicker)view.findViewById(R.id.datePicker);
         btnGet=view.findViewById(R.id.select);
+        picker.setMinDate(System.currentTimeMillis() - 1000);
 
         //seçileni date picker başlangı olarak atadık.
         String[] date = selectDate.getText().toString().split("/");
