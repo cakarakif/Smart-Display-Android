@@ -443,7 +443,7 @@ public class AddFragment extends Fragment {
         goalEdit.setText(editTask.getGoal());
         selectTime.setText(editTask.getTime());
 
-        if(editTask.getAlertType())radioOne.setChecked(true);
+        if(editTask.getAlertType()){radioOne.setChecked(true);}
         else {
             radioTwo.setChecked(true);
             typeEdit.setText(editTask.getVideoUrl());
@@ -457,19 +457,19 @@ public class AddFragment extends Fragment {
 
             setAllDaysNotClicked();
             for (String t : tokens)
-                if(t.equals("Mo"))
+                if(t.equals("Mon"))
                     monday.performClick();
-                else if(t.equals("Tu"))
+                else if(t.equals("Tue"))
                     tuesday.performClick();
-                else if(t.equals("We"))
+                else if(t.equals("Wed"))
                     wednesday.performClick();
-                else if(t.equals("Th"))
+                else if(t.equals("Thu"))
                     thursday.performClick();
-                else if(t.equals("Fr"))
+                else if(t.equals("Fri"))
                     friday.performClick();
-                else if(t.equals("Sa"))
+                else if(t.equals("Sat"))
                     saturday.performClick();
-                else if(t.equals("Su"))
+                else if(t.equals("Sun"))
                     sunday.performClick();
         } else {
             onceLogo.performClick();
