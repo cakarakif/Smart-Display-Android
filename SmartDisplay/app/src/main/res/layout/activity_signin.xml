@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EMAIL ADDRESS"
-        android:layout_marginTop="285dp"/>
+        android:layout_marginTop="300dp"/>
 
     <EditText
         android:maxLength="30"
@@ -74,15 +74,21 @@
     <com.facebook.login.widget.LoginButton
         xmlns:facebook="http://schemas.android.com/apk/res-auto"
         facebook:com_facebook_login_text="Continue with Facebook"
-        facebook:com_facebook_logout_text="Logout"
+        facebook:com_facebook_logout_text="Continue with Facebook"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
+        android:textSize="13dp"
+        android:gravity="right"
+        android:paddingLeft="13dp"
+        android:paddingRight="20dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
         android:layout_below="@+id/button"
         android:id="@+id/facebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="20dp"/>
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google"
@@ -90,7 +96,7 @@
         android:layout_marginLeft="47dp"
         android:layout_below="@+id/facebook"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 

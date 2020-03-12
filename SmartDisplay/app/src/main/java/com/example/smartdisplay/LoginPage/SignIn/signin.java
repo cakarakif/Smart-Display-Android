@@ -285,7 +285,7 @@ public class signin extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == 101) {
+        if (requestCode == 101) {//google yakalandı
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -295,7 +295,7 @@ public class signin extends AppCompatActivity {
                 // Google Sign In failed, update UI appropriately
                 Log.i("kntrl", "Google sign in failed", e);
             }
-        }else{
+        }else{//facebook yakalandı
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -316,7 +316,7 @@ public class signin extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.i("kntrl", "firebaseAuthWithGoogle:");
+        Log.i("kntrl", "firebaseAuthWithGoogle:"+acct.getGivenName());//sınırlı kullanıcı bilgisi geliyor(isim-email falan)
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         auth.signInWithCredential(credential)
