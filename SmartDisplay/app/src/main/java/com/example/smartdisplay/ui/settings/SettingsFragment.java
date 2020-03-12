@@ -2,12 +2,15 @@ package com.example.smartdisplay.ui.settings;
 
 import androidx.appcompat.app.AlertDialog;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -164,19 +167,26 @@ public class SettingsFragment extends Fragment {
         syncCalendar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isChecked && !syncclndr.isFirstRead) {
-                    try {
-                        syncclndr.syncCalendar();
-                    } catch (Exception e) {
+                if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED){
+                    // Takvimi okuma izni verilmiş
 
-                    }
-                }
-                else if (!syncclndr.isFirstRead) {
-                    try {
-                        syncclndr.deleteCalendarTasks();
-                    } catch (Exception e) {
+                    if (isChecked && !syncclndr.isFirstRead) {
+                        try {
+                            syncclndr.syncCalendar();
+                        } catch (Exception e) {
 
+                        }
                     }
+                    else if (!syncclndr.isFirstRead) {
+                        try {
+                            syncclndr.deleteCalendarTasks();
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }else {
+                    // Takvimi okumaya izni verilmemiş
+                    Toast.makeText(getContext(),"Allow the app to read the calendar!",Toast.LENGTH_LONG).show();
                 }
 
             }

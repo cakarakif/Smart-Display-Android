@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -79,6 +82,7 @@ public class signin extends AppCompatActivity {
     }
 
     private void define() {
+        controlNetConnection();
         //database başlatıldı.
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -99,6 +103,19 @@ public class signin extends AppCompatActivity {
 
     }
 
+    private boolean controlNetConnection(){
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return true;
+        }
+        else {
+            Toast.makeText(getApplicationContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
     private void rotate() {
 
         //kullanıcı daha önceden giriş yapmış ise yönlendirme.
@@ -113,10 +130,11 @@ public class signin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!email.getText().toString().equals("") && !password.getText().toString().equals("")) {
+
+                if (!email.getText().toString().equals("") && !password.getText().toString().equals("") && controlNetConnection()) {
                     signInUser(email.getText().toString(),password.getText().toString());
                 }
-                else{
+                else if(controlNetConnection()){
                     Toast.makeText(getApplicationContext(), R.string.fillArea, Toast.LENGTH_LONG).show();
                 }
 
