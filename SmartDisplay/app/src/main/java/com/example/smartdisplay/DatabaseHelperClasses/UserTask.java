@@ -131,6 +131,28 @@ public class UserTask implements Serializable {
         return Integer.parseInt(time.substring(time.length() - 2));
     }
 
+    public int getDay(){//eğer repeatType false ise çağrılır yoksa hata verir(day-month-year)
+        if(!repeatType)
+            return Integer.parseInt(repeatInfo.split("/")[0]);
+        else
+            return 0;
+    }
+
+    public int getMonth(){
+        if(!repeatType)
+            return Integer.parseInt(repeatInfo.split("/")[1]);
+        else
+            return 0;
+    }
+
+    public int getYear(){
+        if(!repeatType)
+            return Integer.parseInt(repeatInfo.split("/")[2]);
+        else
+            return 0;
+    }
+
+
     public String getWhichType() {
         return whichType;
     }

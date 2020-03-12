@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.smartdisplay.LoginPage.SignIn.signin;
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -89,6 +90,11 @@ public class signup extends AppCompatActivity {
                     //sayfaya yönlendir
                     Log.i("kontrol", "başarılı");
                     Toast.makeText(getApplicationContext(), R.string.regSuccess, Toast.LENGTH_LONG).show();
+
+                    //kayıttan sonra otomatik girişi engellendi(opsiyonel mantık)
+                    LoginManager.getInstance().logOut();
+                    FirebaseAuth.getInstance().signOut();
+
                     Intent intnt=new Intent(getApplicationContext(), signin.class);
                     startActivity(intnt);
                 } else {

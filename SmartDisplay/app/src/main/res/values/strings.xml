@@ -67,8 +67,8 @@
     <!--filter-->
     <string name="sortAz">Sort Title: A to Z</string>
     <string name="sortZa">Sort Title: Z to A</string>
-    <string name="sortCf">Sort Time: Closest to Farthest</string>
-    <string name="sortFc">Sort Time: Farthest to Closest</string>
+    <string name="sortCf">Sort Time: Closest to Furthest</string>
+    <string name="sortFc">Sort Time: Furthest to Closest</string>
 
     <string name="filter">Filter</string>
     <string name="syncCalendar">Sync Calendar</string>

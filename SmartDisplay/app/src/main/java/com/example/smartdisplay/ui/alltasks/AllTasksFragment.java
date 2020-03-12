@@ -190,8 +190,9 @@ public class AllTasksFragment extends Fragment {
     private void performToDoView(){
         //To-do seçildiğindeki atamalar
         taskList=new ArrayList<>(todoList);
-        //default olarak time'göre sıralandı.
+        //default olarak date ve time'a göre sıralandı.
         Collections.sort(taskList, (p1, p2) -> (p1.getHours() - p2.getHours())*60+p1.getMinutes() - p2.getMinutes());
+        Collections.sort(taskList, (p1, p2) -> (p1.getYear() - p2.getYear()) * 365 + (p1.getMonth() - p2.getMonth()) * 30 + p1.getDay() - p2.getDay());
         startListView();
         todo.setBackgroundResource(R.drawable.ic_tab_fill);
         done.setBackgroundResource(R.drawable.ic_tab_empty);
@@ -200,8 +201,9 @@ public class AllTasksFragment extends Fragment {
     private void performDoneView(){
         //Done seçildiğindeki atamalar
         taskList=new ArrayList<>(doneList);
-        //default olarak time'göre sıralandı.
+        //default olarak date ve time'a göre sıralandı.
         Collections.sort(taskList, (p1, p2) -> (p1.getHours() - p2.getHours())*60+p1.getMinutes() - p2.getMinutes());
+        Collections.sort(taskList, (p1, p2) -> (p1.getYear() - p2.getYear()) * 365 + (p1.getMonth() - p2.getMonth()) * 30 + p1.getDay() - p2.getDay());
         startListView();
         todo.setBackgroundResource(R.drawable.ic_tab_empty);
         done.setBackgroundResource(R.drawable.ic_tab_fill);
@@ -304,10 +306,12 @@ public class AllTasksFragment extends Fragment {
                         return true;
                     case R.id.sortCf:
                         Collections.sort(taskList, (p1, p2) -> (p1.getHours() - p2.getHours())*60+p1.getMinutes() - p2.getMinutes());
+                        Collections.sort(taskList, (p1, p2) -> (p1.getYear() - p2.getYear()) * 365 + (p1.getMonth() - p2.getMonth()) * 30 + p1.getDay() - p2.getDay());
                         startListView();
                         return true;
                     case R.id.sortFc:
                         Collections.sort(taskList, (p1, p2) -> (p2.getHours() - p1.getHours())*60+p2.getMinutes() - p1.getMinutes());
+                        Collections.sort(taskList, (p1, p2) -> (p2.getYear() - p1.getYear()) * 365 + (p2.getMonth() - p1.getMonth()) * 30 + p2.getDay() - p1.getDay());
                         startListView();
                         return true;
                     default:

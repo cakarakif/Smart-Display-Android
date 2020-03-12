@@ -168,7 +168,7 @@ public class TaskListAdapter extends BaseAdapter {
         });
     }
 
-    private void routingEdit(int i){//edite basınca task idsi AllTaskFragmentte dinlenilen yere gönderildi.
+    private void routingEdit(int i){//edite basınca task idsi AllTaskFragmentte || TodayTaskFragmentte dinlenilen yere gönderildi.
         geteditID().postValue(i);
     }
 
