@@ -20,7 +20,7 @@ import androidx.core.app.NotificationCompat;
 
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "channelID";
-    public static final String channelName = "Channel Name";
+    public static final String channelName = "Task Notifications";
 
     private NotificationManager mManager;
 
@@ -46,7 +46,7 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
-    public NotificationCompat.Builder getChannelNotification(UserTask usrtask) {
+    public NotificationCompat.Builder getChannelNotification() {
 
         //bildirime tıklandığında uygulama açıldı
         Intent activityIntent = new Intent(this, MainActivity.class);

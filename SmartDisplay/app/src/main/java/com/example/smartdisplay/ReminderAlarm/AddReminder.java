@@ -20,12 +20,21 @@ import java.util.Locale;
 
 public class AddReminder {
     private View root;
+    private UserTask usrTask;
 
     public AddReminder(View root){
         this.root=root;
     }
 
-    private Calendar setCalendarWithInfo(UserTask usrTask){//task içerisindeki tarihe ve zamana göre calendar atandı
+    public UserTask getUserTask() {
+        return usrTask;
+    }
+
+    public void setUserTask(UserTask usrTask) {
+        this.usrTask = usrTask;
+    }
+
+    private Calendar setCalendarWithInfo(){//task içerisindeki tarihe ve zamana göre calendar atandı
         Calendar c = Calendar.getInstance();
 
         c.set(c.YEAR,usrTask.getYear());
@@ -44,8 +53,8 @@ public class AddReminder {
         return c;
     }
 
-    public void startAlarm(UserTask usrTask) {
-        Calendar c=setCalendarWithInfo(usrTask); // ilk olarak takvim ayarlandı
+    public void startAlarm() {
+        Calendar c=setCalendarWithInfo(); // ilk olarak takvim ayarlandı
 
         AlarmManager alarmManager = (AlarmManager) root.getContext().getSystemService(Context.ALARM_SERVICE);
 
@@ -66,10 +75,10 @@ public class AddReminder {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
-    public void cancelAlarm(int requestCode) {
+    public void cancelAlarm() {
         AlarmManager alarmManager = (AlarmManager) root.getContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(root.getContext(), AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(root.getContext(), requestCode, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(root.getContext(), Integer.parseInt(usrTask.getId()), intent, 0);
 
         alarmManager.cancel(pendingIntent);
         Toast.makeText(root.getContext(),"Alarm Cancelled",Toast.LENGTH_LONG).show();
