@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 
 import com.example.smartdisplay.MainActivity;
@@ -51,11 +52,24 @@ public class NotificationHelper extends ContextWrapper {
         PendingIntent contentIntent = PendingIntent.getActivity(this,
                 0, activityIntent, 0);
 
+
+        //bildirim ile veri gönderildi-AlertReceiver tetiklendiğinde orada kullanılabilir
+        String message = "deneme";
+        Intent broadcastIntent = new Intent(this, AlertReceiver.class);
+        broadcastIntent.putExtra("toastMessage", message);
+        PendingIntent actionIntent = PendingIntent.getBroadcast(this,
+                0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle("Alarm!")
                 .setContentText("Your AlarmManager is working.")
                 .setSmallIcon(R.drawable.calendar)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setColor(Color.YELLOW)
                 .setContentIntent(contentIntent)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE);
+                .setAutoCancel(true)
+                .setOnlyAlertOnce(true)
+                .addAction(R.mipmap.ic_launcher, "Toast", actionIntent);
     }
 }

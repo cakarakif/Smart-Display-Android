@@ -22,8 +22,8 @@ public class StatisticsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         AddReminder ad=new AddReminder(root);
-        ad.onTimeSet(18,11,1);
-        ad.onTimeSet(18,12,2);
+        ad.onTimeSet(18,23,1);
+        ad.onTimeSet(18,24,2);
 
         return root;
     }
