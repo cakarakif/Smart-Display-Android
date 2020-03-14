@@ -14,7 +14,9 @@ public class AlertReceiver extends BroadcastReceiver {
 
         //bildirime eklenen bilgiler çekildi
         String message = intent.getStringExtra("toastMessage");
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        if(!message.equals(""))
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+
 
 
         NotificationHelper notificationHelper = new NotificationHelper(context);

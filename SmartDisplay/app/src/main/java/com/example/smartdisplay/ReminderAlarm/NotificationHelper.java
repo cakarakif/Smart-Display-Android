@@ -66,7 +66,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setSmallIcon(R.drawable.calendar)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setColor(Color.YELLOW)
+                .setColor(getColor(R.color.yellow))
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
