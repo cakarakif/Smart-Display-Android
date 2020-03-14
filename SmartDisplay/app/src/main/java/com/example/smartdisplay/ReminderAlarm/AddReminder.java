@@ -10,10 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddReminder {
     private View root;
@@ -22,27 +25,39 @@ public class AddReminder {
         this.root=root;
     }
 
-    //requesCode her bir notification için farklı gelir
-    public void onTimeSet(int hourOfDay, int minute,int requestCode) {
+    private Calendar setCalendarWithInfo(UserTask usrTask){//task içerisindeki tarihe ve zamana göre calendar atandı
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
 
-        //
+        c.set(c.YEAR,usrTask.getYear());
+        c.set(c.MONTH,usrTask.getMonth()-1);
+        c.set(c.DAY_OF_MONTH,usrTask.getDay());
+
+        c.set(c.HOUR_OF_DAY, usrTask.getHours());
+        c.set(c.MINUTE, usrTask.getMinutes());
+        c.set(c.SECOND, 0);
+
+        //kontrol-Silinebilir en son
         String timeText = "Alarm set for: ";
-        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+        timeText += DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.getDefault()).format(c.getTime());
         Toast.makeText(root.getContext(),timeText+"",Toast.LENGTH_LONG).show();
 
-        //
-        startAlarm(c,requestCode);
+        return c;
     }
 
-    private void startAlarm(Calendar c,int requestCode) {
+    public void startAlarm(UserTask usrTask) {
+        Calendar c=setCalendarWithInfo(usrTask); // ilk olarak takvim ayarlandı
+
         AlarmManager alarmManager = (AlarmManager) root.getContext().getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(root.getContext(), AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(root.getContext(), requestCode, intent, 0);
+        AlertReceiver artRcvr=new AlertReceiver();
+        artRcvr.setUsrTask(usrTask);
+
+
+        //taskID'si request code olarak kullanıldı
+
+        Intent intent = new Intent(root.getContext(), artRcvr.getClass());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(root.getContext(), Integer.parseInt(usrTask.getId()), intent, 0);
+
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
@@ -51,7 +66,7 @@ public class AddReminder {
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
-    private void cancelAlarm(int requestCode) {
+    public void cancelAlarm(int requestCode) {
         AlarmManager alarmManager = (AlarmManager) root.getContext().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(root.getContext(), AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(root.getContext(), requestCode, intent, 0);

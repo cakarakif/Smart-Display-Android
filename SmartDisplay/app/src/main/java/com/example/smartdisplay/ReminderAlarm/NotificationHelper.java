@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 
+import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.ui.today.TodayFragment;
@@ -45,7 +46,7 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
-    public NotificationCompat.Builder getChannelNotification() {
+    public NotificationCompat.Builder getChannelNotification(UserTask usrtask) {
 
         //bildirime tıklandığında uygulama açıldı
         Intent activityIntent = new Intent(this, MainActivity.class);
@@ -63,7 +64,7 @@ public class NotificationHelper extends ContextWrapper {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle("Alarm!")
                 .setContentText("Your AlarmManager is working.")
-                .setSmallIcon(R.drawable.calendar)
+                .setSmallIcon(R.drawable.ic_goal_yellow)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(getColor(R.color.yellow))

@@ -5,10 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
+
 import androidx.core.app.NotificationCompat;
 
 
 public class AlertReceiver extends BroadcastReceiver {
+    private   UserTask usrTask;
+
+    public UserTask getUsrTask() {
+        return usrTask;
+    }
+
+    public void setUsrTask(UserTask usrTask) {
+        this.usrTask = usrTask;
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -20,7 +32,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
 
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
+        NotificationCompat.Builder nb = notificationHelper.getChannelNotification(usrTask);
         notificationHelper.getManager().notify(1, nb.build());
     }
 }
