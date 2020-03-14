@@ -42,6 +42,7 @@
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
+        <receiver android:name=".ReminderAlarm.AlertReceiver" />
 </application>
 
 </manifest>
