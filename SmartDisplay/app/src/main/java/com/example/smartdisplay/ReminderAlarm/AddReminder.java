@@ -20,11 +20,11 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddReminder {
-    private View root;
+    private Context context;
     private UserTask usrTask;
 
-    public AddReminder(View root){
-        this.root=root;
+    public AddReminder(Context context){
+        this.context=context;
     }
 
     public UserTask getUserTask() {
@@ -49,7 +49,7 @@ public class AddReminder {
         //kontrol-Silinebilir en son
         String timeText = "Alarm set for: ";
         timeText += DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.getDefault()).format(c.getTime());
-        Toast.makeText(root.getContext(),timeText+"",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,timeText+"",Toast.LENGTH_LONG).show();
 
         return c;
     }
@@ -57,15 +57,15 @@ public class AddReminder {
     public void startAlarm() {
         Calendar c=setCalendarWithInfo();
 
-        AlarmManager alarmManager = (AlarmManager) root.getContext().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         //taskID'si request code olarak kullanıldı
-        Intent intent = new Intent(root.getContext(), AlertReceiver.class);
+        Intent intent = new Intent(context, AlertReceiver.class);
         //usrTask notifikasyon özelleştirmesi için gönderildi
         Gson gson = new Gson();
         String value = gson.toJson(usrTask);
         intent.putExtra("usrTask", value);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(root.getContext(), Integer.parseInt(usrTask.getId()), intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(usrTask.getId()), intent, 0);
 
 
         if (c.before(Calendar.getInstance())) {
@@ -76,11 +76,11 @@ public class AddReminder {
     }
 
     public void cancelAlarm() {
-        AlarmManager alarmManager = (AlarmManager) root.getContext().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(root.getContext(), AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(root.getContext(), Integer.parseInt(usrTask.getId()), intent, 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(usrTask.getId()), intent, 0);
 
         alarmManager.cancel(pendingIntent);
-        Toast.makeText(root.getContext(),"Alarm Cancelled",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,"Alarm Cancelled",Toast.LENGTH_LONG).show();
     }
 }

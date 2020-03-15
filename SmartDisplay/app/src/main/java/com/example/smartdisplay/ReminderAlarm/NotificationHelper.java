@@ -14,6 +14,7 @@ import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.ui.today.TodayFragment;
+import com.google.gson.Gson;
 
 import androidx.core.app.NotificationCompat;
 
@@ -68,6 +69,16 @@ public class NotificationHelper extends ContextWrapper {
         PendingIntent actionTwoIntent = PendingIntent.getBroadcast(this,
                 Integer.parseInt(usrTask.getId()), actionTwo, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        //Set Action3
+        Intent actionThree = new Intent(this, AlertReceiver.class);
+        actionThree.setAction("Snooze");
+        actionThree.putExtra("TaskID",usrTask.getId());
+        Gson gson = new Gson();
+        String value = gson.toJson(usrTask);
+        actionThree.putExtra("usrTask", value);
+        PendingIntent actionThreeIntent = PendingIntent.getBroadcast(this,
+                Integer.parseInt(usrTask.getId()), actionThree, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(usrTask.getTitle())
@@ -79,6 +90,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
+                .addAction(R.mipmap.ic_launcher, "Snooze", actionThreeIntent)
                 .addAction(R.mipmap.ic_launcher, "Complete", actionTwoIntent)
                 .addAction(R.drawable.calendar, "Delete", actionOneIntent);
     }

@@ -24,16 +24,17 @@ public class StatisticsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        AddReminder ad=new AddReminder(root);
+        AddReminder ad=new AddReminder(root.getContext());
         Calendar rightNow = Calendar.getInstance();
         UserTask usrTask=new UserTask(true,"Kitap Vakti1","Yarım kalan kitabini okumalisin","1","15/03/2020",false,rightNow.get(Calendar.HOUR_OF_DAY)+":"+(rightNow.get(Calendar.MINUTE)+1),true,"--","93");
         ad.setUserTask(usrTask);
         ad.startAlarm();
         //ad.cancelAlarm();
 
+        /*
         UserTask usrTask2=new UserTask(true,"Kitap Vakti2","Yarım kalan kitabini okumalisin","1","15/03/2020",false,rightNow.get(Calendar.HOUR_OF_DAY)+":"+(rightNow.get(Calendar.MINUTE)+2),true,"--","94");
         ad.setUserTask(usrTask2);
-        ad.startAlarm();
+        ad.startAlarm();*/
 
 
         return root;
