@@ -51,15 +51,23 @@ public class NotificationHelper extends ContextWrapper {
         //bildirime tıklandığında uygulama açıldı
         Intent activityIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this,
-                0, activityIntent, 0);
+                Integer.parseInt(usrTask.getId()), activityIntent, 0);
 
 
-        //bildirim ile veri gönderildi-AlertReceiver tetiklendiğinde orada kullanılabilir
-        String message = "deneme";
-        Intent broadcastIntent = new Intent(this, AlertReceiver.class);
-        broadcastIntent.putExtra("toastMessage", message);
-        PendingIntent actionIntent = PendingIntent.getBroadcast(this,
-                0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //Set Action1
+        Intent actionOne = new Intent(this, AlertReceiver.class);
+        actionOne.setAction("Delete");
+        actionOne.putExtra("TaskID",usrTask.getId());
+        PendingIntent actionOneIntent = PendingIntent.getBroadcast(this,
+                Integer.parseInt(usrTask.getId()), actionOne, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //Set Action2
+        Intent actionTwo = new Intent(this, AlertReceiver.class);
+        actionTwo.setAction("Complete");
+        actionTwo.putExtra("TaskID",usrTask.getId());
+        PendingIntent actionTwoIntent = PendingIntent.getBroadcast(this,
+                Integer.parseInt(usrTask.getId()), actionTwo, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(usrTask.getTitle())
@@ -71,6 +79,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentIntent(contentIntent)
                 .setAutoCancel(true)
                 .setOnlyAlertOnce(true)
-                .addAction(R.mipmap.ic_launcher, "Toast", actionIntent);
+                .addAction(R.mipmap.ic_launcher, "Complete", actionTwoIntent)
+                .addAction(R.drawable.calendar, "Delete", actionOneIntent);
     }
 }

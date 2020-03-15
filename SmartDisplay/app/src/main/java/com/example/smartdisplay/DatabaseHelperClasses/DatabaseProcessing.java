@@ -1,10 +1,13 @@
 package com.example.smartdisplay.DatabaseHelperClasses;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
 import com.example.smartdisplay.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 public class DatabaseProcessing extends Fragment {
     //classı çağıran view elemanları yönetmek için alındı
     View root;
+    Context context;
 
     //genel firabase bağlantı parametreleri
     private FirebaseDatabase database;
@@ -35,8 +39,17 @@ public class DatabaseProcessing extends Fragment {
 
 
 
-    public DatabaseProcessing(View root) {
+    public DatabaseProcessing(View root) {//takvim için düzenlendi
         this.root=root;
+        counter=0;
+        //kullancıya özel database bilgi ekleme/alma için eklendi
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+    }
+
+    public DatabaseProcessing(Context context){//notificationslar için düzenlendi
+        this.context = context;
         counter=0;
         //kullancıya özel database bilgi ekleme/alma için eklendi
         auth = FirebaseAuth.getInstance();
@@ -174,6 +187,45 @@ public class DatabaseProcessing extends Fragment {
         }
         return isSyncCalendarChecked;
     }
+
+    /////////////////////////////////////////////////////////
+    //Notification Parts
+    public void deleteTask(String taskID){
+        reference = database.getReference(user.getUid() + "/Tasks/"+taskID);
+
+        reference.removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(context, "Successfully deleted!", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Error deleting task!", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    public void markCompletedTask(String taskID){//false olarak işaretle
+        reference = database.getReference(user.getUid() + "/Tasks/"+taskID+"/isActive");
+
+        reference.setValue(false)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(context, "Successfully completed!", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Error completed task!", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
 
 
 }
