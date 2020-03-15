@@ -68,7 +68,7 @@ public class AddFragment extends Fragment {
     private FirebaseAuth auth;
 
     private ProgressDialog loading;
-    private int counter=0;
+    private int counter=1;
     private Boolean blockDouble;
 
     private UserTask editTask;//edit ile geldiyse dolar

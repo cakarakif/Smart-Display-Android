@@ -51,22 +51,29 @@ public class AlertReceiver extends BroadcastReceiver {
 
         //Get Action3
         else if(action != null && action.equals("Snooze")) {
-            NotificationManager notificationManager = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-
-            notificationManager.cancel(Integer.parseInt(usrTask.getId()));
-
-
             AddReminder ad=new AddReminder(context);
             String after10Minute= getTimeAfter10minutes();
             if(after10Minute != null) {
-                usrTask.setRepeatInfo(after10Minute.substring(0,10));
+                if(Integer.parseInt(usrTask.getId()) > 0) {
+                    usrTask.setId("-" + usrTask.getId());//ertelerken asıl bildirimi değiştirmesin diye ID değiştirildi ve altta tek seferlik olarak ayarlandı
+                    usrTask.setRepeatType(false);
+                }
+                if(!usrTask.getRepeatType())//kontrol & snooze edilenler tek seferlik olarak ayarlandı
+                    usrTask.setRepeatInfo(after10Minute.substring(0,10));
+
                 usrTask.setTime(after10Minute.substring(after10Minute.length()-5));
             }
             ad.setUserTask(usrTask);
             ad.startAlarm();
             Toast.makeText(context,"Snoozed for 10 minutes",Toast.LENGTH_LONG).show();
         }
+
+        /*if(action != null){//bu kod bildirimi sistemden komple siler kaldırır
+            NotificationManager notificationManager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+
+            notificationManager.cancel(Integer.parseInt(intent.getStringExtra("TaskID")));
+        }*/
 
     }
 

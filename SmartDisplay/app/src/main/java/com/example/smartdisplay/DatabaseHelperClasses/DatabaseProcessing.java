@@ -41,7 +41,7 @@ public class DatabaseProcessing extends Fragment {
 
     public DatabaseProcessing(View root) {//takvim için düzenlendi
         this.root=root;
-        counter=0;
+        counter=1;
         //kullancıya özel database bilgi ekleme/alma için eklendi
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -50,7 +50,7 @@ public class DatabaseProcessing extends Fragment {
 
     public DatabaseProcessing(Context context){//notificationslar için düzenlendi
         this.context = context;
-        counter=0;
+        counter=1;
         //kullancıya özel database bilgi ekleme/alma için eklendi
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -191,7 +191,8 @@ public class DatabaseProcessing extends Fragment {
     /////////////////////////////////////////////////////////
     //Notification Parts
     public void deleteTask(String taskID){
-        reference = database.getReference(user.getUid() + "/Tasks/"+taskID);
+        reference = database.getReference(user.getUid() + "/Tasks/"+
+                Math.abs(Integer.parseInt(taskID)));
 
         reference.removeValue()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -209,7 +210,8 @@ public class DatabaseProcessing extends Fragment {
     }
 
     public void markCompletedTask(String taskID){//false olarak işaretle
-        reference = database.getReference(user.getUid() + "/Tasks/"+taskID+"/isActive");
+        reference = database.getReference(user.getUid() + "/Tasks/"+
+                Math.abs(Integer.parseInt(taskID))+"/isActive");
 
         reference.setValue(false)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
