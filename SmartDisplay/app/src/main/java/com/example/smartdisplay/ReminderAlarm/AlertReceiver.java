@@ -7,21 +7,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
+import com.google.gson.Gson;
 
 import androidx.core.app.NotificationCompat;
 
 
 public class AlertReceiver extends BroadcastReceiver {
-    private   UserTask usrTask;
-
-    public UserTask getUsrTask() {
-        return usrTask;
-    }
-
-    public void setUsrTask(UserTask usrTask) {
-        this.usrTask = usrTask;
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
         //bildirime eklenen bilgiler çekildi
@@ -29,8 +20,13 @@ public class AlertReceiver extends BroadcastReceiver {
         if(message != null)
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 
+        //
+        Gson gson = new Gson();
+        UserTask usrTask = gson.fromJson(intent.getStringExtra("usrTask"), UserTask.class);
+        Toast.makeText(context, usrTask.getTitle()+"", Toast.LENGTH_SHORT).show();
+
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
-        notificationHelper.getManager().notify(1, nb.build());
+        NotificationCompat.Builder nb = notificationHelper.getChannelNotification(usrTask);
+        notificationHelper.getManager().notify(Integer.parseInt(usrTask.getId()), nb.build());
     }
 }

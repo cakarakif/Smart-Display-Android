@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -54,17 +55,16 @@ public class AddReminder {
     }
 
     public void startAlarm() {
-        Calendar c=setCalendarWithInfo(); // ilk olarak takvim ayarlandı
+        Calendar c=setCalendarWithInfo();
 
         AlarmManager alarmManager = (AlarmManager) root.getContext().getSystemService(Context.ALARM_SERVICE);
 
-        AlertReceiver artRcvr=new AlertReceiver();
-        artRcvr.setUsrTask(usrTask);
-
-
         //taskID'si request code olarak kullanıldı
-
-        Intent intent = new Intent(root.getContext(), artRcvr.getClass());
+        Intent intent = new Intent(root.getContext(), AlertReceiver.class);
+        //usrTask notifikasyon özelleştirmesi için gönderildi
+        Gson gson = new Gson();
+        String value = gson.toJson(usrTask);
+        intent.putExtra("usrTask", value);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(root.getContext(), Integer.parseInt(usrTask.getId()), intent, 0);
 
 
