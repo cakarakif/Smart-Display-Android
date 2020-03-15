@@ -34,7 +34,8 @@ public class StatisticsFragment extends Fragment {
 
 
         AddReminder ad2=new AddReminder(root.getContext());
-        UserTask usrTask2=new UserTask(true,"Kitap Vakti2","Yarım kalan kitabini okumalisin","1","Tue/Wed/Thu/Fri/Sat",true,rightNow.get(Calendar.HOUR_OF_DAY)+":"+(rightNow.get(Calendar.MINUTE)+1),true,"--","101");
+        UserTask usrTask2=new UserTask(true,"Read the book","Keep reading your book","1","Mon/Tue/Wed/Thu/Fri/Sat/Sun",true,(rightNow.get(Calendar.HOUR_OF_DAY)<10 ? ("0"+rightNow.get(Calendar.HOUR_OF_DAY)):rightNow.get(Calendar.HOUR_OF_DAY))+":"+
+                ((rightNow.get(Calendar.MINUTE)+1) < 10 ? ("0"+(rightNow.get(Calendar.MINUTE)+1)):(rightNow.get(Calendar.MINUTE)+1)),true,"--","101");
         ad2.setUserTask(usrTask2);
         ad2.startAlarm();
 

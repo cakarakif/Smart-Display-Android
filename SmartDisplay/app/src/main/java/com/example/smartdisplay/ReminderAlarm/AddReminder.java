@@ -70,12 +70,10 @@ public class AddReminder {
         String value = gson.toJson(usrTask);
         intent.putExtra("usrTask", value);
 
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(usrTask.getId()), intent, FLAG_UPDATE_CURRENT);
 
 
-        if (c.before(Calendar.getInstance())) {
-            c.add(Calendar.DATE, 1);
-        }
 
         if(!usrTask.getRepeatType())//tek seferlik notification
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
