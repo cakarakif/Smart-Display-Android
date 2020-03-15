@@ -19,6 +19,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
+
 public class AddReminder {
     private Context context;
     private UserTask usrTask;
@@ -38,9 +40,11 @@ public class AddReminder {
     private Calendar setCalendarWithInfo(){//task içerisindeki tarihe ve zamana göre calendar atandı
         Calendar c = Calendar.getInstance();
 
-        c.set(c.YEAR,usrTask.getYear());
-        c.set(c.MONTH,usrTask.getMonth()-1);
-        c.set(c.DAY_OF_MONTH,usrTask.getDay());
+        if(!usrTask.getRepeatType()) {
+            c.set(c.YEAR, usrTask.getYear());
+            c.set(c.MONTH, usrTask.getMonth() - 1);
+            c.set(c.DAY_OF_MONTH, usrTask.getDay());
+        }
 
         c.set(c.HOUR_OF_DAY, usrTask.getHours());
         c.set(c.MINUTE, usrTask.getMinutes());
@@ -65,14 +69,18 @@ public class AddReminder {
         Gson gson = new Gson();
         String value = gson.toJson(usrTask);
         intent.putExtra("usrTask", value);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(usrTask.getId()), intent, 0);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(usrTask.getId()), intent, FLAG_UPDATE_CURRENT);
 
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        if(!usrTask.getRepeatType())//tek seferlik notification
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        else//sürekli notification(receiverde o güne dahil değilse engellendi)
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,c.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
     }
 
     public void cancelAlarm() {

@@ -4,7 +4,6 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
@@ -12,10 +11,9 @@ import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.google.gson.Gson;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import androidx.core.app.NotificationCompat;
 
@@ -28,7 +26,9 @@ public class AlertReceiver extends BroadcastReceiver {
 
         Gson gson = new Gson();
         UserTask usrTask = gson.fromJson(intent.getStringExtra("usrTask"), UserTask.class);
-        if(usrTask != null && action== null) {//actionlar için tekrar geldiğinde boş olur
+
+        //Main Control-Daily or Weekly
+        if(usrTask != null && action== null && usrTask.getIsActive() && controlTaskType(usrTask)) {
             Toast.makeText(context, usrTask.getTitle() + "", Toast.LENGTH_SHORT).show();
 
             NotificationHelper notificationHelper = new NotificationHelper(context);
@@ -36,8 +36,9 @@ public class AlertReceiver extends BroadcastReceiver {
             notificationHelper.getManager().notify(Integer.parseInt(usrTask.getId()), nb.build());
         }
 
-        DatabaseProcessing dtbs=new DatabaseProcessing(context);
+        /**//**/
 
+        DatabaseProcessing dtbs=new DatabaseProcessing(context);
         //Get Action1
         if(action != null && action.equals("Delete")) {
             dtbs.deleteTask(intent.getStringExtra("TaskID"));
@@ -69,6 +70,21 @@ public class AlertReceiver extends BroadcastReceiver {
 
     }
 
+    public boolean controlTaskType(UserTask usrTask){//Haftalık tasklar hergün ayarlı ama tetiklenip tetiklenmeyeceğine burada karar verilir.
+
+        if(!usrTask.getRepeatType() && usrTask.getIsActive()) {
+            return true;
+        }
+        else if(usrTask.getRepeatType() && usrTask.getIsActive()){
+            Locale.setDefault(Locale.ENGLISH);
+            Calendar calendar = Calendar.getInstance();
+            String todayShort=(calendar.getDisplayName(calendar.DAY_OF_WEEK,calendar.SHORT, Locale.getDefault())).substring(0,3).toUpperCase();
+
+            return (usrTask.getRepeatInfo().toUpperCase().indexOf(todayShort) == -1 ? false: true);
+        }
+        return false;
+    }
+
     public static String getTimeAfter10minutes() {
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -77,7 +93,7 @@ public class AlertReceiver extends BroadcastReceiver {
             Calendar calendar = Calendar.getInstance();
             //calendar.setTime(format.parse(currentDate));
 
-            //Set calendar before 10 minutes
+            //Set calendar after 10 minutes
             calendar.add(Calendar.MINUTE, 10);
             //Formatter
             DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");

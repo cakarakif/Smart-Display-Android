@@ -26,15 +26,17 @@ public class StatisticsFragment extends Fragment {
 
         AddReminder ad=new AddReminder(root.getContext());
         Calendar rightNow = Calendar.getInstance();
-        UserTask usrTask=new UserTask(true,"Kitap Vakti1","Yarım kalan kitabini okumalisin","1","15/03/2020",false,rightNow.get(Calendar.HOUR_OF_DAY)+":"+(rightNow.get(Calendar.MINUTE)+1),true,"--","93");
+
+        /*UserTask usrTask=new UserTask(true,"Kitap Vakti1","Yarım kalan kitabini okumalisin","1","15/03/2020",false,rightNow.get(Calendar.HOUR_OF_DAY)+":"+(rightNow.get(Calendar.MINUTE)+1),true,"--","99");
         ad.setUserTask(usrTask);
-        ad.startAlarm();
+        ad.startAlarm();*/
         //ad.cancelAlarm();
 
-        /*
-        UserTask usrTask2=new UserTask(true,"Kitap Vakti2","Yarım kalan kitabini okumalisin","1","15/03/2020",false,rightNow.get(Calendar.HOUR_OF_DAY)+":"+(rightNow.get(Calendar.MINUTE)+2),true,"--","94");
-        ad.setUserTask(usrTask2);
-        ad.startAlarm();*/
+
+        AddReminder ad2=new AddReminder(root.getContext());
+        UserTask usrTask2=new UserTask(true,"Kitap Vakti2","Yarım kalan kitabini okumalisin","1","Tue/Wed/Thu/Fri/Sat",true,rightNow.get(Calendar.HOUR_OF_DAY)+":"+(rightNow.get(Calendar.MINUTE)+1),true,"--","101");
+        ad2.setUserTask(usrTask2);
+        ad2.startAlarm();
 
 
         return root;
