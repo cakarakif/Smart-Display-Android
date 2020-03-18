@@ -122,6 +122,11 @@ public class AllTasksFragment extends Fragment {
                             performToDoView();
                         else
                             performDoneView();
+                    }else{//eğer null ise boş olarak gösterildi
+                        taskList = new ArrayList<>();
+                        todoList = new ArrayList<>();
+                        doneList = new ArrayList<>();
+                        startListView();
                     }
                     loading.dismiss();
                 }

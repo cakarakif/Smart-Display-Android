@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.ReminderAlarm.AddReminder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -147,7 +148,7 @@ public class TaskListAdapter extends BaseAdapter {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                areUSureDialogDelete(Integer.parseInt(list.get(i).getId()));
+                areUSureDialogDelete(list.get(i));
             }
         });
 
@@ -180,7 +181,7 @@ public class TaskListAdapter extends BaseAdapter {
     }
 
 
-    private void areUSureDialogDelete(int id){
+    private void areUSureDialogDelete(UserTask usrTask){
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -188,13 +189,19 @@ public class TaskListAdapter extends BaseAdapter {
                     case DialogInterface.BUTTON_POSITIVE:
                         //Yes button clicked
                         loading = ProgressDialog.show(context, "Please wait...", "Deleting ...", true);
-                        reference = database.getReference(user.getUid() + "/Tasks/"+id);
+                        reference = database.getReference(user.getUid() + "/Tasks/"+Integer.parseInt(usrTask.getId()));
 
                         //silme işlemi
                         reference.removeValue()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+
+                                        //aynı zamanda sistemde bildirimini sildik
+                                        AddReminder rmndr=new AddReminder(context);
+                                        rmndr.setUserTask(usrTask);
+                                        rmndr.cancelAlarm();
+
                                         Toast.makeText(context, "Successfully deleted!", Toast.LENGTH_LONG).show();
                                         loading.dismiss();
                                     }

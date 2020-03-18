@@ -82,7 +82,7 @@ public class NotificationHelper extends ContextWrapper {
 
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(usrTask.getTitle())
-                .setContentText(usrTask.getDescription().equals("") ? "Time to check tasks!":usrTask.getDescription())
+                .setContentText(usrTask.getDescription().equals("No description") ? "Time to check tasks!":usrTask.getDescription())
                 .setSmallIcon(R.drawable.ic_goal_yellow)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)

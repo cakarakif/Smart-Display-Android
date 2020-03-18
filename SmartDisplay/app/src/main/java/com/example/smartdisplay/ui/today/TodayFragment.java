@@ -252,6 +252,10 @@ public class TodayFragment extends Fragment {
                         }
 
                         filterList();
+                    }else{//eğer null ise boş olarak gösterildi
+                        taskList = new ArrayList<>();
+                        filteredList = new ArrayList<>();
+                        startListView();
                     }
                     loading.dismiss();
                 }

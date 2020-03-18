@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.ReminderAlarm.AddReminder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +24,6 @@ import android.widget.Toast;
 
 public class DatabaseProcessing extends Fragment {
     //classı çağıran view elemanları yönetmek için alındı
-    View root;
     Context context;
 
     //genel firabase bağlantı parametreleri
@@ -38,15 +38,19 @@ public class DatabaseProcessing extends Fragment {
     private int counter;
     private Boolean blockDouble,blockDoubleToDelete,blockDoubleToSyncCalendar;
 
+    private  AddReminder rmndr;
+
 
 
     public DatabaseProcessing(View root) {//takvim için düzenlendi ve genel yapılar
-        this.root=root;
+        this.context=root.getContext();
         counter=1;
         //kullancıya özel database bilgi ekleme/alma için eklendi
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
+
+        rmndr=new AddReminder(context);
     }
 
     public DatabaseProcessing(Context context){//notificationslar için düzenlendi
@@ -56,6 +60,8 @@ public class DatabaseProcessing extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
+
+        rmndr=new AddReminder(context);
     }
 
 
@@ -243,6 +249,9 @@ public class DatabaseProcessing extends Fragment {
                 if (dataSnapshot.getValue() != null) {
                     //verilerimizi aldık
                     getUserTasks().postValue(dataSnapshot);
+
+                    //Notification ayarlaması yapıldı
+                    setNotifications(dataSnapshot);
                 } else
                     getUserTasks().postValue(null);
             }
@@ -259,6 +268,18 @@ public class DatabaseProcessing extends Fragment {
             isReadUserTasks = new MutableLiveData<>();
         }
         return isReadUserTasks;
+    }
+
+    private void setNotifications(DataSnapshot dataSnapshot){
+        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+            UserTask usrtasks = postSnapshot.getValue(UserTask.class);
+
+            if(usrtasks.getIsActive()) {//eğer task aktifse taskın daha önceden bildirimi varsa silinip sonra tekrar eklendi
+                rmndr.setUserTask(usrtasks);
+                rmndr.cancelAlarm();
+                rmndr.startAlarm();
+            }
+        }
     }
 
 
