@@ -50,10 +50,10 @@ public class AddReminder {
         c.set(c.MINUTE, usrTask.getMinutes());
         c.set(c.SECOND, 0);
 
-        //kontrol-Silinebilir en son
-        String timeText = "Alarm set for: ";
+        //kontrol
+        /*String timeText = "Alarm set for: ";
         timeText += DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.getDefault()).format(c.getTime());
-        Toast.makeText(context,timeText+"",Toast.LENGTH_LONG).show();
+        Toast.makeText(context,timeText+"",Toast.LENGTH_LONG).show();*/
 
         return c;
     }
@@ -87,6 +87,6 @@ public class AddReminder {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(usrTask.getId()), intent, 0);
 
         alarmManager.cancel(pendingIntent);
-        Toast.makeText(context,"Alarm Cancelled",Toast.LENGTH_LONG).show();
+        /*Toast.makeText(context,"Alarm Cancelled",Toast.LENGTH_LONG).show();*/
     }
 }

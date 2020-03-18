@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
@@ -78,6 +79,14 @@ public class AlertReceiver extends BroadcastReceiver {
     }
 
     public boolean controlTaskType(UserTask usrTask){//Haftalık tasklar hergün ayarlı ama tetiklenip tetiklenmeyeceğine burada karar verilir.
+
+        Calendar rightNow = Calendar.getInstance();
+
+        //alarmları resetlerken eskiler tekrar tetiklenmesi engellendi
+        if(usrTask.getHours() < rightNow.get(Calendar.HOUR_OF_DAY) &&
+                usrTask.getHours() <  rightNow.get(Calendar.MINUTE)){
+            return false;
+        }
 
         if(!usrTask.getRepeatType() && usrTask.getIsActive()) {
             return true;

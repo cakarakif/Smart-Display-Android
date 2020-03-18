@@ -184,6 +184,12 @@ public class SettingsFragment extends Fragment {
 
                         }
                     }
+
+                    if(!syncclndr.isFirstRead) {
+                        //fragmentler arası geçiş
+                        NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                        navController.navigate(R.id.navigation_alltasks);
+                    }
                 }else {
                     // Takvimi okumaya izni verilmemiş
                     Toast.makeText(getContext(),"Allow the app to read the calendar!",Toast.LENGTH_LONG).show();
