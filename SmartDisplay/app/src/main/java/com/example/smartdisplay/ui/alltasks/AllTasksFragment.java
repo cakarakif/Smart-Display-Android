@@ -29,6 +29,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.smartdisplay.Adapter.TaskListAdapter;
+import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,14 +59,11 @@ public class AllTasksFragment extends Fragment {
 
     private ProgressDialog loading;
 
-    private FirebaseDatabase database;
-    private DatabaseReference reference;
-    private FirebaseUser user;
-    private FirebaseAuth auth;
-
     private EditText search;
     private Button filterMenu;
     private PopupMenu popup;
+
+    private DatabaseProcessing dtbs;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -79,13 +77,9 @@ public class AllTasksFragment extends Fragment {
     }
 
     private void define() {
-        listView = root.findViewById(R.id.taskListView);
+        dtbs=new DatabaseProcessing(root);
 
-        //kullancıya özel database bilgi ekleme/alma için eklendi
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference(user.getUid() + "/Tasks");
+        listView = root.findViewById(R.id.taskListView);
 
         search=root.findViewById(R.id.search);
         searchLogo=root.findViewById(R.id.searchLogo);
@@ -98,50 +92,44 @@ public class AllTasksFragment extends Fragment {
         filterMenu = root.findViewById(R.id.filterMenu);
     }
 
-    private void readUserTasks() {
+    private void readUserTasks(){//task bilgisi DatabaseProcessingden sonra burası tetiklenir
+
+        dtbs.readUserTasks();//okuma için tetiklendi
+
+
         loading = ProgressDialog.show(getContext(), "Please wait...", "Retrieving data ...", true);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        try {//tetiklenen işlem postvalue olunca burası tetiklenir
+            dtbs.getUserTasks().observe(getActivity(), new Observer<DataSnapshot>() {
+                @Override
+                public void onChanged(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot != null){
+                        //verilerimizi aldık
+                        taskList = new ArrayList<>();
+                        todoList = new ArrayList<>();
+                        doneList = new ArrayList<>();
 
-                Log.i("tasks", dataSnapshot.getValue() + "");
+                        //listeler ayrıştırılıp hangisi kullanılacaksa routingde taskliste atandı. Burada dolduruldu.
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            UserTask usrtasks = postSnapshot.getValue(UserTask.class);
+                            if(usrtasks.getIsActive())
+                                todoList.add(usrtasks);
+                            else
+                                doneList.add(usrtasks);
+                        }
 
-                if (dataSnapshot.getValue() != null) {
-                    //verilerimizi aldık
-                    taskList = new ArrayList<>();
-                    todoList = new ArrayList<>();
-                    doneList = new ArrayList<>();
-
-                    //listeler ayrıştırılıp hangisi kullanılacaksa routingde taskliste atandı. Burada dolduruldu.
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        UserTask usrtasks = postSnapshot.getValue(UserTask.class);
-                        if(usrtasks.getIsActive())
-                            todoList.add(usrtasks);
+                        //herhangi bir değişiklikte databaseden gelen veri için yönlendirme yapıldı.
+                        if(todo.isChecked() || (!todo.isChecked() && !done.isChecked()))
+                            performToDoView();
                         else
-                            doneList.add(usrtasks);
+                            performDoneView();
                     }
-
-                    //herhangi bir değişiklikte databaseden gelen veri için yönlendirme yapıldı.
-                    if(todo.isChecked() || (!todo.isChecked() && !done.isChecked()))
-                        performToDoView();
-                    else
-                        performDoneView();
-
-
-                } else {
-                    //UserInformation usrinfo = new UserInformation();
-                    //reference.setValue(usrinfo);
+                    loading.dismiss();
                 }
-                loading.dismiss();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
-                loading.dismiss();
-            }
-        });
+            });
+        }catch (Exception e){
+        }
     }
+
 
     private void routing(){
         //tab'a göre liste ataması yapıldı.

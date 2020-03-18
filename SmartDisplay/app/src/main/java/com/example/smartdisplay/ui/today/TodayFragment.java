@@ -24,6 +24,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.smartdisplay.Adapter.TaskListAdapter;
+import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,11 +49,6 @@ public class TodayFragment extends Fragment {
     private List<UserTask> taskList, filteredList;
     private TaskListAdapter listAdapter;
 
-    private FirebaseDatabase database;
-    private DatabaseReference reference;
-    private FirebaseUser user;
-    private FirebaseAuth auth;
-
     private ProgressDialog loading;
     private PopupMenu popup;
 
@@ -61,6 +57,8 @@ public class TodayFragment extends Fragment {
     private Calendar cal;
     private Button filterMenu;
     private TextView todayTitle;
+
+    private DatabaseProcessing dtbs;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -81,13 +79,9 @@ public class TodayFragment extends Fragment {
     }
 
     private void define(){
-        taskListView =root.findViewById(R.id.taskListView);
+        dtbs=new DatabaseProcessing(root);
 
-        //kullancıya özel database bilgi ekleme/alma için eklendi
-        auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference(user.getUid() + "/Tasks");
+        taskListView =root.findViewById(R.id.taskListView);
 
         one = root.findViewById(R.id.one);
         two = root.findViewById(R.id.two);
@@ -237,37 +231,33 @@ public class TodayFragment extends Fragment {
         filterList();
     }
 
-    private void readUserTasks() {
+    private void readUserTasks(){//task bilgisi DatabaseProcessingden sonra burası tetiklenir
+
+        dtbs.readUserTasks();//okuma için tetiklendi
+
+
         loading = ProgressDialog.show(getContext(), "Please wait...", "Retrieving data ...", true);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        try {//tetiklenen işlem postvalue olunca burası tetiklenir
+            dtbs.getUserTasks().observe(getActivity(), new Observer<DataSnapshot>() {
+                @Override
+                public void onChanged(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot != null){
+                        //verilerimizi aldık
+                        taskList = new ArrayList<>();
 
-                Log.i("tasks", dataSnapshot.getValue() + "");
+                        //tüm tasklar alındı.
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            UserTask usrtasks = postSnapshot.getValue(UserTask.class);
+                            taskList.add(usrtasks);
+                        }
 
-                if (dataSnapshot.getValue() != null) {
-                    //verilerimizi aldık
-                    taskList = new ArrayList<>();
-
-                    //tüm tasklar alındı.
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        UserTask usrtasks = postSnapshot.getValue(UserTask.class);
-                        taskList.add(usrtasks);
+                        filterList();
                     }
-
-                    filterList();
-
-                } else {
+                    loading.dismiss();
                 }
-                loading.dismiss();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //Toast.makeText(root.getContext(), R.string.controlInternet, Toast.LENGTH_LONG).show();
-                loading.dismiss();
-            }
-        });
+            });
+        }catch (Exception e){
+        }
     }
 
     private void filterList() {//listeyi seçili tarihe göre filtreleme

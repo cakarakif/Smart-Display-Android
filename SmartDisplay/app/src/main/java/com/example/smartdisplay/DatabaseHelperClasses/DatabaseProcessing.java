@@ -34,12 +34,13 @@ public class DatabaseProcessing extends Fragment {
 
     private MutableLiveData<Boolean> isCheckedCounter;//firabaseden counter alındıktan sonra işlem yapılması sağlandı-Bunun için bekleme sağlandı. Değişimden sonra gerekli classlardaki metotlar tetikledi.
     private MutableLiveData<Boolean> isSyncCalendarChecked;
+    private MutableLiveData<DataSnapshot> isReadUserTasks;
     private int counter;
     private Boolean blockDouble,blockDoubleToDelete,blockDoubleToSyncCalendar;
 
 
 
-    public DatabaseProcessing(View root) {//takvim için düzenlendi
+    public DatabaseProcessing(View root) {//takvim için düzenlendi ve genel yapılar
         this.root=root;
         counter=1;
         //kullancıya özel database bilgi ekleme/alma için eklendi
@@ -228,6 +229,37 @@ public class DatabaseProcessing extends Fragment {
                 });
     }
 
+    ///////////////////////////////////////////////////////////////////////
+    /////get user tasks
+
+    public void readUserTasks() {
+        reference = database.getReference(user.getUid() + "/Tasks");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Log.i("tasks", dataSnapshot.getValue() + "");
+
+                if (dataSnapshot.getValue() != null) {
+                    //verilerimizi aldık
+                    getUserTasks().postValue(dataSnapshot);
+                } else
+                    getUserTasks().postValue(null);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                getUserTasks().postValue(null);
+            }
+        });
+    }
+
+    public MutableLiveData<DataSnapshot> getUserTasks(){//getUserTasks dinlenildiği yer ile bağlantı.(observe yapısı)
+        if(isReadUserTasks == null){
+            isReadUserTasks = new MutableLiveData<>();
+        }
+        return isReadUserTasks;
+    }
 
 
 }
