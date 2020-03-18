@@ -10,8 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import java.text.DateFormat;
@@ -25,8 +28,13 @@ public class AddReminder {
     private Context context;
     private UserTask usrTask;
 
+    private FirebaseUser user;
+    private FirebaseAuth auth;
+
     public AddReminder(Context context){
         this.context=context;
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
     }
 
     public UserTask getUserTask() {
@@ -69,6 +77,10 @@ public class AddReminder {
         Gson gson = new Gson();
         String value = gson.toJson(usrTask);
         intent.putExtra("usrTask", value);
+
+        //receiverda diğer kullanıcıların ekledikleri bildirimler varsa onlar engellendi
+        DatabaseProcessing dtbs=new DatabaseProcessing(context);
+        intent.putExtra("UserUid", dtbs.getUserUid());
 
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(usrTask.getId()), intent, FLAG_UPDATE_CURRENT);

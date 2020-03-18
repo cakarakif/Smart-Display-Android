@@ -22,14 +22,18 @@ import androidx.core.app.NotificationCompat;
 public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        DatabaseProcessing dtbs=new DatabaseProcessing(context);
+
         //bildirime eklenen bilgiler çekildi
         String action = intent.getAction();
 
         Gson gson = new Gson();
         UserTask usrTask = gson.fromJson(intent.getStringExtra("usrTask"), UserTask.class);
+        //Log-out ise veya farklı kullanıcının bildirimleri varsa bu engellendi
+        String UserUid=intent.getStringExtra("UserUid");
 
         //Main Control-Daily or Weekly
-        if(usrTask != null && action== null && usrTask.getIsActive() && controlTaskType(usrTask)) {
+        if(usrTask != null && action== null && usrTask.getIsActive() && controlTaskType(usrTask) && UserUid.equals(dtbs.getUserUid())) {
             Toast.makeText(context, usrTask.getTitle() + "", Toast.LENGTH_SHORT).show();
 
             NotificationHelper notificationHelper = new NotificationHelper(context);
@@ -39,7 +43,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
         /**//**/
 
-        DatabaseProcessing dtbs=new DatabaseProcessing(context);
+
         //Get Action1
         if(action != null && action.equals("Delete")) {
             dtbs.deleteTask(intent.getStringExtra("TaskID"));

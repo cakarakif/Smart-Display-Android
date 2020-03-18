@@ -282,5 +282,16 @@ public class DatabaseProcessing extends Fragment {
         }
     }
 
+    ////////////
+    public String getUserUid(){
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        if(user != null){
+            return user.getUid();
+        }
+
+        return "";
+    }
+
 
 }
