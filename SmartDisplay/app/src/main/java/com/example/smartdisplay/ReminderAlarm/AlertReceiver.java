@@ -83,8 +83,8 @@ public class AlertReceiver extends BroadcastReceiver {
         Calendar rightNow = Calendar.getInstance();
 
         //alarmları resetlerken eskiler tekrar tetiklenmesi engellendi
-        if(usrTask.getHours() < rightNow.get(Calendar.HOUR_OF_DAY) &&
-                usrTask.getHours() <  rightNow.get(Calendar.MINUTE)){
+        if(usrTask.getHours() < rightNow.get(Calendar.HOUR_OF_DAY) ||
+                (usrTask.getHours() == rightNow.get(Calendar.HOUR_OF_DAY) && usrTask.getMinutes() <  rightNow.get(Calendar.MINUTE))){
             return false;
         }
 
