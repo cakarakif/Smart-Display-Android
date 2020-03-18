@@ -50,11 +50,6 @@ public class AlertReceiver extends BroadcastReceiver {
             dtbs.markCompletedTask(intent.getStringExtra("TaskID"));
         }
 
-        else if(action != null && (action.equals("Complete") || action.equals("Delete"))){
-            AddReminder ad=new AddReminder(context);
-            ad.cancelAlarmDirectly(Math.abs(Integer.parseInt(intent.getStringExtra("TaskID"))));
-        }
-
         //Get Action3
         else if(action != null && action.equals("Snooze")) {
             AddReminder ad=new AddReminder(context);
@@ -74,12 +69,21 @@ public class AlertReceiver extends BroadcastReceiver {
             Toast.makeText(context,"Snoozed for 10 minutes",Toast.LENGTH_LONG).show();
         }
 
-        /*if(action != null){//bu kod bildirimi sistemden komple siler kaldırır
+
+
+        if(action != null && (action.equals("Complete") || action.equals("Delete"))){
+            int taskID=Math.abs(Integer.parseInt(intent.getStringExtra("TaskID")));
+            AddReminder ad=new AddReminder(context);
+            ad.cancelAlarmDirectly(taskID);
+            ad.cancelAlarmDirectly(-taskID);//Ertelemesi varsa o da iptal edildi
+
+            //bu kod bildirimi sistemden komple siler kaldırır-hemde notification pencesini kapatır
             NotificationManager notificationManager = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.cancel(Integer.parseInt(intent.getStringExtra("TaskID")));
-        }*/
+            notificationManager.cancel(taskID);
+            notificationManager.cancel(-taskID);
+        }
 
     }
 

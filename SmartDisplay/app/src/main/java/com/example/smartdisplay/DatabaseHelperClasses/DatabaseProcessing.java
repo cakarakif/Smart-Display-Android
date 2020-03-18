@@ -205,7 +205,7 @@ public class DatabaseProcessing extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(context, "Successfully deleted!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Deleted!", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -224,7 +224,7 @@ public class DatabaseProcessing extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(context, "Successfully completed!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Completed!", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
