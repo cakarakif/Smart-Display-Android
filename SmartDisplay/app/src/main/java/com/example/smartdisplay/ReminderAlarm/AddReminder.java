@@ -89,4 +89,13 @@ public class AddReminder {
         alarmManager.cancel(pendingIntent);
         /*Toast.makeText(context,"Alarm Cancelled",Toast.LENGTH_LONG).show();*/
     }
+
+    public void cancelAlarmDirectly(int taskID) {//Direkt olarak silmeler için id gönderimi ile ek seçenek sağlandı(Aynı işlem)
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, taskID, intent, 0);
+
+        alarmManager.cancel(pendingIntent);
+        /*Toast.makeText(context,"Alarm Cancelled",Toast.LENGTH_LONG).show();*/
+    }
 }

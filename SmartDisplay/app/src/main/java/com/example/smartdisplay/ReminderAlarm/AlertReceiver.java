@@ -50,6 +50,11 @@ public class AlertReceiver extends BroadcastReceiver {
             dtbs.markCompletedTask(intent.getStringExtra("TaskID"));
         }
 
+        else if(action != null && (action.equals("Complete") || action.equals("Delete"))){
+            AddReminder ad=new AddReminder(context);
+            ad.cancelAlarmDirectly(Math.abs(Integer.parseInt(intent.getStringExtra("TaskID"))));
+        }
+
         //Get Action3
         else if(action != null && action.equals("Snooze")) {
             AddReminder ad=new AddReminder(context);
