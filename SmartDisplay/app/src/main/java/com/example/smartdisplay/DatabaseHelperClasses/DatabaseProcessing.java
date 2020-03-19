@@ -206,6 +206,7 @@ public class DatabaseProcessing extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(context, "Deleted!", Toast.LENGTH_LONG).show();
+                        readUserTasks();//bildirimlerden'de silindi
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -225,6 +226,7 @@ public class DatabaseProcessing extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(context, "Completed!", Toast.LENGTH_LONG).show();
+                        readUserTasks();//bildirimlerden'de silindi
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
