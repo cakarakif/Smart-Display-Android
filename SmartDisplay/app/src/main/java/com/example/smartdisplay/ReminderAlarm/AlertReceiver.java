@@ -58,6 +58,10 @@ public class AlertReceiver extends BroadcastReceiver {
         else if(action != null && action.equals("Snooze")) {
             AddReminder ad=new AddReminder(context);
             String after10Minute= getTimeAfter10minutes();
+
+            //erteleme bildirimi kapatıldı sonra tekrar aşağıda kuruldu
+            ad.cancelAlarmOnNotificationBar(-Math.abs(Integer.parseInt(usrTask.getId())));
+
             if(after10Minute != null) {
                 if(Integer.parseInt(usrTask.getId()) > 0) {
                     usrTask.setId("-" + usrTask.getId());//ertelerken asıl bildirimi değiştirmesin diye ID değiştirildi ve altta tek seferlik olarak ayarlandı
@@ -68,6 +72,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
                 usrTask.setTime(after10Minute.substring(after10Minute.length()-5));
             }
+
             ad.setUserTask(usrTask);
             ad.startAlarm();
             Toast.makeText(context,"Snoozed for 10 minutes",Toast.LENGTH_LONG).show();
@@ -82,11 +87,9 @@ public class AlertReceiver extends BroadcastReceiver {
             ad.cancelAlarmDirectly(-taskID);//Ertelemesi varsa o da iptal edildi
 
             //bu kod bildirimi sistemden komple siler kaldırır-hemde notification pencesini kapatır
-            NotificationManager notificationManager = (NotificationManager) context
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.cancel(taskID);
-            notificationManager.cancel(-taskID);
+            ad.cancelAlarmOnNotificationBar(taskID);
+            ad.cancelAlarmOnNotificationBar(-taskID);
         }
 
     }

@@ -1,6 +1,7 @@
 package com.example.smartdisplay.ReminderAlarm;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -111,5 +112,13 @@ public class AddReminder {
 
         alarmManager.cancel(pendingIntent);
         /*Toast.makeText(context,"Alarm Cancelled",Toast.LENGTH_LONG).show();*/
+    }
+
+    public  void cancelAlarmOnNotificationBar(int taskID){//Notification barından silmek için burası kullanılır.
+        //bu kod bildirimi sistemden komple siler kaldırır-hemde notification pencesini kapatır
+        NotificationManager notificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.cancel(taskID);
     }
 }
