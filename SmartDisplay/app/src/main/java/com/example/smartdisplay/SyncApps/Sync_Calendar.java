@@ -94,7 +94,7 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
         if(whichType)
             formatter = new SimpleDateFormat("dd/MM/yyyy");
         else
-            formatter = new SimpleDateFormat("hh:mm");
+            formatter = new SimpleDateFormat("HH:mm");
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
