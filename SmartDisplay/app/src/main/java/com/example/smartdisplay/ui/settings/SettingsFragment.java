@@ -162,7 +162,7 @@ public class SettingsFragment extends Fragment {
 
         ////Sync Calendar durumları oluşturuldu ve bağlandı
         Sync_Calendar syncclndr=new Sync_Calendar(root,getActivity());
-        syncclndr.listenSyncCalendarInfo();
+        //syncclndr.listenSyncCalendarInfo();
 
         syncCalendar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

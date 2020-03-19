@@ -111,7 +111,7 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
                     //do what you want when the varriable change.
 
                     //ilk önce calendardan çekilenler silindi/tekrarlı veri engellendi. Sonrasında ekleme yapıldı.
-                    dtbs.setSyncCalendar(true);
+                    //dtbs.setSyncCalendar(true);
 
                     //liste firabase işlenmeye hazır-DatabaseProcessing clasından gerekli metot uygulanır
                     for(UserTask task : calendarList){
@@ -131,7 +131,7 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
 
     public void deleteCalendarTasks(){//eğer 'sync toggle' off olursa direkt silme işlemine ulaşsın
         loading = ProgressDialog.show(root.getContext(), "Please wait...", "Retrieving data ...", true);
-        dtbs.setSyncCalendar(false);
+        //dtbs.setSyncCalendar(false);
         dtbs.deleteCalendarTasks();
         //Toast.makeText(root.getContext(), R.string.successDeleted, Toast.LENGTH_SHORT).show();
     }
@@ -147,8 +147,8 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
 
                     //direkt sayfadaki toggle bağlanılarak checked infosu değiştirildi.
                     isFirstRead=true;
-                    ToggleButton syncCalendar=root.findViewById(R.id.syncCalendar);
-                    syncCalendar.setChecked(isSyncCalendarChecked);
+                    //ToggleButton syncCalendar=root.findViewById(R.id.syncCalendar);
+                    //syncCalendar.setChecked(isSyncCalendarChecked);
                     isFirstRead=false;
                 }
             });
