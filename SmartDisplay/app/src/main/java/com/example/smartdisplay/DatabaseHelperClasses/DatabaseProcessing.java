@@ -271,6 +271,21 @@ public class DatabaseProcessing extends Fragment {
     }
 
     private void setNotifications(DataSnapshot dataSnapshot){
+        int counterInfo = -1; //gelen tasklardan counter infosu alınarak otomatik mantık bildirim iptaline yönlendirildi.
+
+        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+            UserTask usrtasks = postSnapshot.getValue(UserTask.class);
+            if (Integer.parseInt(usrtasks.getId()) > counterInfo) {
+                counterInfo = Integer.parseInt(usrtasks.getId());
+            }
+        }
+
+        for (int i = 0 ; i <= counterInfo ; i++)
+            rmndr.cancelAlarmDirectly(i);
+
+        //Tüm cihazlarda aynı oturum açıldığında takip edilmesi için, yeni bir task eklendiğinde önce daha önceki bildirimler siliniyor sonra
+        //güncel hali yeniden ekleniyor.
+
         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
             UserTask usrtasks = postSnapshot.getValue(UserTask.class);
 
@@ -280,6 +295,8 @@ public class DatabaseProcessing extends Fragment {
                 rmndr.startAlarm();
             }
         }
+
+
     }
 
     ////////////
