@@ -31,10 +31,16 @@ public class AddReminder {
     private FirebaseUser user;
     private FirebaseAuth auth;
 
+    private AlarmManager alarmManager;
+    private Intent intent;
+
     public AddReminder(Context context){
         this.context=context;
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+
+        alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        intent = new Intent(context, AlertReceiver.class);
     }
 
     public UserTask getUserTask() {
@@ -69,7 +75,6 @@ public class AddReminder {
     public void startAlarm() {
         Calendar c=setCalendarWithInfo();
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         //taskID'si request code olarak kullanıldı
         Intent intent = new Intent(context, AlertReceiver.class);
@@ -94,8 +99,6 @@ public class AddReminder {
     }
 
     public void cancelAlarm() {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(usrTask.getId()), intent, 0);
 
         alarmManager.cancel(pendingIntent);
@@ -103,8 +106,7 @@ public class AddReminder {
     }
 
     public void cancelAlarmDirectly(int taskID) {//Direkt olarak silmeler için id gönderimi ile ek seçenek sağlandı(Aynı işlem)
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlertReceiver.class);
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, taskID, intent, 0);
 
         alarmManager.cancel(pendingIntent);
