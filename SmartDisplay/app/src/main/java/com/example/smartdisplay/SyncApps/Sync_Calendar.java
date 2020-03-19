@@ -82,7 +82,6 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
 
             //datebase tetiklendi counter okunduktan sonra listenCheckedCounter metodu tetiklenir
             dtbs.readUserCounterInfo();
-            loading = ProgressDialog.show(root.getContext(), "Please wait...", "Retrieving data ...", true);
             listenCheckedCounter();//counter bekleme yapısı içinde liste işlenmeye başlanır, tetiklendiğinde.
 
             //**************
@@ -131,9 +130,10 @@ public class Sync_Calendar extends Fragment{//Telefonun kendi takvimindeki taskl
     }
 
     public void deleteCalendarTasks(){//eğer 'sync toggle' off olursa direkt silme işlemine ulaşsın
+        loading = ProgressDialog.show(root.getContext(), "Please wait...", "Retrieving data ...", true);
         dtbs.setSyncCalendar(false);
         dtbs.deleteCalendarTasks();
-        Toast.makeText(root.getContext(), R.string.successDeleted, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(root.getContext(), R.string.successDeleted, Toast.LENGTH_SHORT).show();
     }
 
     public void listenSyncCalendarInfo(){//syncCalendar bilgisi firabaseden çekildikten sonra burası tetiklenir(kullanıcı daha önce aktif etmiş mi etmemiş mi)

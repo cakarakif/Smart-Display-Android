@@ -170,20 +170,22 @@ public class SettingsFragment extends Fragment {
                 if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED){
                     // Takvimi okuma izni verilmiş
 
-                    if (isChecked && !syncclndr.isFirstRead) {
+                    if (!syncclndr.isFirstRead) {
                         try {
-                            syncclndr.syncCalendar();
-                        } catch (Exception e) {
+                            syncclndr.deleteCalendarTasks();//önce eskiler silinip
+                            syncclndr.syncCalendar();//yeniler eklendi
 
+
+                        } catch (Exception e) {
                         }
                     }
-                    else if (!syncclndr.isFirstRead) {
+                    /*else if (!syncclndr.isFirstRead) {
                         try {
                             syncclndr.deleteCalendarTasks();
                         } catch (Exception e) {
 
                         }
-                    }
+                    }*/
 
                     if(!syncclndr.isFirstRead) {
                         //fragmentler arası geçiş

@@ -124,6 +124,8 @@
             android:layout_height="50dp"/>
 
         <ToggleButton
+            android:textOff="Sync Now"
+            android:textOn="Sync Now"
             android:textColor="@color/white"
             android:layout_marginTop="4dp"
             android:layout_marginRight="25dp"
