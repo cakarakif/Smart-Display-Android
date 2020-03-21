@@ -5,7 +5,7 @@
     android:id="@+id/addTasks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/uiback"
+    android:background="@drawable/ic_uiback"
     tools:context=".ui.add.AddFragment">
 
     <RelativeLayout
