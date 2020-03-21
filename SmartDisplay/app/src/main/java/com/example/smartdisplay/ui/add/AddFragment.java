@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.smartdisplay.DatabaseHelperClasses.UserInformation;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.ReminderAlarm.AddReminder;
 import com.example.smartdisplay.ui.alltasks.AllTasksFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -343,7 +344,10 @@ public class AddFragment extends Fragment {
     }
 
     private void readUserCounterInfo(){//counter yapısını datebasede oluşturarak taskların sıralamasını beliledik.
-        if(isFormValid()) {
+        //eğer cihazda notification kanalı kapalıysa kontrol yapıldı
+        AddReminder ad = new AddReminder(getContext());
+
+        if(isFormValid() && ad.isNotificationsActiveOnDevice()) {
             blockDouble=true;//reference'de olan değişkeni değiştirdiğimiziçin onDataChange iki kere düşmesini engelledik.
             loading = ProgressDialog.show(getContext(), "Please wait...", "Saving...", true);
             reference = database.getReference(user.getUid() + "/counter");

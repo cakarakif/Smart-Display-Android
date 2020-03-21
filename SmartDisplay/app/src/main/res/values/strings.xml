@@ -75,4 +75,6 @@
     <string name="successSync">Successfully Synced Calendar Tasks!</string>
     <string name="successDeleted">Successfully Deleted Calendar Tasks!</string>
 
+    <string name="isNotificationsActive">Please allow notifications from the device settings!</string>
+
 </resources>

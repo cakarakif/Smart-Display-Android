@@ -1,10 +1,14 @@
 package com.example.smartdisplay.ReminderAlarm;
 
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +26,9 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationManagerCompat;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
@@ -121,4 +128,57 @@ public class AddReminder {
 
         notificationManager.cancel(taskID);
     }
+
+    /**//**//**//**//**//**//**//**//**//**/
+    /**//**//**//**//**/
+    public boolean isNotificationsActiveOnDevice(){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                isChannelBlocked("TaskNotify")) {
+            Toast.makeText(context, context.getString(R.string.isNotificationsActive), Toast.LENGTH_LONG).show();
+            openChannelSettings("TaskNotify");
+            return false;
+        }
+
+        if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
+            Toast.makeText(context, context.getString(R.string.isNotificationsActive), Toast.LENGTH_LONG).show();
+            openNotificationSettings();
+            return false;
+        }
+
+        return true;
+
+    }
+
+    private void openNotificationSettings() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+            context.startActivity(intent);
+        } else {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + context.getPackageName()));
+            context.startActivity(intent);
+        }
+    }
+
+    @RequiresApi(26)
+    private boolean isChannelBlocked(String channelId) {
+        NotificationManager manager = context.getSystemService(NotificationManager.class);
+        NotificationChannel channel = manager.getNotificationChannel(channelId);
+
+        return channel != null &&
+                channel.getImportance() == NotificationManager.IMPORTANCE_NONE;
+    }
+
+    @RequiresApi(26)
+    private void openChannelSettings(String channelId) {
+        Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelId);
+        context.startActivity(intent);
+    }
+
+    /**//**//**//**//**/
+    /**//**//**//**//**//**//**//**//**//**/
 }
