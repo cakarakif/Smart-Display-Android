@@ -99,10 +99,23 @@ public class AlertReceiver extends BroadcastReceiver {
         Calendar rightNow = Calendar.getInstance();
 
         //alarmları resetlerken eskiler tekrar tetiklenmesi engellendi
-        if(usrTask.getHours() < rightNow.get(Calendar.HOUR_OF_DAY) ||
+        if(!usrTask.getRepeatType()) {
+            try {
+                String first = usrTask.getRepeatInfo() + " " + usrTask.getTime();
+                DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                formatter.format(rightNow.getTime());
+                if(formatter.parse(first).before(formatter.parse(formatter.format(rightNow.getTime()))))
+                    return false;
+            } catch (Exception e) {
+
+            }
+        }
+
+        //bu kod sadece zaman olarak kıyaslıyor üstte hem tarih hem zaman içeriyor.
+        /*if(usrTask.getHours() < rightNow.get(Calendar.HOUR_OF_DAY) ||
                 (usrTask.getHours() == rightNow.get(Calendar.HOUR_OF_DAY) && usrTask.getMinutes() <  rightNow.get(Calendar.MINUTE))){
             return false;
-        }
+        }*/
 
         if(!usrTask.getRepeatType() && usrTask.getIsActive()) {
             return true;
