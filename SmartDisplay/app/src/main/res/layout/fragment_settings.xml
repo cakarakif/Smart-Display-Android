@@ -101,9 +101,52 @@
                 android:layout_height="2dp"/>
 
             <LinearLayout
-                android:id="@+id/syncCalendarArea"
+                android:id="@+id/switchScreenArea"
                 android:orientation="horizontal"
                 android:layout_below="@id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:id="@+id/switchLogo"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="40dp"
+                    android:background="@drawable/ic_magic"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_weight="20"
+                    android:id="@+id/switchText"
+                    android:padding="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/line2"
+                    android:textColor="@color/gray"
+                    android:textSize="15dp"
+                    android:text="@string/switchScreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"/>
+
+                <ToggleButton
+                    android:textOff=" SWITCH "
+                    android:textOn=" SWITCH "
+                    android:textColor="@color/white"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_weight="1"
+                    android:id="@+id/switchScreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/syncCalendarArea"
+                android:orientation="horizontal"
+                android:layout_below="@id/switchScreenArea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

@@ -27,7 +27,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.SmartScreen.SmartScreen;
 import com.example.smartdisplay.SyncApps.Sync_Calendar;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,15 +39,16 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SettingsFragment extends Fragment {
     View root;
 
-    ImageView accountLogo,passwordLogo,helpLogo,feedbackLogo,aboutLogo,logoutLogo;
-    TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
-    Button ok;
-    ToggleButton syncCalendar;
-    Boolean isFirstRead=false;
+    private ImageView accountLogo,passwordLogo,helpLogo,feedbackLogo,aboutLogo,logoutLogo;
+    private TextView accountText,passwordText,helpText,feedbackText,aboutText,LogoutText;
+    private Button ok;
+    private ToggleButton syncCalendar;
 
     private ProgressDialog loading;
 
     private FirebaseAuth auth;
+
+    private ToggleButton switchScreen;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class SettingsFragment extends Fragment {
         LogoutText=root.findViewById(R.id.LogoutText);
 
         syncCalendar=root.findViewById(R.id.syncCalendar);
+        switchScreen=root.findViewById(R.id.switchScreen);
     }
 
     private void routing(){
@@ -179,13 +183,7 @@ public class SettingsFragment extends Fragment {
                         } catch (Exception e) {
                         }
                     }
-                    /*else if (!syncclndr.isFirstRead) {
-                        try {
-                            syncclndr.deleteCalendarTasks();
-                        } catch (Exception e) {
-
-                        }
-                    }*/
+                    /*else if (!syncclndr.isFirstRead) {try { syncclndr.deleteCalendarTasks(); } catch (Exception e) {}}*/
 
                     if(!syncclndr.isFirstRead) {
                         //fragmentler arası geçiş
@@ -197,6 +195,15 @@ public class SettingsFragment extends Fragment {
                     Toast.makeText(getContext(),"Allow the app to read the calendar!",Toast.LENGTH_LONG).show();
                 }
 
+            }
+        });
+
+        //switch screen
+        switchScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (getContext(), SmartScreen.class);
+                startActivity(intent);
             }
         });
     }

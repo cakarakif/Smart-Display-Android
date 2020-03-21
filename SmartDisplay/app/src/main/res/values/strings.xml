@@ -4,7 +4,6 @@
     <string name="fb_login_protocol_scheme">fb1045553882579292</string>
 
 
-
     <string name="regSuccess">Successfully Registered! Please SignIn...</string>
     <string name="saveSuccess">Successfully saved!</string>
     <string name="validMail">Enter a valid mail!</string>
@@ -76,5 +75,7 @@
     <string name="successDeleted">Successfully Deleted Calendar Tasks!</string>
 
     <string name="isNotificationsActive">Please allow notifications from the device settings!</string>
+
+    <string name="switchScreen">Smart Screen</string>
 
 </resources>
