@@ -1,6 +1,7 @@
 package com.example.smartdisplay.ui.today;
 
 import android.app.ProgressDialog;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,6 +64,9 @@ public class TodayFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_today, container, false);
+
+        //ekranın yan olarak kullanılmasını engeller(burdaki işlem tüm uygulamayı etkiler)
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         cal = Calendar.getInstance();//ilk başta çekilir sadece
 
