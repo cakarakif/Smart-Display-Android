@@ -112,10 +112,10 @@ public class AlertReceiver extends BroadcastReceiver {
         }
 
         //bu kod sadece zaman olarak kıyaslıyor üstte hem tarih hem zaman içeriyor.
-        /*if(usrTask.getHours() < rightNow.get(Calendar.HOUR_OF_DAY) ||
+        if(usrTask.getHours() < rightNow.get(Calendar.HOUR_OF_DAY) ||
                 (usrTask.getHours() == rightNow.get(Calendar.HOUR_OF_DAY) && usrTask.getMinutes() <  rightNow.get(Calendar.MINUTE))){
             return false;
-        }*/
+        }
 
         if(!usrTask.getRepeatType() && usrTask.getIsActive()) {
             return true;
