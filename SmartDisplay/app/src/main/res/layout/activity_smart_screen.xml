@@ -7,24 +7,8 @@
     android:background="@drawable/ic_smartback"
     tools:context=".SmartScreen.SmartScreen">
 
-    <com.example.smartdisplay.SmartScreen.AnalogClock.ClockView
-        android:id="@+id/clockView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_below="@+id/current_temperature_field"
-        android:layout_centerInParent="true"/>
 
-    <DigitalClock
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:layout_marginBottom="70dp"
-        android:layout_alignBottom="@+id/clockView"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <!--Weatherbaslangıccccc-->
+    <!--Weather-->
 
 
     <TextView
@@ -73,5 +57,27 @@
         android:layout_below="@+id/details_field"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="40sp" />
+
+    <!--Weather-->
+
+    <!--Clock-->
+    <com.example.smartdisplay.SmartScreen.AnalogClock.ClockView
+        android:id="@+id/clockView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/current_temperature_field"
+        android:layout_centerInParent="true"/>
+
+    <DigitalClock
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_marginBottom="70dp"
+        android:layout_alignBottom="@+id/clockView"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <!--Clock-->
 
 </RelativeLayout>
