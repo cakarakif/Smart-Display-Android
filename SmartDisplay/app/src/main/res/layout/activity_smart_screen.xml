@@ -8,8 +8,19 @@
     tools:context=".SmartScreen.SmartScreen">
 
     <com.example.smartdisplay.SmartScreen.AnalogClock.ClockView
+        android:id="@+id/clockView"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"/>
+
+    <DigitalClock
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_marginBottom="70dp"
+        android:layout_alignBottom="@+id/clockView"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>
