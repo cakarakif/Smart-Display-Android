@@ -11,6 +11,7 @@
         android:id="@+id/clockView"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:layout_below="@+id/current_temperature_field"
         android:layout_centerInParent="true"/>
 
     <DigitalClock
@@ -27,6 +28,7 @@
 
 
     <TextView
+        android:text="IZMIR"
         android:id="@+id/city_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,6 +37,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
+        android:text="Last update: 22 Mar 2020 20:43:10"
         android:id="@+id/updated_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,24 +48,14 @@
 
     <TextView
         android:id="@+id/weather_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="70sp"
-        />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/ic_weather_sunny"
+        android:layout_below="@+id/updated_field"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
-        android:id="@+id/current_temperature_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="40sp" />
-
-    <TextView
+        android:text="BROKEN CLOUDS \n Humidity \n Pressure"
         android:id="@+id/details_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,5 +63,15 @@
         android:layout_centerHorizontal="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         />
+
+    <TextView
+        android:text="14 C"
+        android:id="@+id/current_temperature_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/details_field"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40sp" />
 
 </RelativeLayout>

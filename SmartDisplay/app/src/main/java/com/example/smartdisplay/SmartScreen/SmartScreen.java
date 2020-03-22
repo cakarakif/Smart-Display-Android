@@ -114,10 +114,11 @@ public class SmartScreen extends AppCompatActivity {
                             "\n" + "Pressure: " + main.getString("pressure") + " hPa");
 
             currentTemperatureField.setText(
-                    String.format("%.2f", main.getDouble("temp")) + " ℃");
+                    (int)((main.getDouble("temp")-273.15)) + " ℃");
 
             DateFormat df = DateFormat.getDateTimeInstance();
-            String updatedOn = df.format(new Date(json.getLong("dt") * 1000));
+            Date date=java.util.Calendar.getInstance().getTime();
+            String updatedOn = df.format(date);
             updatedField.setText("Last update: " + updatedOn);
 
             setWeatherIcon(details.getInt("id"),
@@ -131,31 +132,33 @@ public class SmartScreen extends AppCompatActivity {
 
     private void setWeatherIcon(int actualId, long sunrise, long sunset){
         int id = actualId / 100;
-        String icon = "";
+        int icon=0;
         if(actualId == 800){
             long currentTime = new Date().getTime();
             if(currentTime>=sunrise && currentTime<sunset) {
-                icon = getString(R.string.weather_sunny);
+                icon = R.drawable.ic_weather_sunny;
             } else {
-                icon = getString(R.string.weather_clear_night);
+                icon = R.drawable.ic_weather_clear_night;
             }
         } else {
             switch(id) {
-                case 2 : icon = getString(R.string.weather_thunder);
+                case 2 : icon = R.drawable.ic_weather_thunder;
                     break;
-                case 3 : icon = getString(R.string.weather_drizzle);
+                case 3 : icon = R.drawable.ic_weather_drizzle;
                     break;
-                case 7 : icon = getString(R.string.weather_foggy);
+                case 7 : icon = R.drawable.ic_weather_foggy;
                     break;
-                case 8 : icon = getString(R.string.weather_cloudy);
+                case 8 : icon = R.drawable.ic_weather_cloudy;
                     break;
-                case 6 : icon = getString(R.string.weather_snowy);
+                case 6 : icon = R.drawable.ic_weather_snowy;
                     break;
-                case 5 : icon = getString(R.string.weather_rainy);
+                case 5 : icon = R.drawable.ic_weather_rainy;
+                    break;
+                default: icon= R.drawable.ic_thermometer;
                     break;
             }
         }
-        weatherIcon.setText(icon);
+        weatherIcon.setBackground(getDrawable(icon));
     }
     ////Weather Part
 
