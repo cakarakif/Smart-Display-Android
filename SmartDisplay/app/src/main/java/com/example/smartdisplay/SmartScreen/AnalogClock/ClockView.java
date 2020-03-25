@@ -107,7 +107,7 @@ public class ClockView extends View {
         paint.reset();
         //paint.setColor(getResources().getColor(android.R.color.white));
         paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(10);
         paint.setStyle(Paint.Style.STROKE);
         paint.setAntiAlias(true);
         canvas.drawCircle(width / 2, height / 2, radius + padding - 10+50, paint);//kesikli olmasının nedeni +50
