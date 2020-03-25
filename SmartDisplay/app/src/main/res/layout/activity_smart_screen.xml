@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/weather_icon"
             android:layout_centerHorizontal="true"
-            android:text="BROKEN CLOUDS"
+            android:text="No Location Permission"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="13sp" />
 
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/details_field"
             android:layout_centerHorizontal="true"
-            android:text="14 C"
+            android:text="-- C"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="20sp" />
 

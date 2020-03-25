@@ -1,23 +1,25 @@
 package com.example.smartdisplay.SmartScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.smartdisplay.R;
-import com.example.smartdisplay.SmartScreen.WeatherHelpers.CityPreference;
 import com.example.smartdisplay.SmartScreen.WeatherHelpers.RemoteFetch;
 
 import org.json.JSONObject;
@@ -40,7 +42,7 @@ public class SmartScreen extends AppCompatActivity {
     //
     TextView dateInfo;
 
-    public SmartScreen(){
+    public SmartScreen() {
         handler = new Handler();
     }
 
@@ -54,16 +56,15 @@ public class SmartScreen extends AppCompatActivity {
         define();
         setContentView();
 
-        //weather başlatıldı
-        CityPreference cityPref=new CityPreference(this);
-        updateWeatherData(cityPref.getLat(),cityPref.getLon());
+        //konum alınıp weather tetiklendi
+        getLocationAndstartWeather();
 
         //tarih atandı
-        setDate ();
+        setDate();
 
     }
 
-    private void define(){
+    private void define() {
         detailsField = findViewById(R.id.details_field);
         currentTemperatureField = findViewById(R.id.current_temperature_field);
         weatherIcon = findViewById(R.id.weather_icon);
@@ -75,7 +76,7 @@ public class SmartScreen extends AppCompatActivity {
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
-    private void setContentView(){
+    private void setContentView() {
         //Tam ekran kullanımı için
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -84,14 +85,14 @@ public class SmartScreen extends AppCompatActivity {
 
         //uygulama dili ingilizce olarak ayarlandıki tarihler ona göre gelsin
         Locale.setDefault(Locale.ENGLISH);
-        Configuration configuration =getResources().getConfiguration();
+        Configuration configuration = getResources().getConfiguration();
         configuration.setLocale(Locale.ENGLISH);
         configuration.setLayoutDirection(Locale.ENGLISH);
         createConfigurationContext(configuration);
         //////////////////
     }
 
-    public void setDate (){
+    public void setDate() {
 
         Date today = Calendar.getInstance().getTime();//getting date
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, yyyy");//formating according to my need
@@ -99,11 +100,22 @@ public class SmartScreen extends AppCompatActivity {
         dateInfo.setText(date);
     }
 
-    ////Weather Part
-    public void changeCity(String lat,String lon){
-        updateWeatherData(lat,lon);
+    ////konum alınıp weather tetiklendi
+    public void getLocationAndstartWeather() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            String longitude = location.getLongitude()+"";
+            String latitude = location.getLatitude()+"";
+            //weather başlatıldı
+            updateWeatherData(latitude+"", longitude+"");
+        }else {
+            Toast.makeText(getApplicationContext(),getString(R.string.locationPermission),Toast.LENGTH_LONG).show();
+        }
     }
+    //
 
+    ////Weather Part
     private void updateWeatherData(final String lat, final String lon){
         new Thread(){
             public void run(){
