@@ -45,6 +45,7 @@ public class SmartScreen extends AppCompatActivity {
 
     //
     TextView dateInfo;
+    TextView details_field;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +71,13 @@ public class SmartScreen extends AppCompatActivity {
 
         //
         dateInfo = findViewById(R.id.dateInfo);
+        details_field = findViewById(R.id.details_field);
     }
 
     public SmartScreen() {
         handler = new Handler();
     }
-    
+
     @SuppressLint("SourceLockedOrientationActivity")
     private void setContentView() {
         //Tam ekran kullanımı için
@@ -156,6 +158,7 @@ public class SmartScreen extends AppCompatActivity {
                 if (json == null) {
                     handler.post(new Runnable() {
                         public void run() {
+                            details_field.setText(getString(R.string.controlInternet));
                             Toast.makeText(getApplicationContext(),
                                     getString(R.string.place_not_found),
                                     Toast.LENGTH_LONG).show();
