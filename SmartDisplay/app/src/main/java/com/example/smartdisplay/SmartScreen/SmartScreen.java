@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,8 @@ import com.example.smartdisplay.SmartScreen.WeatherHelpers.RemoteFetch;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -34,6 +37,9 @@ public class SmartScreen extends AppCompatActivity {
     TextView weatherIcon;
     Handler handler;
 
+    //
+    TextView dateInfo;
+
     public SmartScreen(){
         handler = new Handler();
     }
@@ -44,11 +50,16 @@ public class SmartScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_smart_screen);
 
+        //default başlangıç
         define();
         setContentView();
 
+        //weather başlatıldı
         CityPreference cityPref=new CityPreference(this);
         updateWeatherData(cityPref.getLat(),cityPref.getLon());
+
+        //tarih atandı
+        setDate ();
 
     }
 
@@ -58,6 +69,9 @@ public class SmartScreen extends AppCompatActivity {
         weatherIcon = findViewById(R.id.weather_icon);
 
         weatherIcon.setTypeface(weatherFont);
+
+        //
+        dateInfo = findViewById(R.id.dateInfo);
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -67,6 +81,22 @@ public class SmartScreen extends AppCompatActivity {
 
         //ekranın yan olarak kullanılmasını sağlar
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        //uygulama dili ingilizce olarak ayarlandıki tarihler ona göre gelsin
+        Locale.setDefault(Locale.ENGLISH);
+        Configuration configuration =getResources().getConfiguration();
+        configuration.setLocale(Locale.ENGLISH);
+        configuration.setLayoutDirection(Locale.ENGLISH);
+        createConfigurationContext(configuration);
+        //////////////////
+    }
+
+    public void setDate (){
+
+        Date today = Calendar.getInstance().getTime();//getting date
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d, yyyy");//formating according to my need
+        String date = formatter.format(today);
+        dateInfo.setText(date);
     }
 
     ////Weather Part

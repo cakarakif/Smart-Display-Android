@@ -88,6 +88,8 @@ public class ClockView extends View {
 
         for (int number : numbers) {
             String tmp = String.valueOf(number);
+            paint.setStrokeWidth(3);
+            paint.setStyle(Paint.Style.STROKE);
             paint.getTextBounds(tmp, 0, tmp.length(), rect);
             double angle = Math.PI / 6 * (number - 3);
             int x = (int) (width / 2 + Math.cos(angle) * radius - rect.width() / 2);
@@ -103,12 +105,12 @@ public class ClockView extends View {
 
     private void drawCircle(Canvas canvas) {
         paint.reset();
-        paint.setColor(getResources().getColor(android.R.color.white));
-        //paint.setColor(Color.BLACK);
+        //paint.setColor(getResources().getColor(android.R.color.white));
+        paint.setColor(Color.BLACK);
         paint.setStrokeWidth(5);
         paint.setStyle(Paint.Style.STROKE);
         paint.setAntiAlias(true);
-        canvas.drawCircle(width / 2, height / 2, radius + padding - 10, paint);
+        canvas.drawCircle(width / 2, height / 2, radius + padding - 10+50, paint);//kesikli olmasının nedeni +50
     }
 
 }
