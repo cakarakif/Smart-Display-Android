@@ -47,7 +47,8 @@ public class SmartScreen extends AppCompatActivity {
         define();
         setContentView();
 
-        updateWeatherData(new CityPreference(this).getCity());
+        CityPreference cityPref=new CityPreference(this);
+        updateWeatherData(cityPref.getLat(),cityPref.getLon());
 
     }
 
@@ -69,14 +70,14 @@ public class SmartScreen extends AppCompatActivity {
     }
 
     ////Weather Part
-    public void changeCity(String city){
-        updateWeatherData(city);
+    public void changeCity(String lat,String lon){
+        updateWeatherData(lat,lon);
     }
 
-    private void updateWeatherData(final String city){
+    private void updateWeatherData(final String lat, final String lon){
         new Thread(){
             public void run(){
-                final JSONObject json = RemoteFetch.getJSON(getApplicationContext(), city);
+                final JSONObject json = RemoteFetch.getJSON(getApplicationContext(), lat,lon);
                 if(json == null){
                     handler.post(new Runnable(){
                         public void run(){

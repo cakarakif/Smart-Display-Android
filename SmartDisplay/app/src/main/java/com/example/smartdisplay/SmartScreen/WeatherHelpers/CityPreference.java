@@ -12,12 +12,21 @@ public class CityPreference {
     }
 
     // If the user has not chosen a city yet, return
-    public String getCity(){
-        return prefs.getString("city", "Izmir,tr");//ülke kısaltması zorunlu değil
+    public String getLat(){
+        return prefs.getString("lat", "38.418417");
     }
 
-    public void setCity(String city){
-        prefs.edit().putString("city", city).commit();
+    public void setLat(String lat){
+        prefs.edit().putString("lat", lat).commit();
+    }
+
+
+    public String getLon(){
+        return prefs.getString("lon", "27.140107");
+    }
+
+    public void setLon(String lon){
+        prefs.edit().putString("lon", lon).commit();
     }
 
 }

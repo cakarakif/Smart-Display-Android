@@ -15,11 +15,11 @@ import com.example.smartdisplay.R;
 public class RemoteFetch {
 
     private static final String OPEN_WEATHER_MAP_API =
-            "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s";
+            "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s";
 
-    public static JSONObject getJSON(Context context, String city){
+    public static JSONObject getJSON(Context context, String lat, String lon){
         try {
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_API, city,"50a4030ddbb41c21d2c2db6586ddae54"));//ikincisi API key(siteden alınan)
+            URL url = new URL(String.format(OPEN_WEATHER_MAP_API, lat,lon,"50a4030ddbb41c21d2c2db6586ddae54"));//ikincisi API key(siteden alınan)
             Log.i("sdfsfsd",url+"");
             HttpURLConnection connection =
                     (HttpURLConnection)url.openConnection();
