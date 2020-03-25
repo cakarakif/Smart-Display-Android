@@ -29,8 +29,6 @@ public class SmartScreen extends AppCompatActivity {
 
     //Weather değişkenleri
     Typeface weatherFont;
-    TextView cityField;
-    //TextView updatedField;
     TextView detailsField;
     TextView currentTemperatureField;
     TextView weatherIcon;
@@ -54,8 +52,6 @@ public class SmartScreen extends AppCompatActivity {
     }
 
     private void define(){
-        cityField = findViewById(R.id.city_field);
-        //updatedField = findViewById(R.id.updated_field);
         detailsField = findViewById(R.id.details_field);
         currentTemperatureField = findViewById(R.id.current_temperature_field);
         weatherIcon = findViewById(R.id.weather_icon);
@@ -102,25 +98,17 @@ public class SmartScreen extends AppCompatActivity {
 
     private void renderWeather(JSONObject json) {
         try {
-            cityField.setText(json.getString("name").toUpperCase(Locale.US) +
-                    ", " +
-                    json.getJSONObject("sys").getString("country"));
 
             JSONObject details = json.getJSONArray("weather").getJSONObject(0);
             JSONObject main = json.getJSONObject("main");
             detailsField.setText(
                     details.getString("description").toUpperCase(Locale.US) );
-                            //"\n" + "Humidity: " + main.getString("humidity") + "%" +
-                            //"\n" + "Pressure: " + main.getString("pressure") + " hPa");
 
             currentTemperatureField.setText(
                     (int)((main.getDouble("temp")-273.15)) + " ℃");
 
             DateFormat df = DateFormat.getDateTimeInstance();
             Date date=java.util.Calendar.getInstance().getTime();
-            //String updatedOn = df.format(date);
-            //updatedField.setText("Last update: " + updatedOn);
-
             setWeatherIcon(details.getInt("id"),
                     json.getJSONObject("sys").getLong("sunrise") * 1000,
                     json.getJSONObject("sys").getLong("sunset") * 1000);

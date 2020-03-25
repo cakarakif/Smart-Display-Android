@@ -9,80 +9,61 @@
 
 
     <RelativeLayout
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <!--Weather-->
-    <TextView
-        android:text="IZMIR"
-        android:id="@+id/city_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <!--<TextView
-        android:text="Last update: 22 Mar 2020 20:43:10"
-        android:id="@+id/updated_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/city_field"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="13sp" />-->
-
-    <TextView
-        android:id="@+id/weather_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/ic_weather_sunny"
-        android:layout_below="@+id/city_field"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:text="BROKEN CLOUDS"
-        android:id="@+id/details_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/weather_icon"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="13sp"
-        />
-
-    <TextView
-        android:text="14 C"
-        android:id="@+id/current_temperature_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/details_field"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20sp" />
+        android:layout_centerVertical="true">
 
-    <!--Weather-->
+        <!--Clock-->
+        <com.example.smartdisplay.SmartScreen.AnalogClock.ClockView
+            android:id="@+id/clockView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true" />
 
-    <!--Clock-->
-    <com.example.smartdisplay.SmartScreen.AnalogClock.ClockView
-        android:id="@+id/clockView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_below="@+id/current_temperature_field"
-        android:layout_centerInParent="true"/>
+        <DigitalClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/clockView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
-    <DigitalClock
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:layout_marginBottom="70dp"
-        android:layout_alignBottom="@+id/clockView"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <!--Clock-->
 
-    <!--Clock-->
+        <!--Weather-->
+        <TextView
+            android:id="@+id/weather_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/clockView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_weather_sunny" />
+
+        <TextView
+            android:id="@+id/details_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/weather_icon"
+            android:layout_centerHorizontal="true"
+            android:text="BROKEN CLOUDS"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/current_temperature_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/details_field"
+            android:layout_centerHorizontal="true"
+            android:text="14 C"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20sp" />
+
+        <!--Weather-->
 
     </RelativeLayout>
 
