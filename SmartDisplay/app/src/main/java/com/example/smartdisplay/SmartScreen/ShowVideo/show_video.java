@@ -74,6 +74,9 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
         //ekranın yan olarak kullanılmasını sağlar
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        //ekranın yanlarına basınca activity kapanmasın
+        setFinishOnTouchOutside(false);
+
 
     }
 
