@@ -321,8 +321,13 @@ public class SmartScreen extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            String longitude = location.getLongitude() + "";
-            String latitude = location.getLatitude() + "";
+            String longitude = "28.979530";//default olarak istanbul location atandı
+            String latitude = "41.015137";
+
+            if( location != null){
+                longitude = location.getLongitude() + "";
+                latitude = location.getLatitude() + "";
+            }
             //weather başlatıldı
             updateWeatherData(latitude + "", longitude + "");
         } else {
