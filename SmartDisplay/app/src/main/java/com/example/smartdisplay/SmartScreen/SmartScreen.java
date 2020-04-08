@@ -88,9 +88,6 @@ public class SmartScreen extends AppCompatActivity {
         //tarih ve hava durumu-her saat tetiklendi
         scheduleRepeat();
 
-        //videolu alert geldiyse kontrolü ve tetiklenmesi--DEGİSTİR!!!!!!!!!!!!!!!
-        isVideoAlarm();
-
     }
 
     private void define() {
@@ -145,12 +142,6 @@ public class SmartScreen extends AppCompatActivity {
                 dateCalendar(1);
             }
         });
-    }
-
-    private void isVideoAlarm(){
-        //Intent intent = getIntent();
-        //Gson gson = new Gson();
-        //UserTask usrTask = gson.fromJson(intent.getStringExtra("usrTask"), UserTask.class);
     }
 
     private void dateCalendar(int numberMov){
