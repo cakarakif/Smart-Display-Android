@@ -8,6 +8,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -19,6 +20,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,6 +31,7 @@ import com.example.smartdisplay.Adapter.TaskListAdapter;
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.SmartScreen.ShowVideo.show_video;
 import com.example.smartdisplay.SmartScreen.WeatherHelpers.RemoteFetch;
 import com.google.firebase.database.DataSnapshot;
 
@@ -48,6 +51,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SmartScreen extends AppCompatActivity {
+
+    Button oynat;
 
     //Weather değişkenleri
     Typeface weatherFont;
@@ -89,6 +94,8 @@ public class SmartScreen extends AppCompatActivity {
     }
 
     private void define() {
+        oynat = findViewById(R.id.oynat);
+
         detailsField = findViewById(R.id.details_field);
         currentTemperatureField = findViewById(R.id.current_temperature_field);
         weatherIcon = findViewById(R.id.weather_icon);
@@ -138,6 +145,15 @@ public class SmartScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dateCalendar(1);
+            }
+        });
+
+        //
+        oynat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getApplicationContext(), show_video.class);
+                startActivity(myIntent);
             }
         });
     }

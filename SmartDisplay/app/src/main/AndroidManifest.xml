@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SmartScreen.SmartScreen"></activity>
+        <activity android:name=".SmartScreen.ShowVideo.show_video"
+                android:configChanges="orientation"></activity>
+        <activity android:name=".SmartScreen.SmartScreen" />
         <activity android:name=".LoginPage.ResetPassword.resetpass" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginPage.SignUp.signup" />
