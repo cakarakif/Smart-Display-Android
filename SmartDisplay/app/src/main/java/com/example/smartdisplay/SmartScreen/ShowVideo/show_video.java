@@ -23,7 +23,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
     public static final String API_KEY = "AIzaSyC-gAnOcLsmDraMPkfnWVH9eTFsEDQ3VyQ";
-    public static final String VIDEO_ID = "4C010aOLw4I";
+    public static final String VIDEO_ID = "2MpUj-Aua48";
     YouTubePlayer player;
 
     @Override
@@ -34,15 +34,6 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
         setContentView();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {//ekrandaki degisiklikleri algılar(ekran döndügünde video baslatılır)
-        super.onConfigurationChanged(newConfig);
-
-        /** Initializing YouTube Player View **/
-        YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
-        youTubePlayerView.initialize(API_KEY, this);
-    }
-
     @SuppressLint("SourceLockedOrientationActivity")
     private void setContentView() {
         //Tam ekran kullanımı için
@@ -50,6 +41,10 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
 
         //ekranın yan olarak kullanılmasını sağlar
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        /** Initializing YouTube Player View **/
+        YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
+        youTubePlayerView.initialize(API_KEY, this);
     }
 
     @Override
