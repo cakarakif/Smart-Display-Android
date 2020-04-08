@@ -3,6 +3,7 @@ package com.example.smartdisplay.SmartScreen.ShowVideo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -23,13 +24,16 @@ import com.google.android.youtube.player.YouTubePlayerView;
 public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
     public static final String API_KEY = "AIzaSyC-gAnOcLsmDraMPkfnWVH9eTFsEDQ3VyQ";
-    public static final String VIDEO_ID = "2MpUj-Aua48";
+    public static String VIDEO_ID = "2MpUj-Aua48";
     YouTubePlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_video);
+
+        Intent intent = getIntent();
+        VIDEO_ID=intent.getStringExtra("videoUrl");
 
         setContentView();
     }

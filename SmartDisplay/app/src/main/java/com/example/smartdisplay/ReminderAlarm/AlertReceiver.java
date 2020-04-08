@@ -1,5 +1,6 @@
 package com.example.smartdisplay.ReminderAlarm;
 
+import android.app.ActivityManager;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -9,14 +10,20 @@ import android.widget.Toast;
 
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
+import com.example.smartdisplay.SmartScreen.ShowVideo.show_video;
+import com.example.smartdisplay.SmartScreen.SmartScreen;
 import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import androidx.core.app.NotificationCompat;
+
+import static android.content.Context.ACTIVITY_SERVICE;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class AlertReceiver extends BroadcastReceiver {
@@ -39,6 +46,20 @@ public class AlertReceiver extends BroadcastReceiver {
             NotificationHelper notificationHelper = new NotificationHelper(context);
             NotificationCompat.Builder nb = notificationHelper.getChannelNotification(usrTask);
             notificationHelper.getManager().notify(Integer.parseInt(usrTask.getId()), nb.build());
+
+
+            //Eğer smart-screen ekranındaysa ve video hatırlatma eklendiyse çalıştırılır.
+            //ilk smart screen tetiklenir bilgiler gönderilir- diğer tarafta bilgi varsa videoyu tetikle diye yapı kuruldu.
+            ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> activityInfo = am.getRunningTasks(1);
+
+            if( !usrTask.getVideoUrl().equals("") && activityInfo.get(0).topActivity.getClassName().equals("com.example.smartdisplay.SmartScreen.SmartScreen") ){
+                Intent myIntent = new Intent(getApplicationContext(), show_video.class);
+                //String value = gson.toJson(usrTask);
+                myIntent.putExtra("videoUrl", usrTask.getVideoUrl());
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(myIntent);
+            }
         }
 
         /**//**/

@@ -34,6 +34,7 @@ import com.example.smartdisplay.R;
 import com.example.smartdisplay.SmartScreen.ShowVideo.show_video;
 import com.example.smartdisplay.SmartScreen.WeatherHelpers.RemoteFetch;
 import com.google.firebase.database.DataSnapshot;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -51,9 +52,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SmartScreen extends AppCompatActivity {
-
-    Button oynat;
-
     //Weather değişkenleri
     Typeface weatherFont;
     TextView detailsField;
@@ -90,12 +88,12 @@ public class SmartScreen extends AppCompatActivity {
         //tarih ve hava durumu-her saat tetiklendi
         scheduleRepeat();
 
+        //videolu alert geldiyse kontrolü ve tetiklenmesi--DEGİSTİR!!!!!!!!!!!!!!!
+        isVideoAlarm();
 
     }
 
     private void define() {
-        oynat = findViewById(R.id.oynat);
-
         detailsField = findViewById(R.id.details_field);
         currentTemperatureField = findViewById(R.id.current_temperature_field);
         weatherIcon = findViewById(R.id.weather_icon);
@@ -147,15 +145,12 @@ public class SmartScreen extends AppCompatActivity {
                 dateCalendar(1);
             }
         });
+    }
 
-        //
-        oynat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getApplicationContext(), show_video.class);
-                startActivity(myIntent);
-            }
-        });
+    private void isVideoAlarm(){
+        //Intent intent = getIntent();
+        //Gson gson = new Gson();
+        //UserTask usrTask = gson.fromJson(intent.getStringExtra("usrTask"), UserTask.class);
     }
 
     private void dateCalendar(int numberMov){
