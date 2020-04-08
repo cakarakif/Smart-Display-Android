@@ -55,8 +55,8 @@ public class AlertReceiver extends BroadcastReceiver {
 
             if( activityInfo.get(0).topActivity.getClassName().equals("com.example.smartdisplay.SmartScreen.SmartScreen") ){
                 Intent myIntent = new Intent(getApplicationContext(), show_video.class);
-                //String value = gson.toJson(usrTask);
-                myIntent.putExtra("videoUrl", usrTask.getVideoUrl());
+                String value = gson.toJson(usrTask);
+                myIntent.putExtra("usrTask", value);
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(myIntent);
             }

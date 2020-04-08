@@ -11,8 +11,10 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -25,6 +27,7 @@ import com.google.android.youtube.player.YouTubePlayer.PlaybackEventListener;
 import com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener;
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.gson.Gson;
 
 public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
@@ -33,6 +36,7 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
     public static String VIDEO_ID = "2MpUj-Aua48";
     YouTubePlayer player;
     YouTubePlayerView youTubePlayerView;
+    UserTask usrTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +44,14 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
         setContentView(R.layout.activity_show_video);
 
         Intent intent = getIntent();
-        VIDEO_ID=intent.getStringExtra("videoUrl");
+        Gson gson = new Gson();
+        usrTask = gson.fromJson(intent.getStringExtra("usrTask"), UserTask.class);
 
         define();
         setContentView();
 
-        if (!VIDEO_ID.equals("")) {
+        if (usrTask != null) {
+            VIDEO_ID=usrTask.getVideoUrl();
             showVideo();
         }else{
             cancel.setVisibility(View.GONE);
@@ -98,7 +104,9 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
             }
         };
 
-        String message="Did you finish the task?";
+        String message="Title: "+usrTask.getTitle() + "\n"
+                +"Description: "+ usrTask.getDescription()  + "\n"
+                + "\n"+"Did you finish the task?";
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.Theme_AppCompat_Dialog_Alert);
         builder.setMessage(message).setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener);
