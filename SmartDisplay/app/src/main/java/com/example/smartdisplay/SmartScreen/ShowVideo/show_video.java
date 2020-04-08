@@ -98,10 +98,17 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
             }
         };
 
-        String message="Do you want to mark the task as completed?";
+        String message="Did you finish the task?";
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.Theme_AppCompat_Dialog_Alert);
         builder.setMessage(message).setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
+                .setNegativeButton("No", dialogClickListener);
+
+        AlertDialog alert = builder.create();
+        alert.show();
+        Button nbutton = alert.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nbutton.setTextColor(getResources().getColor(R.color.colorAccent));
+        Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(getResources().getColor(R.color.yellow));
     }
 
     @Override
