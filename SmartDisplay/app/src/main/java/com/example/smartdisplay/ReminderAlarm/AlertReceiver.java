@@ -48,12 +48,12 @@ public class AlertReceiver extends BroadcastReceiver {
             notificationHelper.getManager().notify(Integer.parseInt(usrTask.getId()), nb.build());
 
 
-            //Eğer smart-screen ekranındaysa ve video hatırlatma eklendiyse çalıştırılır.
-            //ilk smart screen tetiklenir bilgiler gönderilir- diğer tarafta bilgi varsa videoyu tetikle diye yapı kuruldu.
+            //Eğer smart-screen ekranındaysa kontrol yapılarak video ve alert gösterilir.
+            //bu işlemler show_video activitysinden yapılır.
             ActivityManager am = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
             List<ActivityManager.RunningTaskInfo> activityInfo = am.getRunningTasks(1);
 
-            if( !usrTask.getVideoUrl().equals("") && activityInfo.get(0).topActivity.getClassName().equals("com.example.smartdisplay.SmartScreen.SmartScreen") ){
+            if( activityInfo.get(0).topActivity.getClassName().equals("com.example.smartdisplay.SmartScreen.SmartScreen") ){
                 Intent myIntent = new Intent(getApplicationContext(), show_video.class);
                 //String value = gson.toJson(usrTask);
                 myIntent.putExtra("videoUrl", usrTask.getVideoUrl());
