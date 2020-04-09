@@ -139,7 +139,7 @@ public class TaskListAdapter extends BaseAdapter {
         date.setText(list.get(i).getRepeatInfo());
         time.setText(list.get(i).getTime());
         description.setText(list.get(i).getDescription());
-        goal.setText(list.get(i).getGoal()+" day");
+        goal.setText(list.get(i).getGoal()+" times");
         notification.setText(list.get(i).getAlertType()? "Default" : "VideoURL");
     }
 

@@ -13,6 +13,7 @@ import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -26,6 +27,9 @@ import com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.gson.Gson;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
@@ -48,8 +52,9 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
         define();
         setContentView();
 
-        if (usrTask != null) {
-            VIDEO_ID=usrTask.getVideoUrl();
+        //video url aktif edildiyse göster ve bildirim ver yoksa direkt bildirim ver.
+        if (!usrTask.getAlertType()) {
+            VIDEO_ID=parseUrl();
             showVideo();
         }else{
             cancel.setVisibility(View.GONE);
@@ -61,6 +66,17 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
     private void define(){
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
         cancel=findViewById(R.id.cancel);
+    }
+
+    private String parseUrl(){
+        String pattern = "(?<=watch\\?v=|/videos/|embed\\/|youtu.be\\/|\\/v\\/|\\/e\\/|watch\\?v%3D|watch\\?feature=player_embedded&v=|%2Fvideos%2F|embed%\u200C\u200B2F|youtu.be%2F|%2Fv%2F)[^#\\&\\?\\n]*";
+
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(usrTask.getVideoUrl()); //url is youtube url for which you want to extract the id.
+        if (matcher.find()) {
+            return ""+matcher.group();
+        }
+        return "EpEIieIdToU";//eger bulamazsa
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
