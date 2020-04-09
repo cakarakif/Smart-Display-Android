@@ -220,7 +220,7 @@ public class AddFragment extends Fragment {
                 int selectedRadio = typeRadios.getCheckedRadioButtonId();
 
                 if(selectedRadio == R.id.radioOne){
-                    typeEdit.setVisibility(View.INVISIBLE);
+                    typeEdit.setVisibility(View.GONE);
                 }else if(selectedRadio == R.id.radioTwo){
                     typeEdit.setVisibility(View.VISIBLE);
                 }
