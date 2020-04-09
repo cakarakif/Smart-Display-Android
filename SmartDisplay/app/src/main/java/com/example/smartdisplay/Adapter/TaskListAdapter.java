@@ -139,7 +139,7 @@ public class TaskListAdapter extends BaseAdapter {
         date.setText(list.get(i).getRepeatInfo());
         time.setText(list.get(i).getTime());
         description.setText(list.get(i).getDescription());
-        goal.setText(list.get(i).getGoal()+" times");
+        goal.setText(list.get(i).getGoal()+" times completed");
         notification.setText(list.get(i).getAlertType()? "Default" : "VideoURL");
     }
 
@@ -266,7 +266,7 @@ public class TaskListAdapter extends BaseAdapter {
             }
         };
 
-        String message=isActive? "Do you want to mark the task as completed?":"Do you want to restore the task?";
+        String message=isActive? "Do you want to mark the task as done?":"Do you want to restore the task?";
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(message).setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
