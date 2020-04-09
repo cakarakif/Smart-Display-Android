@@ -64,6 +64,13 @@ public class DatabaseProcessing extends Fragment {
         rmndr=new AddReminder(context);
     }
 
+    public DatabaseProcessing(){//default constructor(direkt context'siz işlemler yapılacaksa ve rmndrla alakasız
+        counter=1;
+        //kullancıya özel database bilgi ekleme/alma için eklendi
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        database = FirebaseDatabase.getInstance();
+    }
 
     public void readUserCounterInfo(){//counter yapısını datebasede oluşturarak taskların sıralamasını beliledik.
 
@@ -310,6 +317,14 @@ public class DatabaseProcessing extends Fragment {
         }
 
         return "";
+    }
+
+    ////////////task id'si ve güncel goal degeri gönderilen taskın goal'ı bir artırılır
+    public void increaseGoalNumber(String taskId,String crrntGoal){
+        reference = database.getReference(user.getUid() + "/Tasks/"+
+                Math.abs(Integer.parseInt(taskId))+"/goal");
+
+        reference.setValue(""+(Integer.parseInt(crrntGoal)+1));
     }
 
 

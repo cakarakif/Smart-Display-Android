@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+
+import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import android.os.Bundle;
@@ -108,14 +110,19 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
     }
 
     private void areUSureTickCompleted() {
+        DatabaseProcessing dtbs=new DatabaseProcessing();
+
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
+                        dtbs.increaseGoalNumber(usrTask.getId(),usrTask.getGoal());
+                        Toast.makeText(getApplicationContext(), "Completed!", Toast.LENGTH_LONG).show();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
+                        Toast.makeText(getApplicationContext(), "Not Completed!", Toast.LENGTH_LONG).show();
                         break;
                 }
             }
