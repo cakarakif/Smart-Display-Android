@@ -119,10 +119,14 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
                     case DialogInterface.BUTTON_POSITIVE:
                         dtbs.increaseGoalNumber(usrTask.getId(),usrTask.getGoal());
                         Toast.makeText(getApplicationContext(), "Completed!", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                        finish();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
                         Toast.makeText(getApplicationContext(), "Not Completed!", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                        finish();
                         break;
                 }
             }
