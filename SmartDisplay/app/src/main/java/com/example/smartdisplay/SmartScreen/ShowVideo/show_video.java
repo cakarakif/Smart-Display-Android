@@ -67,7 +67,7 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
         cancel=findViewById(R.id.cancel);
     }
 
-    //bir task en fazla 10dk kalabilir ekranda
+    //bir task en fazla 5dk kalabilir ekranda
     public void scheduleWindowTime() {
         Timer timer = new Timer();
         timer.schedule( new TimerTask()
@@ -76,7 +76,7 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
                             {
                                 finish();
                             }
-                        }, 1000*60*10
+                        }, 1000*60*5
         );
     }
 
