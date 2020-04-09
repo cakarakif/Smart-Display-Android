@@ -1,21 +1,15 @@
 package com.example.smartdisplay.SmartScreen.ShowVideo;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
-import android.os.Bundle;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -29,7 +23,8 @@ import com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener
 import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.gson.Gson;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,11 +58,26 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
             youTubePlayerView.setVisibility(View.GONE);
             areUSureTickCompleted();
         }
+
+        scheduleWindowTime();
     }
 
     private void define(){
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player);
         cancel=findViewById(R.id.cancel);
+    }
+
+    //bir task en fazla 10dk kalabilir ekranda
+    public void scheduleWindowTime() {
+        Timer timer = new Timer();
+        timer.schedule( new TimerTask()
+                        {
+                            public void run()
+                            {
+                                finish();
+                            }
+                        }, 1000*60*10
+        );
     }
 
     private String parseUrl(){
