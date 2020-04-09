@@ -57,7 +57,7 @@ public class AddFragment extends Fragment {
     private TextView selectTime, timeText, repeatText, onceText, selectDate,dateText,addTitle;
     private RadioGroup typeRadios;
     private RadioButton radioOne,radioTwo;
-    private EditText typeEdit, nameEdit,descEdit,goalEdit;
+    private EditText typeEdit, nameEdit,descEdit;
     private ScrollView scroll;
     private LinearLayout days, dateArea;
     private ImageView dateLogo;
@@ -129,7 +129,6 @@ public class AddFragment extends Fragment {
 
         nameEdit=root.findViewById(R.id.nameEdit);
         descEdit=root.findViewById(R.id.descEdit);
-        goalEdit=root.findViewById(R.id.goalEdit);
 
     }
 
@@ -391,7 +390,7 @@ public class AddFragment extends Fragment {
 
 
 
-        UserTask usrtask= new UserTask(true,nameEdit.getText().toString(),descEdit.getText().toString(),goalEdit.getText().toString(),
+        UserTask usrtask= new UserTask(true,nameEdit.getText().toString(),descEdit.getText().toString(),"0",
                 repeatInfoForDatebase(),repeatLogo.isChecked(),selectTime.getText().toString(),radioOne.isChecked(),typeEdit.getText().toString(),String.valueOf(counter));
         reference.setValue(usrtask);
 
@@ -444,7 +443,6 @@ public class AddFragment extends Fragment {
 
         nameEdit.setText(editTask.getTitle());
         descEdit.setText(editTask.getDescription());
-        goalEdit.setText(editTask.getGoal());
         selectTime.setText(editTask.getTime());
 
         if(editTask.getAlertType()){radioOne.setChecked(true);}
