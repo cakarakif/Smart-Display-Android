@@ -72,7 +72,10 @@ public class AlertReceiver extends BroadcastReceiver {
 
         //Get Action2
         else if(action != null && action.equals("Complete")) {
-            dtbs.markCompletedTask(intent.getStringExtra("TaskID"));
+            //dtbs.markCompletedTask(intent.getStringExtra("TaskID")); taskı complete çekiyor
+
+            dtbs.increaseGoalNumber(intent.getStringExtra("TaskID"),usrTask.getGoal());// goalı bir artırıyor
+            Toast.makeText(context, "Completed for today!", Toast.LENGTH_LONG).show();
         }
 
         //Get Action3

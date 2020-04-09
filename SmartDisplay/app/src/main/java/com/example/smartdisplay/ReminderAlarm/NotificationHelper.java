@@ -66,6 +66,9 @@ public class NotificationHelper extends ContextWrapper {
         Intent actionTwo = new Intent(this, AlertReceiver.class);
         actionTwo.setAction("Complete");
         actionTwo.putExtra("TaskID",usrTask.getId());
+        Gson gsonOne = new Gson();
+        String valueOne = gsonOne.toJson(usrTask);
+        actionTwo.putExtra("usrTask", valueOne);
         PendingIntent actionTwoIntent = PendingIntent.getBroadcast(this,
                 Integer.parseInt(usrTask.getId()), actionTwo, PendingIntent.FLAG_UPDATE_CURRENT);
 
