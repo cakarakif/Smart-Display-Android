@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     Context context;
     List<Articles> articles;
+    ProgressBar loader;
 
 
     public Adapter(Context context, List<Articles> articles) {
@@ -44,6 +46,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         String url = a.getUrl();
 
         Picasso.with(context).load(imageUrl).into(holder.imageView);
+        loader.setVisibility(View.INVISIBLE);
 
         holder.tvTitle.setText(a.getTitle());
         holder.tvSource.setText(a.getSource().getName());
@@ -67,6 +70,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             tvSource = itemView.findViewById(R.id.tvSource);
             imageView = itemView.findViewById(R.id.image);
             cardView = itemView.findViewById(R.id.cardView);
+            loader = itemView.findViewById(R.id.loader);
 
         }
     }
