@@ -212,7 +212,7 @@
             android:layout_toRightOf="@+id/clockArea"
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="205dp">
+            android:layout_height="202dp">
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
