@@ -87,6 +87,7 @@ public class SmartScreen extends AppCompatActivity {
     //news
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
+    String country;
     Dialog dialog;
     final String API_KEY = "ded3c51db78c4bbabeccf10ddd008af4";
     Adapter adapter;
@@ -105,11 +106,13 @@ public class SmartScreen extends AppCompatActivity {
         //tasklar alındı ve view'e atandı
         readUserTasks();
 
+        //newsPart
+        startNews();
+
         //tarih ve hava durumu-her saat tetiklendi
         scheduleRepeat();
 
-        //newsPart
-        startNews();
+
     }
 
     private void define() {
@@ -222,6 +225,9 @@ public class SmartScreen extends AppCompatActivity {
                 //task calendarda kontrol edildi/resetlendi
                 cal = Calendar.getInstance();
                 dateCalendar(0);
+
+                //news yenilendi
+                retrieveJson("",country,API_KEY);
             }
         };
         timer.schedule(task, millisToNextHour(), 1000 * 60 * 60);
@@ -448,7 +454,7 @@ public class SmartScreen extends AppCompatActivity {
 
     ////News Part
     private void startNews(){
-        final String country = getCountry();
+        country = getCountry();
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.recyclerView);
         dialog = new Dialog(SmartScreen.this);
