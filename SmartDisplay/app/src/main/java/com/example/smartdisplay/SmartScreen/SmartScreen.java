@@ -3,9 +3,16 @@ package com.example.smartdisplay.SmartScreen;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +39,10 @@ import com.example.smartdisplay.Adapter.TaskListAdapter;
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.SmartScreen.News.Adapter;
+import com.example.smartdisplay.SmartScreen.News.ApiClient;
+import com.example.smartdisplay.SmartScreen.News.Model.Articles;
+import com.example.smartdisplay.SmartScreen.News.Model.Headlines;
 import com.example.smartdisplay.SmartScreen.ShowVideo.show_video;
 import com.example.smartdisplay.SmartScreen.WeatherHelpers.RemoteFetch;
 import com.google.firebase.database.DataSnapshot;
@@ -72,6 +84,14 @@ public class SmartScreen extends AppCompatActivity {
     private SmartScreenTaskListAdapter listAdapter;
     private DatabaseProcessing dtbs;
 
+    //news
+    RecyclerView recyclerView;
+    SwipeRefreshLayout swipeRefreshLayout;
+    Dialog dialog;
+    final String API_KEY = "ded3c51db78c4bbabeccf10ddd008af4";
+    Adapter adapter;
+    List<Articles>  articles = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +108,8 @@ public class SmartScreen extends AppCompatActivity {
         //tarih ve hava durumu-her saat tetiklendi
         scheduleRepeat();
 
+        //newsPart
+        startNews();
     }
 
     private void define() {
@@ -424,4 +446,58 @@ public class SmartScreen extends AppCompatActivity {
     ////Weather Part
     /***********************************************/
 
+    ////News Part
+    private void startNews(){
+        final String country = getCountry();
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        recyclerView = findViewById(R.id.recyclerView);
+        dialog = new Dialog(SmartScreen.this);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                retrieveJson("",country,API_KEY);
+            }
+        });
+        retrieveJson("",country,API_KEY);
+    }
+
+    public void retrieveJson(String query ,String country, String apiKey){
+
+
+        swipeRefreshLayout.setRefreshing(true);
+        Call<Headlines> call;
+        call= ApiClient.getInstance().getApi().getHeadlines(country,apiKey);
+
+        call.enqueue(new Callback<Headlines>() {
+            @Override
+            public void onResponse(Call<Headlines> call, Response<Headlines> response) {
+                if (response.isSuccessful() && response.body().getArticles() != null){
+                    swipeRefreshLayout.setRefreshing(false);
+                    articles.clear();
+                    articles = response.body().getArticles();
+                    adapter = new Adapter(SmartScreen.this,articles);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Headlines> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
+                Toast.makeText(SmartScreen.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public String getCountry(){
+        Locale locale = Locale.getDefault();
+        String country = locale.getCountry();
+        Log.i("kntrlNokta","country return--"+country);
+        //return country.toLowerCase();
+        return "tr";
+    }
+
+    /////News Part
+    /***********************************************/
 }
