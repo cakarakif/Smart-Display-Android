@@ -10,29 +10,6 @@
     tools:context=".SmartScreen.SmartScreen">
 
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/swipeRefresh">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:id="@+id/recyclerView"/>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-
-
-
-
-
-
-
-
-
     <!--ekran disina cikilmasin diye Linearin icine relative olusturuldu-yani rutin kural-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -226,7 +203,32 @@
 
         <!--Weather-->
 
+        <!--news-->
     </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/clockArea"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="195dp">
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/swipeRefresh">
+
+                <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:id="@+id/recyclerView"/>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+        <!--news-->
 
     </RelativeLayout>
 
