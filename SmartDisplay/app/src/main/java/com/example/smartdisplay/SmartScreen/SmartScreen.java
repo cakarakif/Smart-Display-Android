@@ -492,6 +492,8 @@ public class SmartScreen extends AppCompatActivity {
 
     public String getCountry(){
         String country = getApplicationContext().getResources().getConfiguration().locale.getCountry();
+        if ( country.equals(""))
+            return "us";
         return country.toLowerCase();
     }
 
