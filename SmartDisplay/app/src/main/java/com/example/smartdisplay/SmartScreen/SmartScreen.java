@@ -491,11 +491,8 @@ public class SmartScreen extends AppCompatActivity {
     }
 
     public String getCountry(){
-        Locale locale = Locale.getDefault();
-        String country = locale.getCountry();
-        Log.i("kntrlNokta","country return--"+country);
-        //return country.toLowerCase();
-        return "tr";
+        String country = getApplicationContext().getResources().getConfiguration().locale.getCountry();
+        return country.toLowerCase();
     }
 
     /////News Part
