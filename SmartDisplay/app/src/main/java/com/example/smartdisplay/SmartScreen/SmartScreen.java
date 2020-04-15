@@ -119,11 +119,11 @@ public class SmartScreen extends AppCompatActivity {
         //newsPart
         startNews();
 
-        //tarih ve hava durumu-her saat tetiklendi
-        scheduleRepeat();
-
         //startExchange
         startExchange();
+
+        //tarih ve hava durumu-her saat tetiklendi
+        scheduleRepeat();
 
     }
 
@@ -516,7 +516,7 @@ public class SmartScreen extends AppCompatActivity {
             @Override
             public void onFailure(Call<Headlines> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(SmartScreen.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SmartScreen.this, "Control internet connection!", Toast.LENGTH_SHORT).show();
             }
         });
     }
