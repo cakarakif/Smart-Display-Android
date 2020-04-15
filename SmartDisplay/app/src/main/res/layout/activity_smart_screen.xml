@@ -207,7 +207,7 @@
     </RelativeLayout>
 
         <LinearLayout
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/clockArea"
             android:orientation="vertical"
@@ -229,9 +229,7 @@
 
         </LinearLayout>
         <!--news-->
-
-
-
+        
         <LinearLayout
             android:layout_marginRight="55dp"
             android:layout_marginLeft="60dp"
