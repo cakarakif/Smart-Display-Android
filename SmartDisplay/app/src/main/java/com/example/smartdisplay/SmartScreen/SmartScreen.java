@@ -231,18 +231,28 @@ public class SmartScreen extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                //konum alınıp weather tetiklendi
-                getLocationAndstartWeather();
+                runOnUiThread(new Runnable() {//timer değişiklik yapabilmesi kural olan yapı
+                    @Override
+                    public void run() {
 
-                //tarih atandı
-                setDate();
+                        //konum alınıp weather tetiklendi
+                        getLocationAndstartWeather();
 
-                //task calendarda kontrol edildi/resetlendi
-                cal = Calendar.getInstance();
-                dateCalendar(0);
+                        //tarih atandı
+                        setDate();
 
-                //news yenilendi
-                retrieveJson("",country,API_KEY);
+                        //task calendarda kontrol edildi/resetlendi
+                        cal = Calendar.getInstance();
+                        dateCalendar(0);
+
+                        //news yenilendi
+                        retrieveJson("",country,API_KEY);
+
+                        //Exchange yenilendi
+                        startExchange();
+
+                    }
+                });
             }
         };
         timer.schedule(task, millisToNextHour(), 1000 * 60 * 60);

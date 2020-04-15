@@ -229,7 +229,7 @@
 
         </LinearLayout>
         <!--news-->
-        
+
         <LinearLayout
             android:layout_marginRight="55dp"
             android:layout_marginLeft="60dp"
@@ -242,7 +242,6 @@
 
             <TextView
                 android:id="@+id/exchange"
-                android:text="ABC SADED f3f DSDSA  8F9SUAF F89AS  FASFH 8FH FHASH8 FHSFAHJK H HFSAUFH FIJ38J dasdkjsa hdkjsan jkdnasjk jdksna jkdasnj kndas ndskja ndjkasn jdkas nkdsan jkdsan jksnadjk n dnjksandjkasndjkasn nj kdnaskjdnasjkd"
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
