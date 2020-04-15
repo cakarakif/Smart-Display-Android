@@ -9,6 +9,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -41,6 +43,8 @@ import com.example.smartdisplay.Adapter.TaskListAdapter;
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.SmartScreen.ExchangeHelper.CurrencyExchange;
+import com.example.smartdisplay.SmartScreen.ExchangeHelper.CurrencyExchangeService;
 import com.example.smartdisplay.SmartScreen.News.Adapter;
 import com.example.smartdisplay.SmartScreen.News.ApiClient;
 import com.example.smartdisplay.SmartScreen.News.Model.Articles;
@@ -53,6 +57,7 @@ import com.google.gson.Gson;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -516,11 +521,56 @@ public class SmartScreen extends AppCompatActivity {
     /////News Part
     /***********************************************/
 
+    ////Exchange Part
     private void startExchange(){
+
+        getExcahangeData();
+
+        //animation part
         Animation animationToLeft = new TranslateAnimation(400, -400, 0, 0);
-        animationToLeft.setDuration(10000);
+        animationToLeft.setDuration(15000);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
         exchange .startAnimation(animationToLeft);//your_view for which you need animation
     }
+
+    private void getExcahangeData(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.exchangeratesapi.io/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        CurrencyExchangeService currencyInterface = retrofit.create(CurrencyExchangeService.class);
+        Call<CurrencyExchange> call = currencyInterface.getCurrency();
+        call.enqueue(new Callback<CurrencyExchange>() {
+            @Override
+            public void onResponse(Call<CurrencyExchange> call, Response<CurrencyExchange> response) {
+                CurrencyExchange.Rates crrncyExchange = response.body().getRates();
+
+                DecimalFormat df = new DecimalFormat("#.##");
+
+                String content = "";
+                content +=  "USD: "+df.format(Double.valueOf(crrncyExchange.getUSD())) +"$ ";
+                content +=  "TRY: "+df.format(Double.valueOf(crrncyExchange.getTRY()))+" USD ";
+                content +=  "EUR: "+df.format(Double.valueOf(crrncyExchange.getEUR()))+" USD ";
+                content +=  "CHF: "+df.format(Double.valueOf(crrncyExchange.getCHF()))+" USD ";
+                content +=  "GBP: "+df.format(Double.valueOf(crrncyExchange.getGBP()))+" USD ";
+                content +=  "RUB: "+df.format(Double.valueOf(crrncyExchange.getRUB()))+" USD ";
+                content +=  "JPY: "+df.format(Double.valueOf(crrncyExchange.getJPY()))+" USD ";
+                content +=  "SEK: "+df.format(Double.valueOf(crrncyExchange.getSEK()))+" USD ";
+                content +=  "CAD: "+df.format(Double.valueOf(crrncyExchange.getCAD()))+" USD ";
+
+                exchange.setText(content);
+            }
+
+            @Override
+            public void onFailure(Call<CurrencyExchange> call, Throwable t) {
+                Log.i("akfControl",t.getMessage()+"");
+                //textViewResult.setText(t.getMessage());
+            }
+        });
+    }
+
+    /////Exchange Part
+    /***********************************************/
 }
