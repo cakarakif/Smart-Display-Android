@@ -27,6 +27,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -93,6 +95,9 @@ public class SmartScreen extends AppCompatActivity {
     Adapter adapter;
     List<Articles>  articles = new ArrayList<>();
 
+    //exchange
+    TextView exchange;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +117,8 @@ public class SmartScreen extends AppCompatActivity {
         //tarih ve hava durumu-her saat tetiklendi
         scheduleRepeat();
 
+        //startExchange
+        startExchange();
 
     }
 
@@ -140,6 +147,9 @@ public class SmartScreen extends AppCompatActivity {
         cal = Calendar.getInstance();
         dtbs=new DatabaseProcessing(this);
         taskListView =findViewById(R.id.taskListView);
+
+        //
+        exchange = findViewById(R.id.exchange);
 
     }
 
@@ -505,4 +515,12 @@ public class SmartScreen extends AppCompatActivity {
 
     /////News Part
     /***********************************************/
+
+    private void startExchange(){
+        Animation animationToLeft = new TranslateAnimation(400, -400, 0, 0);
+        animationToLeft.setDuration(10000);
+        animationToLeft.setRepeatMode(Animation.RESTART);
+        animationToLeft.setRepeatCount(Animation.INFINITE);
+        exchange .startAnimation(animationToLeft);//your_view for which you need animation
+    }
 }
