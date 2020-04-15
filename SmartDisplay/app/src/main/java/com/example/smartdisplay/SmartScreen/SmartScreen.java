@@ -527,8 +527,8 @@ public class SmartScreen extends AppCompatActivity {
         getExcahangeData();
 
         //animation part
-        Animation animationToLeft = new TranslateAnimation(1750, -1750, 0, 0);
-        animationToLeft.setDuration(40000);
+        Animation animationToLeft = new TranslateAnimation(1875, -5825, 0, 0);
+        animationToLeft.setDuration(75000);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
         exchange .startAnimation(animationToLeft);//your_view for which you need animation
@@ -558,6 +558,20 @@ public class SmartScreen extends AppCompatActivity {
                 content +=  "RUB: "+df.format(Double.valueOf(crrncyExchange.getRUB()))+" USD ";
                 content +=  "JPY: "+df.format(Double.valueOf(crrncyExchange.getJPY()))+" USD ";
                 content +=  "SEK: "+df.format(Double.valueOf(crrncyExchange.getSEK()))+" USD ";
+                content +=  "CAD: "+df.format(Double.valueOf(crrncyExchange.getCAD()))+" USD ";
+                content +=  "PLN: "+df.format(Double.valueOf(crrncyExchange.getPLN()))+" USD ";
+                content +=  "KRW: "+df.format(Double.valueOf(crrncyExchange.getKRW()))+" USD ";
+                content +=  "ILS: "+df.format(Double.valueOf(crrncyExchange.getILS()))+" USD ";
+                content +=  "AUD: "+df.format(Double.valueOf(crrncyExchange.getAUD()))+" USD ";
+                content +=  "SGD: "+df.format(Double.valueOf(crrncyExchange.getSGD()))+" USD ";
+                content +=  "MXN: "+df.format(Double.valueOf(crrncyExchange.getMXN()))+" USD ";
+                content +=  "ZAR: "+df.format(Double.valueOf(crrncyExchange.getZAR()))+" USD ";
+                content +=  "NZD: "+df.format(Double.valueOf(crrncyExchange.getNZD()))+" USD ";
+                content +=  "NOK: "+df.format(Double.valueOf(crrncyExchange.getNOK()))+" USD ";
+                content +=  "CNY: "+df.format(Double.valueOf(crrncyExchange.getCNY()))+" USD ";
+                content +=  "BGN: "+df.format(Double.valueOf(crrncyExchange.getBGN()))+" USD ";
+                content +=  "MYR: "+df.format(Double.valueOf(crrncyExchange.getMYR()))+" USD ";
+                content +=  "CZK: "+df.format(Double.valueOf(crrncyExchange.getCZK()))+" USD ";
 
                 exchange.setText(content);
             }
