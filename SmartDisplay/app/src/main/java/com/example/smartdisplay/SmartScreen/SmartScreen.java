@@ -527,8 +527,8 @@ public class SmartScreen extends AppCompatActivity {
         getExcahangeData();
 
         //animation part
-        Animation animationToLeft = new TranslateAnimation(400, -400, 0, 0);
-        animationToLeft.setDuration(15000);
+        Animation animationToLeft = new TranslateAnimation(1750, -1750, 0, 0);
+        animationToLeft.setDuration(40000);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
         exchange .startAnimation(animationToLeft);//your_view for which you need animation
@@ -558,15 +558,13 @@ public class SmartScreen extends AppCompatActivity {
                 content +=  "RUB: "+df.format(Double.valueOf(crrncyExchange.getRUB()))+" USD ";
                 content +=  "JPY: "+df.format(Double.valueOf(crrncyExchange.getJPY()))+" USD ";
                 content +=  "SEK: "+df.format(Double.valueOf(crrncyExchange.getSEK()))+" USD ";
-                content +=  "CAD: "+df.format(Double.valueOf(crrncyExchange.getCAD()))+" USD ";
 
                 exchange.setText(content);
             }
 
             @Override
             public void onFailure(Call<CurrencyExchange> call, Throwable t) {
-                Log.i("akfControl",t.getMessage()+"");
-                //textViewResult.setText(t.getMessage());
+                //hata
             }
         });
     }

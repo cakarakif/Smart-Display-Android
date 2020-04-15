@@ -233,6 +233,8 @@
 
 
         <LinearLayout
+            android:layout_marginRight="55dp"
+            android:layout_marginLeft="60dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_below="@+id/clockArea"
