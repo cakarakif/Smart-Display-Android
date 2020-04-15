@@ -538,7 +538,7 @@ public class SmartScreen extends AppCompatActivity {
 
         //animation part
         Animation animationToLeft = new TranslateAnimation(1875, -6000, 0, 0);
-        animationToLeft.setDuration(75000);
+        animationToLeft.setDuration(80000);
         animationToLeft.setRepeatMode(Animation.RESTART);
         animationToLeft.setRepeatCount(Animation.INFINITE);
         exchange .startAnimation(animationToLeft);//your_view for which you need animation
