@@ -15,9 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SmartScreen.ShowVideo.show_video"
-                android:configChanges="orientation"
-                android:theme="@style/AlertDialogTheme"></activity>
+        <activity android:name=".ui.settings.welcome.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SmartScreen.ShowVideo.show_video"
+            android:configChanges="orientation"
+            android:theme="@style/AlertDialogTheme" />
         <activity android:name=".SmartScreen.SmartScreen" />
         <activity android:name=".LoginPage.ResetPassword.resetpass" />
         <activity android:name=".MainActivity" />
@@ -25,11 +33,11 @@
         <activity
             android:name=".LoginPage.SignIn.signin"
             android:label="@string/app_name">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.settings.SettingsFragment"

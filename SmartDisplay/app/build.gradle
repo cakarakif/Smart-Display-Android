@@ -55,4 +55,6 @@ dependencies {
 
     //Picaso for image url
     implementation 'com.squareup.picasso:picasso:2.5.0'
+
+    implementation "androidx.viewpager:viewpager:1.0.0"
 }

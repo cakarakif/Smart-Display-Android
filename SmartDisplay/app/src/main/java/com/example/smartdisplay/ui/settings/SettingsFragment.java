@@ -31,6 +31,7 @@ import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.SmartScreen.SmartScreen;
 import com.example.smartdisplay.SyncApps.Sync_Calendar;
+import com.example.smartdisplay.ui.settings.welcome.WelcomeActivity;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -326,7 +327,9 @@ public class SettingsFragment extends Fragment {
     }
 
     private void help(){
-        Toast.makeText(getContext(), "Being Developed...!", Toast.LENGTH_LONG).show();
+        Intent myIntent = new Intent(getContext(), WelcomeActivity.class);
+        myIntent.putExtra("isClickedHelp",true);
+        startActivity(myIntent);
     }
 
     private void accountSettings(){
