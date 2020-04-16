@@ -35,6 +35,7 @@ public class DatabaseProcessing extends Fragment {
     private MutableLiveData<Boolean> isCheckedCounter;//firabaseden counter alındıktan sonra işlem yapılması sağlandı-Bunun için bekleme sağlandı. Değişimden sonra gerekli classlardaki metotlar tetikledi.
     private MutableLiveData<Boolean> isSyncCalendarChecked;
     private MutableLiveData<DataSnapshot> isReadUserTasks;
+    private MutableLiveData<UserInformation> isReadUserInfo;
     private int counter;
     private Boolean blockDouble,blockDoubleToDelete,blockDoubleToSyncCalendar;
 
@@ -325,6 +326,38 @@ public class DatabaseProcessing extends Fragment {
                 Math.abs(Integer.parseInt(taskId))+"/goal");
 
         reference.setValue(""+(Integer.parseInt(crrntGoal)+1));
+    }
+
+    ////////user bilgileri alındı
+    public void readUserInfo(){
+        reference = database.getReference( user.getUid()+"/UserInfo/" );
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() != null) {
+                    UserInformation usrinfo = dataSnapshot.getValue(UserInformation.class);
+                    //verilerimizi aldık
+                    getUserInfo().postValue(usrinfo);
+                }else{
+                    UserInformation usrinfo = new UserInformation();
+                    reference.setValue(usrinfo);
+                    getUserInfo().postValue(usrinfo);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                UserInformation usrinfo = new UserInformation();
+                getUserInfo().postValue(usrinfo);
+            }
+        });
+    }
+
+    public MutableLiveData<UserInformation> getUserInfo(){//getUserInfo dinlenildiği yer ile bağlantı.(observe yapısı)
+        if(isReadUserInfo == null){
+            isReadUserInfo = new MutableLiveData<>();
+        }
+        return isReadUserInfo;
     }
 
 

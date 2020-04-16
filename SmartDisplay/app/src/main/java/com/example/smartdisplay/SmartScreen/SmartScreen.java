@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.example.smartdisplay.Adapter.SmartScreenTaskListAdapter;
 import com.example.smartdisplay.Adapter.TaskListAdapter;
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
+import com.example.smartdisplay.DatabaseHelperClasses.UserInformation;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.SmartScreen.ExchangeHelper.CurrencyExchange;
@@ -103,6 +104,9 @@ public class SmartScreen extends AppCompatActivity {
     //exchange
     TextView exchange;
 
+    //usrInfo
+    TextView usrInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +128,9 @@ public class SmartScreen extends AppCompatActivity {
 
         //tarih ve hava durumu-her saat tetiklendi
         scheduleRepeat();
+
+        //kullanıcı bilgileri alınıp ekrana ismi ve soyismi yazıldı
+        getUserInformation();
 
     }
 
@@ -155,6 +162,9 @@ public class SmartScreen extends AppCompatActivity {
 
         //
         exchange = findViewById(R.id.exchange);
+
+        //
+        usrInfo = findViewById(R.id.usrInfo);
 
     }
 
@@ -595,4 +605,20 @@ public class SmartScreen extends AppCompatActivity {
 
     /////Exchange Part
     /***********************************************/
+
+    private void getUserInformation(){
+        dtbs.readUserInfo();//tetiklendi
+
+        try {//tetiklenen işlem postvalue olunca burası tetiklenir
+            dtbs.getUserInfo().observe(this, new Observer<UserInformation>() {
+                @Override
+                public void onChanged(UserInformation userInfo) {
+                    if(userInfo != null && !userInfo.getName().equals("")){
+                        usrInfo.setText(userInfo.getName().toUpperCase()+" "+userInfo.getSurname().toUpperCase());
+                    }
+                }
+            });
+        }catch (Exception e){
+        }
+    }
 }
