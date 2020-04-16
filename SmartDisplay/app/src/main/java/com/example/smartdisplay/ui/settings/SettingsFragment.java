@@ -4,12 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -194,6 +196,7 @@ public class SettingsFragment extends Fragment {
                 }else {
                     // Takvimi okumaya izni verilmemiş
                     Toast.makeText(getContext(),"Allow the app to read the calendar!",Toast.LENGTH_LONG).show();
+                    requestStoragePermission();
                 }
 
             }
@@ -207,6 +210,35 @@ public class SettingsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+
+    private void requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                Manifest.permission.READ_CALENDAR)) {
+
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Permission Needed")
+                    .setMessage("This permission is needed because of reading calendar tasks.")
+                    .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(getActivity(),
+                                    new String[] {Manifest.permission.READ_CALENDAR}, 1);
+                            Toast.makeText(getContext(),"Successfully saved!",Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
+
+        } else {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] {Manifest.permission.READ_CALENDAR}, 1);
+        }
     }
 
     private void logout(){
