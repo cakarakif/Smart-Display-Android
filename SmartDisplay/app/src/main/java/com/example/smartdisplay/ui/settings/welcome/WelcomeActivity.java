@@ -15,9 +15,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.smartdisplay.MainActivity;
+import com.example.smartdisplay.LoginPage.SignIn.signin;
 import com.example.smartdisplay.R;
-import com.example.smartdisplay.ui.settings.SettingsFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
@@ -130,8 +129,8 @@ public class WelcomeActivity extends AppCompatActivity {
         prefManager.setFirstTimeLaunch(false);
 
         if (extras == null)
-            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-        
+            startActivity(new Intent(WelcomeActivity.this, signin.class));
+
         finish();
     }
 
