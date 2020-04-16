@@ -88,19 +88,19 @@
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
 
-    <string name="slide_1_title">Hello Food!</string>
-    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+    <string name="slide_1_title">Welcome!</string>
+    <string name="slide_1_desc">The easiest way to plan even the toughest tasks! Follow the tasks whenever you want from wherever you want.</string>
 
-    <string name="slide_2_title">Movie Tickets</string>
-    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+    <string name="slide_2_title">New Tasks</string>
+    <string name="slide_2_desc">Plan all missed works that are yours, friends or family! Easily manage tasks on all devices connected to your own account.</string>
 
-    <string name="slide_3_title">Great Discounts</string>
-    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+    <string name="slide_3_title">Alarm</string>
+    <string name="slide_3_desc">Get reminders on time! Also you have a smart screen in the application. Use it as table clock with unlimited new features!</string>
 
-    <string name="slide_4_title">World Travel</string>
-    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_4_title">Done</string>
+    <string name="slide_4_desc">Let\'s get started for this and more features</string>
 
-    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> click Help</string>
     <string name="play_again">Play Again</string>
 
 </resources>
