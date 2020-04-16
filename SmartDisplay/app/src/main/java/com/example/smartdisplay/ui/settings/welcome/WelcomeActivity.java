@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.smartdisplay.MainActivity;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.ui.settings.SettingsFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
@@ -33,12 +33,14 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button btnSkip, btnNext;
     private PrefManager prefManager;
 
+    private Bundle extras;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //if it came from settings
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
 
         // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
@@ -126,7 +128,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {///*********
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+
+        if (extras == null)
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+        
         finish();
     }
 
