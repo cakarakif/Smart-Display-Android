@@ -13,7 +13,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="20dp"
         android:padding="35dp"
-        android:background="@drawable/titlelogo"
+        android:background="@drawable/app_logo_backup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
