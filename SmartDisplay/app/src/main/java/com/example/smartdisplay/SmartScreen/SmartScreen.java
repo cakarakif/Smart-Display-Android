@@ -15,9 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -26,13 +24,12 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -359,6 +356,18 @@ public class SmartScreen extends AppCompatActivity {
         configuration.setLayoutDirection(Locale.ENGLISH);
         createConfigurationContext(configuration);
         //////////////////
+
+        //eger ekran 7 inch üzeri ise layout boyutu ayarlandı
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        double x = Math.pow(dm.widthPixels/dm.xdpi,2);
+        double y = Math.pow(dm.heightPixels/dm.ydpi,2);
+        double screenInches = Math.sqrt(x+y);
+        if(screenInches >= 7){
+            View view = findViewById(R.id.clockView);
+            view.getLayoutParams().width = (int)getResources().getDimension(R.dimen.bigScreenWidth);
+            view.getLayoutParams().height = (int)getResources().getDimension(R.dimen.bigScreenHeight);
+        }
     }
 
 

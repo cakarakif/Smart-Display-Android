@@ -11,4 +11,8 @@
     <dimen name="slide_title">30dp</dimen>
     <dimen name="slide_desc">16dp</dimen>
     <dimen name="desc_padding">40dp</dimen>
+
+    <!--dimes for big screen(>7 inch)-->
+    <dimen name="bigScreenWidth">450dp</dimen>
+    <dimen name="bigScreenHeight">450dp</dimen>
 </resources>
