@@ -207,7 +207,7 @@
     </RelativeLayout>
 
         <LinearLayout
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="45dp"
             android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/clockArea"
