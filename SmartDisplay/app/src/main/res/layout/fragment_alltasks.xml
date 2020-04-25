@@ -28,7 +28,7 @@
             android:id="@+id/todo"
             android:text="@string/todo"
             android:background="@drawable/ic_tab_fill"
-            android:layout_width="140dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"/>
 
         <RadioButton
@@ -39,7 +39,7 @@
             android:id="@+id/done"
             android:text="@string/done"
             android:background="@drawable/ic_tab_empty"
-            android:layout_width="140dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"/>
 
         </RadioGroup>
