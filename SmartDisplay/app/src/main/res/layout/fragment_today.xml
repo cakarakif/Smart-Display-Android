@@ -7,9 +7,10 @@
     android:background="@drawable/ic_today_list_back">
 
     <TextView
+        android:layout_centerHorizontal="true"
         android:id="@+id/todayTitle"
         android:layout_marginLeft="143dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="19dp"
         android:textSize="30dp"
         android:textStyle="bold"
         android:text="TODAY"
@@ -21,17 +22,18 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:id="@+id/dateArea"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="95dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/one"
             android:orientation="vertical"
             android:background="@drawable/ic_empty_date"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/oneName"
@@ -56,11 +58,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/two"
             android:layout_marginLeft="6dp"
             android:orientation="vertical"
             android:background="@drawable/ic_empty_date"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/twoName"
@@ -85,11 +88,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/three"
             android:layout_marginLeft="6dp"
             android:orientation="vertical"
             android:background="@drawable/ic_empty_date"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/threeName"
@@ -114,11 +118,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/four"
             android:layout_marginLeft="6dp"
             android:orientation="vertical"
             android:background="@drawable/ic_fill_date"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/fourName"
@@ -143,11 +148,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/five"
             android:layout_marginLeft="6dp"
             android:orientation="vertical"
             android:background="@drawable/ic_empty_date"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/fiveName"
@@ -172,11 +178,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/six"
             android:layout_marginLeft="6dp"
             android:orientation="vertical"
             android:background="@drawable/ic_empty_date"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/sixName"
@@ -201,11 +208,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_weight="1"
             android:id="@+id/seven"
             android:layout_marginLeft="6dp"
             android:orientation="vertical"
             android:background="@drawable/ic_empty_date"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp">
             <TextView
                 android:id="@+id/sevenName"
