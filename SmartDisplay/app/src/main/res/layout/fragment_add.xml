@@ -210,8 +210,9 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_centerHorizontal="true"
                 android:id="@+id/days"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/repeatArea"
                 android:layout_marginTop="5dp">
@@ -220,7 +221,6 @@
                     android:id="@+id/monday"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/daymm"
                     android:button="@null"
