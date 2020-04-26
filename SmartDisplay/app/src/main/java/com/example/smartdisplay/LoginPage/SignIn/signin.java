@@ -242,10 +242,10 @@ public class signin extends AppCompatActivity {
                                     @Override
                                     public void onCompleted(JSONObject me, GraphResponse response) {
                                         if (response.getError() != null) {
-                                            Log.i("asdasd",response.getError()+"");
+
                                         } else {
                                             String birthday="";
-                                            if(me.optString("birthday").equals("")) {
+                                            if(me.toString().contains("birthday")) {
                                                 String[] birthParts = (me.optString("birthday")).split("/");
                                                 birthday = birthParts[1] + "/" + birthParts[0] + "/" + birthParts[2];
                                             }
