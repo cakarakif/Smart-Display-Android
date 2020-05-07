@@ -564,7 +564,7 @@ public class AddFragment extends Fragment {
         dialogueShow.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialogueShow.show();
         //ekran boyutlandırması
-        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.60), (int)(getResources().getDisplayMetrics().heightPixels*0.20));
+        dialogueShow.getWindow().setLayout((int)(getResources().getDisplayMetrics().widthPixels*0.60), (int)(getResources().getDisplayMetrics().heightPixels*0.30));
 
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
