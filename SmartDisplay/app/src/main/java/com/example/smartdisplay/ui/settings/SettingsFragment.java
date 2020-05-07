@@ -346,13 +346,13 @@ public class SettingsFragment extends Fragment {
 
     private void sendFeedback(){
         String deviceInfo =
-                "Hello,"+"<br/><br/>YOU CAN WRITE YOUR MESSAGE HERE" +
-                "<br/><br/>------------"+
-                "<br/><br/>Device Info:" +
-                "<br/><br/>(for a better understanding of the feedback)" +
-                "<br/><br/>OS API Level: " + android.os.Build.VERSION.SDK_INT+
-                "<br/><br/>Device: " + android.os.Build.DEVICE+
-                "<br/><br/>Model: " + android.os.Build.MODEL;
+                "Hello,"+"\nYOU CAN WRITE YOUR MESSAGE HERE" +
+                "\n------------"+
+                "\nDevice Info:" +
+                "\n(for a better understanding of the feedback)" +
+                "\nOS API Level: " + android.os.Build.VERSION.SDK_INT+
+                "\nDevice: " + android.os.Build.DEVICE+
+                "\nModel: " + android.os.Build.MODEL;//<br/><br/>
 
         Intent intnt=new Intent(Intent.ACTION_SENDTO);
         intnt.setData(Uri.parse("mailto:?subject=" + "Smart Display Feedback"+ "&body=" + ""+deviceInfo + "&to=" + "akifckr5@gmail.com"));
