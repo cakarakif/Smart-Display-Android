@@ -15,13 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.settings.welcome.WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.settings.welcome.WelcomeActivity"/>
         <activity
             android:name=".SmartScreen.ShowVideo.show_video"
             android:configChanges="orientation"
@@ -33,6 +27,11 @@
         <activity
             android:name=".LoginPage.SignIn.signin"
             android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.settings.SettingsFragment"
