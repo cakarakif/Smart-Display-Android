@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.SmartScreen.News.Model.Articles;
 import com.squareup.picasso.Picasso;
+
+import java.util.Iterator;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -27,6 +29,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public Adapter(Context context, List<Articles> articles) {
         this.context = context;
         this.articles = articles;
+
+        //resimsiz olan bazı kaynaklar silindi
+        for (Iterator<Articles> iter = this.articles.listIterator(); iter.hasNext(); ) {
+            Articles a = iter.next();
+            if (a.getUrl().contains("cumhuriyet")) {
+                iter.remove();
+            }
+        }
     }
 
     @NonNull
