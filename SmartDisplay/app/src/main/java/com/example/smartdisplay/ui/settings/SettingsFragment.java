@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -344,12 +345,18 @@ public class SettingsFragment extends Fragment {
     }
 
     private void sendFeedback(){
-        Intent intnt=new Intent(Intent.ACTION_SEND);
-        intnt.putExtra(Intent.EXTRA_EMAIL, new String[] {
-                "akifckr5@gmail.com"
-        });
-        intnt.putExtra(Intent.EXTRA_SUBJECT, "Smart Display Feedback");
-        intnt.setType("message/rfc822");
+        String deviceInfo =
+                "Hello,"+"<br/><br/>YOU CAN WRITE YOUR MESSAGE HERE" +
+                "<br/><br/>------------"+
+                "<br/><br/>Device Info:" +
+                "<br/><br/>(for a better understanding of the feedback)" +
+                "<br/><br/>OS API Level: " + android.os.Build.VERSION.SDK_INT+
+                "<br/><br/>Device: " + android.os.Build.DEVICE+
+                "<br/><br/>Model: " + android.os.Build.MODEL;
+
+        Intent intnt=new Intent(Intent.ACTION_SENDTO);
+        intnt.setData(Uri.parse("mailto:?subject=" + "Smart Display Feedback"+ "&body=" + ""+deviceInfo + "&to=" + "akifckr5@gmail.com"));
+
         try {
             startActivity(Intent.createChooser(intnt, "Send Email"));
         } catch (android.content.ActivityNotFoundException ex) {
