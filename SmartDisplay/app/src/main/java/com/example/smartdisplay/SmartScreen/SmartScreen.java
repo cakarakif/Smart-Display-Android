@@ -22,6 +22,7 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -373,8 +374,11 @@ public class SmartScreen extends AppCompatActivity {
 
     /***********************************************/
     private long millisToNextHour() {
-        LocalDateTime nextHour = LocalDateTime.now().plusHours(1).truncatedTo(ChronoUnit.HOURS);
-        return LocalDateTime.now().until(nextHour, ChronoUnit.MILLIS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            LocalDateTime nextHour = LocalDateTime.now().plusHours(1).truncatedTo(ChronoUnit.HOURS);
+            return LocalDateTime.now().until(nextHour, ChronoUnit.MILLIS);
+        }else
+            return 1000 * 60 * 30; // eğer api leveli küçükse 30 dakikada bir yenile
     }
 
     public void setDate() {
