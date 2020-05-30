@@ -5,30 +5,76 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_statistics_top">
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/filterArea"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginBottom="60dp"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="125dp">
 
         <RelativeLayout
+            android:layout_weight="1"
             android:id="@+id/todo"
             android:layout_width="wrap_content"
-            android:layout_height="130dp">
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_todo">
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="1/5"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:layout_marginTop="70dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
 
         </RelativeLayout>
 
         <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:id="@+id/inprogress"
-            android:layout_below="@+id/todo"
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="130dp">
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_doing">
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="1/5"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:layout_marginTop="70dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_done">
+
+            <TextView
+                android:textColor="@color/white"
+                android:text="3/5"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:layout_marginTop="70dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>
