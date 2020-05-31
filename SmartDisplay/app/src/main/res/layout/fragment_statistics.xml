@@ -23,14 +23,17 @@
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:mcv_showOtherDates="all"
-            app:mcv_selectionColor="#FFC600"/>
+            app:mcv_showOtherDates="none"
+            app:mcv_selectionColor="#FFC600"
+            app:mcv_arrowColor="@color/yellow"
+            app:mcv_dateTextAppearance ="@style/CalendarNumberText"
+            app:mcv_headerTextAppearance ="@style/CalendarHeaderText"/>
 
     </RelativeLayout>
 
     <!--ToDo/InProgress/Done-->
     <LinearLayout
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/calendar"
         android:layout_centerHorizontal="true"
         android:id="@+id/filterArea"
