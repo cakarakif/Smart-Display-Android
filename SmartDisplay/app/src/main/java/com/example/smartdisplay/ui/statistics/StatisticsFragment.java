@@ -33,6 +33,8 @@ import java.util.Locale;
 public class StatisticsFragment extends Fragment {
     private View root;
 
+    private TextView todo,inprogress,done;
+
     private MaterialCalendarView calendar;
     public static List<UserTask> taskList;
 
@@ -43,7 +45,7 @@ public class StatisticsFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         define();
-        setDatesIntoCalendar();
+        setInfoIntoCalendarAndCards();
 
 
         return root;
@@ -51,6 +53,10 @@ public class StatisticsFragment extends Fragment {
 
     private void define(){
         calendar = root.findViewById(R.id.calendar);
+
+        todo = root.findViewById(R.id.todoText);
+        inprogress = root.findViewById(R.id.inprogressText);
+        done = root.findViewById(R.id.doneText);
     }
     private void setLocaleEnglish(){
         String languageToLoad  = "en_US"; // your language
@@ -62,7 +68,10 @@ public class StatisticsFragment extends Fragment {
                 getContext().getResources().getDisplayMetrics());
     }
 
-    private void setDatesIntoCalendar(){
+    private void setInfoIntoCalendarAndCards(){
+        //card numbers
+        int td=0,inprgrss=0,dn=0;
+        //calendar view
         Calendar calendarToday = Calendar.getInstance();
         calendar.setDateSelected(calendarToday, true);
 
@@ -70,6 +79,7 @@ public class StatisticsFragment extends Fragment {
         for (UserTask task : taskList) {
             //gün olarak seçilenlerin, seçili günde olup olmadığına bakılıp eklendi.
             if (task.getIsActive() && task.getRepeatType()) {
+                inprgrss++;
 
                 calendar.addDecorator(new DayViewDecorator() {
                     @Override
@@ -90,6 +100,7 @@ public class StatisticsFragment extends Fragment {
 
             //tarih seçilenler kontrol edilerek eklendi.
             else if (task.getIsActive() && !task.getRepeatType()) {
+                td++;
 
                 calendar.addDecorator(new DayViewDecorator() {
                     @Override
@@ -111,8 +122,15 @@ public class StatisticsFragment extends Fragment {
                     }
                 });
             }
-
-
+            else{
+                dn++;
+            }
         }
+
+        //
+        int total = td + inprgrss +dn ;
+        todo.setText(td+"/"+total);
+        inprogress.setText(inprgrss+"/"+total);
+        done.setText(dn+"/"+total);
     }
 }

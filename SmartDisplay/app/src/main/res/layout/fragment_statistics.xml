@@ -51,6 +51,7 @@
             android:background="@drawable/ic_todo">
 
             <TextView
+                android:id="@+id/todoText"
                 android:textColor="@color/white"
                 android:text="1/5"
                 android:textStyle="bold"
@@ -73,6 +74,7 @@
             android:background="@drawable/ic_doing">
 
             <TextView
+                android:id="@+id/inprogressText"
                 android:textColor="@color/white"
                 android:text="1/5"
                 android:textStyle="bold"
@@ -92,6 +94,7 @@
             android:background="@drawable/ic_done">
 
             <TextView
+                android:id="@+id/doneText"
                 android:textColor="@color/white"
                 android:text="3/5"
                 android:textStyle="bold"
