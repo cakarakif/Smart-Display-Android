@@ -71,6 +71,9 @@ public class TodayFragment extends Fragment {
 
         cal = Calendar.getInstance();//ilk başta çekilir sadece
 
+        //eger statistic sayfasından geldiyse cal tarihi degistirilir
+        isDateComeBundle();
+
         define();
         routing();
 
@@ -361,6 +364,16 @@ public class TodayFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void isDateComeBundle(){
+        if(getArguments() != null){
+            int year = getArguments().getInt("year");
+            int month = getArguments().getInt("month");
+            int day = getArguments().getInt("day");
+
+            cal.set(year, month, day);
+        }
     }
 
 }

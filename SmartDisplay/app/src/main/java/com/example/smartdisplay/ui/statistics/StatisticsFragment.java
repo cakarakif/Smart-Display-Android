@@ -16,6 +16,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
@@ -24,6 +26,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -46,6 +49,7 @@ public class StatisticsFragment extends Fragment {
 
         define();
         setInfoIntoCalendarAndCards();
+        routing();
 
 
         return root;
@@ -58,6 +62,7 @@ public class StatisticsFragment extends Fragment {
         inprogress = root.findViewById(R.id.inprogressText);
         done = root.findViewById(R.id.doneText);
     }
+
     private void setLocaleEnglish(){
         String languageToLoad  = "en_US"; // your language
         Locale locale = new Locale(languageToLoad);
@@ -66,6 +71,21 @@ public class StatisticsFragment extends Fragment {
         config.locale = locale;
         root.getContext().getResources().updateConfiguration(config,
                 getContext().getResources().getDisplayMetrics());
+    }
+
+    private void routing(){
+        calendar.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("year", date.getYear());
+                bundle.putInt("month", date.getMonth());
+                bundle.putInt("day", date.getDay());
+
+                NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.navigation_today, bundle);
+            }
+        });
     }
 
     private void setInfoIntoCalendarAndCards(){
