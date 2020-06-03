@@ -28,6 +28,7 @@ import com.example.smartdisplay.Adapter.TaskListAdapter;
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.ui.statistics.StatisticsFragment;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
@@ -92,6 +93,9 @@ public class AllTasksFragment extends Fragment {
             dtbs.getUserTasks().observe(getActivity(), new Observer<DataSnapshot>() {
                 @Override
                 public void onChanged(DataSnapshot dataSnapshot) {
+
+                    List<UserTask> tempAllTaskList= new ArrayList<>();
+
                     if(dataSnapshot != null){
                         //verilerimizi aldık
                         taskList = new ArrayList<>();
@@ -105,6 +109,8 @@ public class AllTasksFragment extends Fragment {
                                 todoList.add(usrtasks);
                             else
                                 doneList.add(usrtasks);
+
+                            tempAllTaskList.add(usrtasks);
                         }
 
                         //herhangi bir değişiklikte databaseden gelen veri için yönlendirme yapıldı.
@@ -118,6 +124,10 @@ public class AllTasksFragment extends Fragment {
                         doneList = new ArrayList<>();
                         startListView();
                     }
+
+                    //istatistik sayfasında kullanılmak üzere bilgiler gönderildi.
+                    StatisticsFragment.taskList = tempAllTaskList;
+
                     loading.dismiss();
                 }
             });

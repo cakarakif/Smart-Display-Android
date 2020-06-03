@@ -28,6 +28,7 @@ import com.example.smartdisplay.Adapter.TaskListAdapter;
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+import com.example.smartdisplay.ui.statistics.StatisticsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -261,6 +262,10 @@ public class TodayFragment extends Fragment {
                         filteredList = new ArrayList<>();
                         startListView();
                     }
+
+                    //istatistik sayfasında kullanılmak üzere bilgiler gönderildi.
+                    StatisticsFragment.taskList = taskList;
+
                     loading.dismiss();
                 }
             });

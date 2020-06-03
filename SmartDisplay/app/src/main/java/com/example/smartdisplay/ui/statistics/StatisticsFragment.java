@@ -20,12 +20,14 @@ import com.example.smartdisplay.ReminderAlarm.AddReminder;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class StatisticsFragment extends Fragment {
-    View root;
+    private View root;
 
-    MaterialCalendarView calendar;
+    private MaterialCalendarView calendar;
+    public static List<UserTask> taskList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class StatisticsFragment extends Fragment {
 
         define();
         setDatesIntoCalendar();
+
+        Log.i("kntrlAkif",taskList.get(0).getTitle()+""+taskList.get(1).getTitle());
 
         return root;
     }
