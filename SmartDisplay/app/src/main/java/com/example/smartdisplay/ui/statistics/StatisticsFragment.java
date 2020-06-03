@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.ReminderAlarm.AddReminder;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -24,16 +25,23 @@ import java.util.Locale;
 public class StatisticsFragment extends Fragment {
     View root;
 
+    MaterialCalendarView calendar;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_statistics, container, false);
         setLocaleEnglish();
         root = inflater.inflate(R.layout.fragment_statistics, container, false);
 
+        define();
+        setDatesIntoCalendar();
 
         return root;
     }
 
+    private void define(){
+        calendar = root.findViewById(R.id.calendar);
+    }
     private void setLocaleEnglish(){
         String languageToLoad  = "en_US"; // your language
         Locale locale = new Locale(languageToLoad);
@@ -42,5 +50,18 @@ public class StatisticsFragment extends Fragment {
         config.locale = locale;
         root.getContext().getResources().updateConfiguration(config,
                 getContext().getResources().getDisplayMetrics());
+    }
+
+    private void setDatesIntoCalendar(){
+        calendar.setSelectionMode (MaterialCalendarView.SELECTION_MODE_MULTIPLE);
+
+        Calendar calendar0 = Calendar.getInstance();
+        calendar0.set(2020, 06, 11);
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(2020, 06, 19);
+
+        calendar.setDateSelected(calendar0, true);
+        calendar.setDateSelected(calendar1, true);
     }
 }

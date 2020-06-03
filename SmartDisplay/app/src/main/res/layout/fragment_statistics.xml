@@ -8,7 +8,7 @@
 
     <RelativeLayout
         android:orientation="vertical"
-        android:id="@+id/calendar"
+        android:id="@+id/calendarView"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="90dp"
@@ -20,7 +20,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/calendarView"
+            android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:mcv_showOtherDates="none"
@@ -34,7 +34,7 @@
     <!--ToDo/InProgress/Done-->
     <LinearLayout
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/calendar"
+        android:layout_below="@+id/calendarView"
         android:layout_centerHorizontal="true"
         android:id="@+id/filterArea"
         android:layout_marginRight="20dp"
