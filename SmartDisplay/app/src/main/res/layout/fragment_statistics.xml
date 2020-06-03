@@ -24,8 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:mcv_showOtherDates="none"
-            app:mcv_selectionColor="@color/black"
-            app:mcv_arrowColor="@color/yellow"
+            app:mcv_selectionColor="@color/grayDirect"
+            app:mcv_arrowColor="@color/white"
             app:mcv_dateTextAppearance ="@style/CalendarNumberText"
             app:mcv_headerTextAppearance ="@style/CalendarHeaderText"/>
 

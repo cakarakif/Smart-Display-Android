@@ -63,6 +63,9 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void setDatesIntoCalendar(){
+        Calendar calendarToday = Calendar.getInstance();
+        calendar.setDateSelected(calendarToday, true);
+
         calendar.setSelectionMode (MaterialCalendarView.SELECTION_MODE_SINGLE);
         for (UserTask task : taskList) {
             //gün olarak seçilenlerin, seçili günde olup olmadığına bakılıp eklendi.
