@@ -108,4 +108,28 @@
         android:layout_height="match_parent">
 
     </ListView>
+
+    <RelativeLayout
+        android:visibility="invisible"
+        android:id="@+id/emptyboxArea"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/filterArea"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/emptybox_img"
+            android:src="@drawable/ic_empty_box"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:textStyle="bold"
+            android:text="Task not found!"
+            android:layout_below="@+id/emptybox_img"
+            android:id="@+id/emptybox_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </RelativeLayout>

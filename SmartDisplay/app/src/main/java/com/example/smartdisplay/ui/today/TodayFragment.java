@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,8 @@ public class TodayFragment extends Fragment {
     private Calendar cal;
     private Button filterMenu;
     private TextView todayTitle;
+
+    private RelativeLayout emptyboxArea;
 
     private DatabaseProcessing dtbs;
 
@@ -117,6 +120,8 @@ public class TodayFragment extends Fragment {
         filterMenu = root.findViewById(R.id.filterMenu);
 
         todayTitle= root.findViewById(R.id.todayTitle);
+
+        emptyboxArea = root.findViewById(R.id.emptyboxArea);
     }
 
     private void routing(){
@@ -318,6 +323,13 @@ public class TodayFragment extends Fragment {
 
         //edite tıklanma dinlemesi yapıldı
         listenEditClicked();
+
+        //eğer data yoksa empty box gösterildi
+        if(filteredList.size() == 0){
+            emptyboxArea.setVisibility(View.VISIBLE);
+        }else{
+            emptyboxArea.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void listenEditClicked(){//edit için add sayfasına bilgiler ile birlikte yönlendirme yapıldı.

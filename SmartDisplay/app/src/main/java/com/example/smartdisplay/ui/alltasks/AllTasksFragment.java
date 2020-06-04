@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -56,6 +57,8 @@ public class AllTasksFragment extends Fragment {
 
     private DatabaseProcessing dtbs;
 
+    private RelativeLayout emptyboxArea;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_alltasks, container, false);
@@ -81,6 +84,8 @@ public class AllTasksFragment extends Fragment {
         tabs=root.findViewById(R.id.tabs);
 
         filterMenu = root.findViewById(R.id.filterMenu);
+
+        emptyboxArea = root.findViewById(R.id.emptyboxArea);
     }
 
     private void readUserTasks(){//task bilgisi DatabaseProcessingden sonra burası tetiklenir
@@ -178,6 +183,13 @@ public class AllTasksFragment extends Fragment {
 
         //edite tıklanma dinlemesi yapıldı
         listenEditClicked();
+
+        //eğer data yoksa empty box gösterildi
+        if(taskList.size() == 0){
+            emptyboxArea.setVisibility(View.VISIBLE);
+        }else{
+            emptyboxArea.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void performToDoView(){
@@ -282,6 +294,13 @@ public class AllTasksFragment extends Fragment {
 
                 //bağlama işlemi yaptık
                 listView.setAdapter(listAdapter);
+
+                //eğer data yoksa empty box gösterildi
+                if(taskList.size() == 0){
+                    emptyboxArea.setVisibility(View.VISIBLE);
+                }else{
+                    emptyboxArea.setVisibility(View.INVISIBLE);
+                }
 
             }
 
