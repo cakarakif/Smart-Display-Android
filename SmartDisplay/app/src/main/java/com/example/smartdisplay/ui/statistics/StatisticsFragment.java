@@ -32,11 +32,12 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class StatisticsFragment extends Fragment {
     private View root;
 
-    private TextView todo,inprogress,done;
+    private TextView todo,inprogress,done,comment;
 
     private MaterialCalendarView calendar;
     public static List<UserTask> taskList;
@@ -50,6 +51,7 @@ public class StatisticsFragment extends Fragment {
         define();
         setInfoIntoCalendarAndCards();
         routing();
+        setComment();
 
 
         return root;
@@ -61,6 +63,8 @@ public class StatisticsFragment extends Fragment {
         todo = root.findViewById(R.id.todoText);
         inprogress = root.findViewById(R.id.inprogressText);
         done = root.findViewById(R.id.doneText);
+
+        comment = root.findViewById(R.id.comment);
     }
 
     private void setLocaleEnglish(){
@@ -152,5 +156,30 @@ public class StatisticsFragment extends Fragment {
         todo.setText(td+"/"+total);
         inprogress.setText(inprgrss+"/"+total);
         done.setText(dn+"/"+total);
+    }
+
+    private void setComment(){
+        String[] sentences = new String[] {
+                "'Imagination is more important than knowledge.' \n Albert, Einstein ",
+                "'It does not matter how slowly you go as long as you do not stop.' \n Confucius ",
+                "'I never dreamed about success, I worked for it.' \n Estée Lauder",
+                "'Begin to be now what you will be hereafter.' \n William James",
+                "'You can’t give up! When you give up, you're like everybody else!' \n Chris Evert",
+                "'There is no easy way from the earth to the stars.' \n Seneca",
+                "'It is not in the stars to hold our destiny but in ourselves.' \n William Shakespeare",
+                "'One is not born a genius, one becomes a genius.' \n Simone de Beauvoir",
+                "'Change the world by being yourself.' \n Amy Poehler",
+                "'Every moment is a fresh beginning.' \n T.S Eliot",
+                "'Simplicity is the ultimate sophistication.' \n Leonardo da Vinci",
+                "'Whatever you do, do it well.' \n Walt Disney",
+                "'All limitations are self-imposed.' \n Oliver Wendell Holmes",
+                "'Reality is wrong, dreams are for real.' \n Tupac",
+                "'Strive for greatness.' \n Lebron James",
+                "'The meaning of life is to give life meaning.' \n Ken Hudgins"};
+
+        Random r=new Random(); //random sınıfı
+        int randomNumber=r.nextInt(sentences.length);
+
+        comment.setText(sentences[randomNumber]);
     }
 }

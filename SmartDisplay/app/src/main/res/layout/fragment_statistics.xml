@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_statistics_top">
 
-
     <RelativeLayout
         android:orientation="vertical"
         android:id="@+id/calendarView"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="90dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_calendar_backview">
 
@@ -22,26 +21,76 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/calendar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="350dp"
             app:mcv_showOtherDates="none"
             app:mcv_selectionColor="@color/grayDirect"
             app:mcv_arrowColor="@color/yellow"
             app:mcv_dateTextAppearance ="@style/CalendarNumberText"
             app:mcv_headerTextAppearance ="@style/CalendarHeaderText"/>
 
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/calendar"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/ic_round_yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+            <TextView
+                android:textColor="@color/yellow"
+                android:text="Includes a task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic_round_white"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"/>
+            <TextView
+                android:textColor="@color/white"
+                android:text="Not include a task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
+
+    <TextView
+        android:textSize="15sp"
+        android:textStyle="italic"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:text="'It is not in the stars to hold our destiny but in ourselves.' \n William Shakespeare"
+        android:id="@+id/comment"
+        android:lines="2"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/calendarView"
+        android:background="@drawable/ic_comment_back"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+
+    </TextView>
 
     <!--ToDo/InProgress/Done-->
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/calendarView"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/comment"
         android:layout_centerHorizontal="true"
         android:id="@+id/filterArea"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="125dp">
+        android:layout_height="115dp">
 
         <RelativeLayout
             android:layout_weight="1"
