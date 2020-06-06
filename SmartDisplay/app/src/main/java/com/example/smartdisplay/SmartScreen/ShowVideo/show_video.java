@@ -10,6 +10,8 @@ import android.os.Bundle;
 import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
+
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -37,6 +39,8 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
     YouTubePlayerView youTubePlayerView;
     UserTask usrTask;
 
+    public static String lastTimeAlerted = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,17 +53,25 @@ public class show_video extends YouTubeBaseActivity implements YouTubePlayer.OnI
         define();
         setContentView();
 
+        //tekrar bildirim acılması engellendi-her dakika icinde bir bildirim saglandı
+        //yes denildiginde veri yenilendigi icin tekrar tetiklenmesi engellendi
+        if(lastTimeAlerted .equals((""+ new java.util.Date()).substring(0,16))){
+            finish();
+        }
         //video url aktif edildiyse göster ve bildirim ver yoksa direkt bildirim ver.
-        if (!usrTask.getAlertType()) {
+        else if (!usrTask.getAlertType()) {
             VIDEO_ID=parseUrl();
             showVideo();
+            lastTimeAlerted = (""+ new java.util.Date()).substring(0,16);
+            scheduleWindowTime();
         }else{
             cancel.setVisibility(View.GONE);
             youTubePlayerView.setVisibility(View.GONE);
             areUSureTickCompleted();
+            scheduleWindowTime();
         }
 
-        scheduleWindowTime();
+
     }
 
     private void define(){
