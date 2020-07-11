@@ -1,167 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/ic_statistics_top">
+    android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="95dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <com.google.android.gms.ads.AdView
+        android:background="@drawable/ic_ads_back"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_statistics_top">
+        <ScrollView
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="83dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <RelativeLayout
-                android:orientation="vertical"
-                android:id="@+id/calendarView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_calendar_backview">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/calendar"
+                <RelativeLayout
+                    android:orientation="vertical"
+                    android:id="@+id/calendarView"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    app:mcv_showOtherDates="none"
-                    app:mcv_selectionColor="@color/grayDirect"
-                    app:mcv_arrowColor="@color/yellow"
-                    app:mcv_dateTextAppearance ="@style/CalendarNumberText"
-                    app:mcv_headerTextAppearance ="@style/CalendarHeaderText"/>
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_calendar_backview">
 
+                    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/calendar"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        app:mcv_showOtherDates="none"
+                        app:mcv_selectionColor="@color/grayDirect"
+                        app:mcv_arrowColor="@color/yellow"
+                        app:mcv_dateTextAppearance ="@style/CalendarNumberText"
+                        app:mcv_headerTextAppearance ="@style/CalendarHeaderText"/>
+
+                    <LinearLayout
+                        android:layout_marginBottom="10dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/calendar"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:src="@drawable/ic_round_yellow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"/>
+                        <TextView
+                            android:textColor="@color/yellow"
+                            android:text="Includes a task"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/ic_round_white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"/>
+                        <TextView
+                            android:textColor="@color/white"
+                            android:text="Not include a task"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    android:padding="12dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:text="'It is not in the stars to hold our destiny but in ourselves.' \n William Shakespeare"
+                    android:id="@+id/comment"
+                    android:lines="2"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/calendarView"
+                    android:background="@drawable/ic_comment_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                </TextView>
+
+                <!--ToDo/InProgress/Done-->
                 <LinearLayout
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/comment"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/calendar"
+                    android:id="@+id/filterArea"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="100dp">
 
-                    <ImageView
-                        android:src="@drawable/ic_round_yellow"
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:id="@+id/todo"
                         android:layout_width="wrap_content"
-                        android:layout_height="15dp"/>
-                    <TextView
-                        android:textColor="@color/yellow"
-                        android:text="Includes a task"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_todo">
 
-                    <ImageView
-                        android:layout_marginLeft="5dp"
-                        android:src="@drawable/ic_round_white"
+                        <TextView
+                            android:id="@+id/todoText"
+                            android:textColor="@color/white"
+                            android:text="1/5"
+                            android:textStyle="bold"
+                            android:textSize="19sp"
+                            android:layout_marginTop="70dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:id="@+id/inprogress"
                         android:layout_width="wrap_content"
-                        android:layout_height="15dp"/>
-                    <TextView
-                        android:textColor="@color/white"
-                        android:text="Not include a task"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_doing">
+
+                        <TextView
+                            android:id="@+id/inprogressText"
+                            android:textColor="@color/white"
+                            android:text="1/5"
+                            android:textStyle="bold"
+                            android:textSize="19sp"
+                            android:layout_marginTop="70dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:id="@+id/done"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_done">
+
+                        <TextView
+                            android:id="@+id/doneText"
+                            android:textColor="@color/white"
+                            android:text="3/5"
+                            android:textStyle="bold"
+                            android:textSize="19sp"
+                            android:layout_marginTop="70dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
             </RelativeLayout>
 
-            <TextView
-                android:textSize="15sp"
-                android:textStyle="italic"
-                android:padding="12dp"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:text="'It is not in the stars to hold our destiny but in ourselves.' \n William Shakespeare"
-                android:id="@+id/comment"
-                android:lines="2"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/calendarView"
-                android:background="@drawable/ic_comment_back"
-                android:layout_width="match_parent"
-                android:layout_height="60dp">
-
-            </TextView>
-
-            <!--ToDo/InProgress/Done-->
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/comment"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/filterArea"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="110dp">
-
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:id="@+id/todo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_todo">
-
-                    <TextView
-                        android:id="@+id/todoText"
-                        android:textColor="@color/white"
-                        android:text="1/5"
-                        android:textStyle="bold"
-                        android:textSize="19sp"
-                        android:layout_marginTop="70dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+        </ScrollView>
+    </RelativeLayout>
 
 
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    android:id="@+id/inprogress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_doing">
-
-                    <TextView
-                        android:id="@+id/inprogressText"
-                        android:textColor="@color/white"
-                        android:text="1/5"
-                        android:textStyle="bold"
-                        android:textSize="19sp"
-                        android:layout_marginTop="70dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_weight="1"
-                    android:id="@+id/done"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/ic_done">
-
-                    <TextView
-                        android:id="@+id/doneText"
-                        android:textColor="@color/white"
-                        android:text="3/5"
-                        android:textStyle="bold"
-                        android:textSize="19sp"
-                        android:layout_marginTop="70dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-        </RelativeLayout>
-
- </ScrollView>
-</RelativeLayout>
+</LinearLayout>

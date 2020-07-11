@@ -22,6 +22,8 @@ import androidx.navigation.Navigation;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.ReminderAlarm.AddReminder;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -36,6 +38,7 @@ import java.util.Random;
 
 public class StatisticsFragment extends Fragment {
     private View root;
+    private AdView mAdView;
 
     private TextView todo,inprogress,done,comment;
 
@@ -65,6 +68,10 @@ public class StatisticsFragment extends Fragment {
         done = root.findViewById(R.id.doneText);
 
         comment = root.findViewById(R.id.comment);
+
+        mAdView = root.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void setLocaleEnglish(){

@@ -1,289 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/alltasks"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/ic_today_list_back">
+    android:layout_height="match_parent">
 
-    <TextView
+    <com.google.android.gms.ads.AdView
+        android:background="@drawable/ic_ads_back"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/todayTitle"
-        android:layout_marginLeft="143dp"
-        android:layout_marginTop="19dp"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:text="TODAY"
-        android:textColor="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:id="@+id/dateArea"
-        android:layout_marginRight="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="95dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:id="@+id/one"
-            android:orientation="vertical"
-            android:background="@drawable/ic_empty_date"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp">
-            <TextView
-                android:id="@+id/oneName"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="TUE"
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/oneDate"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="18"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:id="@+id/two"
-            android:layout_marginLeft="6dp"
-            android:orientation="vertical"
-            android:background="@drawable/ic_empty_date"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp">
-            <TextView
-                android:id="@+id/twoName"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="TUE"
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/twoDate"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="18"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:id="@+id/three"
-            android:layout_marginLeft="6dp"
-            android:orientation="vertical"
-            android:background="@drawable/ic_empty_date"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp">
-            <TextView
-                android:id="@+id/threeName"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="TUE"
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/threeDate"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="18"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:id="@+id/four"
-            android:layout_marginLeft="6dp"
-            android:orientation="vertical"
-            android:background="@drawable/ic_fill_date"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp">
-            <TextView
-                android:id="@+id/fourName"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="TUE"
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/fourDate"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="18"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:id="@+id/five"
-            android:layout_marginLeft="6dp"
-            android:orientation="vertical"
-            android:background="@drawable/ic_empty_date"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp">
-            <TextView
-                android:id="@+id/fiveName"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="TUE"
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/fiveDate"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="18"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:id="@+id/six"
-            android:layout_marginLeft="6dp"
-            android:orientation="vertical"
-            android:background="@drawable/ic_empty_date"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp">
-            <TextView
-                android:id="@+id/sixName"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="TUE"
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/sixDate"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="18"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            android:id="@+id/seven"
-            android:layout_marginLeft="6dp"
-            android:orientation="vertical"
-            android:background="@drawable/ic_empty_date"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp">
-            <TextView
-                android:id="@+id/sevenName"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="TUE"
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:id="@+id/sevenDate"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:text="18"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/filterMenu"
-        android:layout_marginTop="12dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/ic_filter_menu"
-        android:layout_width="55dp"
-        android:layout_height="55dp"/>
-
-    <ListView
-        android:layout_marginBottom="55dp"
-        android:layout_marginTop="7dp"
-        android:layout_below="@+id/dateArea"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:id="@+id/taskListView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView>
+        android:layout_alignParentTop="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
 
     <RelativeLayout
-        android:visibility="invisible"
-        android:id="@+id/emptyboxArea"
-        android:layout_below="@+id/dateArea"
-        android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_centerHorizontal="true"
-            android:id="@+id/emptybox_img"
-            android:src="@drawable/ic_empty_box"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
+        android:background="@drawable/ic_today_list_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <TextView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/todayTitle"
+            android:layout_marginLeft="143dp"
+            android:layout_marginTop="19dp"
+            android:textSize="30dp"
             android:textStyle="bold"
-            android:text="Task not found!"
-            android:layout_below="@+id/emptybox_img"
-            android:id="@+id/emptybox_text"
+            android:text="TODAY"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/dateArea"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="95dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/one"
+                android:orientation="vertical"
+                android:background="@drawable/ic_empty_date"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/oneName"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="TUE"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/oneDate"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="18"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/two"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical"
+                android:background="@drawable/ic_empty_date"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/twoName"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="TUE"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/twoDate"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="18"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/three"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical"
+                android:background="@drawable/ic_empty_date"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/threeName"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="TUE"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/threeDate"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="18"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/four"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical"
+                android:background="@drawable/ic_fill_date"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/fourName"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="TUE"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/fourDate"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="18"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/five"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical"
+                android:background="@drawable/ic_empty_date"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/fiveName"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="TUE"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/fiveDate"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="18"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/six"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical"
+                android:background="@drawable/ic_empty_date"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/sixName"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="TUE"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/sixDate"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="18"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:id="@+id/seven"
+                android:layout_marginLeft="6dp"
+                android:orientation="vertical"
+                android:background="@drawable/ic_empty_date"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/sevenName"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="TUE"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/sevenDate"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:text="18"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/filterMenu"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_filter_menu"
+            android:layout_width="55dp"
+            android:layout_height="55dp"/>
+
+        <ListView
+            android:layout_marginBottom="55dp"
+            android:layout_marginTop="7dp"
+            android:layout_below="@+id/dateArea"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/taskListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+        <RelativeLayout
+            android:visibility="invisible"
+            android:id="@+id/emptyboxArea"
+            android:layout_below="@+id/dateArea"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/emptybox_img"
+                android:src="@drawable/ic_empty_box"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <TextView
+                android:textStyle="bold"
+                android:text="Task not found!"
+                android:layout_below="@+id/emptybox_img"
+                android:id="@+id/emptybox_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+
+
+</LinearLayout>

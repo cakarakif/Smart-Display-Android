@@ -51,6 +51,9 @@
             android:value="@string/facebook_app_id" />
 
         <receiver android:name=".ReminderAlarm.AlertReceiver" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6176657104979138~9083227147"/>
     </application>
 
 </manifest>

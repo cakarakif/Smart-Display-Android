@@ -30,6 +30,8 @@ import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.ui.statistics.StatisticsFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +49,7 @@ import java.util.Locale;
 
 public class TodayFragment extends Fragment {
     private View root;
+    private AdView mAdView;
 
     private ListView taskListView;
     private List<UserTask> taskList, filteredList;
@@ -122,6 +125,10 @@ public class TodayFragment extends Fragment {
         todayTitle= root.findViewById(R.id.todayTitle);
 
         emptyboxArea = root.findViewById(R.id.emptyboxArea);
+
+        mAdView = root.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void routing(){

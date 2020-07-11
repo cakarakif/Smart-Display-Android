@@ -3,6 +3,7 @@
     <string name="facebook_app_id">1045553882579292</string>
     <string name="fb_login_protocol_scheme">fb1045553882579292</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-6176657104979138/7323422919</string>
 
     <string name="regSuccess">Successfully Registered! Please SignIn...</string>
     <string name="saveSuccess">Successfully saved!</string>

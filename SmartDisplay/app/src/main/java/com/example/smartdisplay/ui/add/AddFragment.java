@@ -29,6 +29,8 @@ import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.ReminderAlarm.AddReminder;
 import com.example.smartdisplay.ui.alltasks.AllTasksFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,6 +54,7 @@ import androidx.navigation.Navigation;
 
 public class AddFragment extends Fragment {
     private View root;
+    private AdView mAdView;
 
     private CheckBox repeatLogo, onceLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private TextView selectTime, timeText, repeatText, onceText, selectDate,dateText,addTitle;
@@ -129,6 +132,10 @@ public class AddFragment extends Fragment {
 
         nameEdit=root.findViewById(R.id.nameEdit);
         descEdit=root.findViewById(R.id.descEdit);
+
+        mAdView = root.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 

@@ -30,6 +30,8 @@ import com.example.smartdisplay.DatabaseHelperClasses.DatabaseProcessing;
 import com.example.smartdisplay.DatabaseHelperClasses.UserTask;
 import com.example.smartdisplay.R;
 import com.example.smartdisplay.ui.statistics.StatisticsFragment;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ import java.util.List;
 public class AllTasksFragment extends Fragment {
 
     private View root;
+    private AdView mAdView;
 
     private List<UserTask> taskList, todoList, doneList;
     private List<UserTask> tempSearchtaskList;
@@ -86,6 +89,10 @@ public class AllTasksFragment extends Fragment {
         filterMenu = root.findViewById(R.id.filterMenu);
 
         emptyboxArea = root.findViewById(R.id.emptyboxArea);
+
+        mAdView = root.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void readUserTasks(){//task bilgisi DatabaseProcessingden sonra burası tetiklenir
