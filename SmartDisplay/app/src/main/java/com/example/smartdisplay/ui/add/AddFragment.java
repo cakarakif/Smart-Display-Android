@@ -54,7 +54,7 @@ import androidx.navigation.Navigation;
 
 public class AddFragment extends Fragment {
     private View root;
-    private AdView mAdView;
+    //private AdView mAdView;
 
     private CheckBox repeatLogo, onceLogo, monday, tuesday, wednesday, thursday, friday, saturday, sunday;
     private TextView selectTime, timeText, repeatText, onceText, selectDate,dateText,addTitle;
@@ -133,9 +133,9 @@ public class AddFragment extends Fragment {
         nameEdit=root.findViewById(R.id.nameEdit);
         descEdit=root.findViewById(R.id.descEdit);
 
-        mAdView = root.findViewById(R.id.adView);
+        /*mAdView = root.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);*/
 
     }
 

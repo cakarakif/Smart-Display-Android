@@ -38,7 +38,7 @@ import java.util.Random;
 
 public class StatisticsFragment extends Fragment {
     private View root;
-    private AdView mAdView;
+    //private AdView mAdView;
 
     private TextView todo,inprogress,done,comment;
 
@@ -69,9 +69,9 @@ public class StatisticsFragment extends Fragment {
 
         comment = root.findViewById(R.id.comment);
 
-        mAdView = root.findViewById(R.id.adView);
+        /*mAdView = root.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);*/
     }
 
     private void setLocaleEnglish(){

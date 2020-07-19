@@ -42,7 +42,7 @@ import java.util.List;
 public class AllTasksFragment extends Fragment {
 
     private View root;
-    private AdView mAdView;
+    //private AdView mAdView;
 
     private List<UserTask> taskList, todoList, doneList;
     private List<UserTask> tempSearchtaskList;
@@ -90,9 +90,9 @@ public class AllTasksFragment extends Fragment {
 
         emptyboxArea = root.findViewById(R.id.emptyboxArea);
 
-        mAdView = root.findViewById(R.id.adView);
+        /*mAdView = root.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);*/
     }
 
     private void readUserTasks(){//task bilgisi DatabaseProcessingden sonra burası tetiklenir

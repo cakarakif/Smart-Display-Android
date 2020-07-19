@@ -49,7 +49,7 @@ import java.util.Locale;
 
 public class TodayFragment extends Fragment {
     private View root;
-    private AdView mAdView;
+    //private AdView mAdView;
 
     private ListView taskListView;
     private List<UserTask> taskList, filteredList;
@@ -126,9 +126,9 @@ public class TodayFragment extends Fragment {
 
         emptyboxArea = root.findViewById(R.id.emptyboxArea);
 
-        mAdView = root.findViewById(R.id.adView);
+        /*mAdView = root.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);*/
     }
 
     private void routing(){
