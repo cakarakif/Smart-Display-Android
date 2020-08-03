@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "717612534075",
-    "firebase_url": "https://smart-display-35752.firebaseio.com",
-    "project_id": "smart-display-35752",
-    "storage_bucket": "smart-display-35752.appspot.com"
+    "project_number": "997752099863",
+    "firebase_url": "https://smart-to-do-reminder.firebaseio.com",
+    "project_id": "smart-to-do-reminder",
+    "storage_bucket": "smart-to-do-reminder.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:717612534075:android:c6788ec5169d1671b28f1e",
+        "mobilesdk_app_id": "1:997752099863:android:c7b245a37ec21f9c90b852",
         "android_client_info": {
-          "package_name": "com.example.smartdisplay"
+          "package_name": "com.mabse.smartdisplay"
         }
       },
       "oauth_client": [
         {
-          "client_id": "717612534075-t5de0h2a8354kaqjr9gt6qigulhlklhi.apps.googleusercontent.com",
+          "client_id": "997752099863-rf8ibiiod7otkbm0lhn8tc108ifs68ko.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.smartdisplay",
+            "package_name": "com.mabse.smartdisplay",
             "certificate_hash": "505848c698a5cd7251cd4ce9e1ebeaa9657e5536"
           }
         },
         {
-          "client_id": "717612534075-ae07lunthrvrkbm3274lv8g3n8cc903t.apps.googleusercontent.com",
+          "client_id": "997752099863-pea5vvjdhpugpehdvodsgn46lcfntm1f.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC-gAnOcLsmDraMPkfnWVH9eTFsEDQ3VyQ"
+          "current_key": "AIzaSyAR7a8NsO_nzkFWe3mJ-icdn9Ycb-HfNOk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "717612534075-ae07lunthrvrkbm3274lv8g3n8cc903t.apps.googleusercontent.com",
+              "client_id": "997752099863-pea5vvjdhpugpehdvodsgn46lcfntm1f.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
