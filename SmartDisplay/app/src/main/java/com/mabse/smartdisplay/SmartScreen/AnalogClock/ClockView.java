@@ -1,4 +1,4 @@
-package com.example.smartdisplay.SmartScreen.AnalogClock;
+package com.mabse.smartdisplay.SmartScreen.AnalogClock;
 
 import android.content.Context;
 import android.graphics.Canvas;
